@@ -1,5 +1,6 @@
 # (12/10/25 update): new production ready repo coming soon
 ## kalliste-alpha - conceptual - non-working
+**Public overview:** This repo is private; a README-only overview is synced to `sheawinkler/memmcp-overview`.
 
 > **Elevator pitch**  
 > Kalliste-alpha is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. It stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
