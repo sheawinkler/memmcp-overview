@@ -1,0 +1,168 @@
+# (12/10/25 update): new production ready repo coming soon
+## kalliste-alpha - conceptual - non-working
+
+> **Elevator pitch**  
+> Kalliste-alpha is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. It stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
+> **Business plan:** the repo is open for **local use**, and we’ll offer **Kalliste Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds enterprise-grade features.
+
+---
+
+## Why this exists
+
+Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. Kalliste-alpha standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
+
+---
+
+## Key capabilities
+
+- **HTTP-only MCP** (memory bank) at `http://127.0.0.1:59081/mcp`  
+- **MCP hub routing** at `http://127.0.0.1:53130/<server>/mcp` (servers: `memorymcp`, `qdrant`, `mindsdb`)  
+- **Super-gateway (streamable HTTP)** wraps stdio MCP servers behind HTTP when needed  
+- **MindsDB HTTP proxy** that surfaces MCP actions for orchestration  
+- **Qdrant** as the vector memory backend (internal service DNS: `http://qdrant:6333`)  
+- **mcp-proxy** routing with JSON config under `configs/`  
+- **One-liner bring-up** via Docker Compose and `gmake mem`  
+- **macOS-friendly scripts** (avoid bash-only `shopt`; no sed/awk required)  
+- **Consistent env management**: Compose loads `.env` from the project dir (we symlink it into `infra/compose/`)  
+- **Health checks & smoke pings** (HTTP only)  
+- **Roadmap scaffolding** for metering, quotas, billing, SSO/SAML, RBAC, and observability  
+- **Dev ergonomics**: Make targets for `up`, `ps`, logs, foreground mode, and HTTP pings
+
+> **Qdrant host port policy (final decision):**  
+> We **do not publish** Qdrant on the host. Qdrant listens on **:6333 inside the Compose network** as `http://qdrant:6333`.  
+> - On Compose ≥ 2.24.4 we remove host port publishing entirely (ports reset).  
+> - On older Compose we fallback to **host `6334:6333`** (no host `:6333`).  
+> If you really need host access, add a local override that publishes a port explicitly.
+
+---
+
+## Quickstart
+
+### Prerequisites
+- Docker Desktop (Compose v2)
+- `gmake`, `jq`, `rg` (ripgrep), `python3`, `curl`
+- macOS 13+ (tested)
+- GitHub CLI `gh` (optional, for publishing)
+
+### 1) Configure env
+
+Copy the example env file and edit it locally:
+
+~~~bash
+cp .env.example .env
+~~~
+
+Make sure Compose sees it from the project dir:
+
+~~~bash
+ln -svf ../../.env infra/compose/.env
+~~~
+
+For external SSD / retention guidance, see `docs/storage_and_retention.md`.
+
+### 2) Run the stack
+
+~~~bash
+gmake mem         # detached
+gmake mem-ps      # status
+gmake mem-logs    # follow logs
+gmake mem-up-fg   # foreground (CTRL-C to stop)
+~~~
+
+### 3) Verify HTTP-only MCP
+
+~~~bash
+curl -fsS http://127.0.0.1:53130/memorymcp/mcp \
+  -H 'accept: application/json, text/event-stream' \
+  -H 'content-type: application/json' \
+  -H 'MCP-Protocol-Version: 2025-11-25' \
+  -d '{"jsonrpc":"2.0","id":"tools-1","method":"tools/list","params":{}}' | jq .
+~~~
+
+---
+
+## Project layout
+
+~~~
+infra/compose/          # compose files (the first -f defines project dir)
+configs/                # runtime configs (e.g., mcp-proxy.config.json)
+scripts/                # helper scripts (e.g., mindsdb_http_proxy.py)
+data/memory-bank/       # on-disk memory (bind mounted)
+docs/                   # roadmap, notes
+mk/memory.mk            # make targets (mem, mem-ps, mem-logs, mem-up-fg, mem-ping)
+.compose.args           # auto-generated: ordered -f list for compose
+~~~
+
+### Operator dashboard
+
+- `memmcp-dashboard/` — Next.js UI that surfaces memory projects/files, runs health checks via the orchestrator, and lets you append notes without touching the CLI.
+- To run locally:
+
+```bash
+cd memmcp-dashboard
+npm install
+MEMMCP_ORCHESTRATOR_URL=http://localhost:8075 npm run dev
+```
+
+The dashboard proxies every request through `/api/memory/*` so browsers never need to set MCP headers.
+
+## Automation helpers
+
+- `scripts/install_mcp_clients.sh` — copies the MCP client templates in `configs/` to the default Windsurf, Cline, Cursor, and Claude locations (backs up existing files automatically).
+- `scripts/deploy_hosted_core.sh <domain> <email>` — brings up the `core` Compose profile and launches a Caddy reverse proxy with HTTPS termination for `/mcp` and `/status`.
+
+## Make targets (selection)
+
+- `mem` — compose up (detached)  
+- `mem-ps` — service status  
+- `mem-logs` — follow logs (`-f --tail=200`)  
+- `mem-up-fg` — foreground up (dev)  
+- `mem-ping` — HTTP JSON-RPC ping to the MCP hub (`/memorymcp/mcp`)
+- `mem-orchestrator` — `docker compose up -d memmcp-orchestrator`
+
+> If Make warns “overriding recipe,” you have duplicate targets—keep the **last** definition in `mk/memory.mk`.
+
+---
+
+## Troubleshooting
+
+- **“no space left on device” (Qdrant WAL / Docker disk full)** — expand Docker Desktop disk image *or* move Qdrant/Mongo to host storage; see `docs/storage_and_retention.md`.
+- **“.env variables defaulting to blank”** — Compose reads `.env` from the **project directory** (folder of the **first** `-f` file). We symlink `infra/compose/.env → ../../.env`. Alternatively run with `--project-directory . --env-file .env`.  
+- **“Port 6333 already allocated”** — We ship an override to **remove** host publishing of `6333` (Compose `!reset`) or remap to `6334:6333` on older Compose. Internally, keep using `http://qdrant:6333`.  
+- **Services stuck at “created/starting”** — `docker compose $(cat .compose.args) logs -f memorymcp-http mcp-qdrant mindsdb-http-proxy` and look for healthcheck errors or missing deps.
+- **Langfuse restarting with ClickHouse errors** — ensure `.env` has `CLICKHOUSE_PASSWORD`, `CLICKHOUSE_MIGRATION_URL=clickhouse://...:9000/<db>`, `CLICKHOUSE_CLUSTER_ENABLED=false`, `NEXTAUTH_URL`, and `SALT`.
+
+---
+
+## Roadmap (abridged; see `docs/ROADMAP.md` for step-by-step)
+
+- **Metering & quotas:** per-call/byte/storage, WAL → rollups → Stripe meters  
+- **Auth & RBAC:** OAuth/OIDC, SAML, project API keys, roles (owner/admin/member/viewer)  
+- **Billing:** seat + org + usage overages, dunning, entitlements cache  
+- **Observability:** Prometheus exporter, Grafana dashboards, alerting  
+- **Enterprise ops:** backups/restore (S3/GCS), retention, audit export, on-prem profile, SLA runbooks
+
+---
+
+## Business & licensing
+
+- **Open core:** repo open for local usage; hosted **Kalliste Cloud** on subscription  
+  - Free local: HTTP MCP, vector memory, proxy, single-node  
+  - Pro/Team: SSO/SAML, RBAC, metering/quotas, managed scaling, SLAs, priority support  
+- **License:** the repo ships under **Business Source License 1.1** with a change date to Apache-2.0 (see `LICENSE`). The Additional Use Grant allows personal/internal use up to 2 M JSON-RPC calls/month but explicitly forbids running Kalliste as a managed service without a commercial license.  
+  - In short: use it locally for free, but contact Shea for any hosted/monetized offering.  
+  - The change date automatically transitions the codebase to Apache-2.0 in 2028, ensuring long-term openness without sacrificing today’s monetization path.
+
+---
+
+## Security & privacy (initial posture)
+
+- Project-scoped API tokens; least-privilege defaults  
+- Rate-limits per token and IP; structured audit logs  
+- Secrets in `.env` locally; cloud uses a secret manager
+
+---
+
+## Contributing
+
+PRs welcome for docs, examples, adapters, MCP tool shims, and observability. Please run `gmake mem` + the HTTP smoke ping before submitting.
