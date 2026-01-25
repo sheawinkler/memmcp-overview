@@ -4,116 +4,236 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>memMCP - Private, reusable context for AI agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       color-scheme: light;
-      --bg: #f8fafc;
-      --ink: #0f172a;
-      --muted: #475569;
-      --accent: #0f172a;
+      --bg: #f7f3ee;
+      --ink: #0c1514;
+      --muted: #3f4a49;
+      --accent: #0b5f5a;
+      --accent-2: #e98b5b;
       --card: #ffffff;
-      --border: #e2e8f0;
+      --border: #e3ddd4;
+      --shadow: 0 18px 40px rgba(12, 21, 20, 0.12);
     }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at 10% 10%, #e2e8f0 0%, #f8fafc 35%, #ffffff 100%);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(233, 139, 91, 0.18), transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(11, 95, 90, 0.14), transparent 50%),
+        linear-gradient(180deg, #f7f3ee 0%, #f1ede7 40%, #ffffff 100%);
+      min-height: 100vh;
     }
     .wrap {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 56px 20px 72px;
+      padding: 64px 20px 84px;
+      position: relative;
+    }
+    .grain::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.04"/></svg>');
+      pointer-events: none;
+      z-index: 0;
     }
     .badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       border: 1px solid var(--border);
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--muted);
       background: #fff;
+      box-shadow: 0 6px 14px rgba(12, 21, 20, 0.06);
     }
     h1 {
-      font-size: clamp(32px, 4vw, 46px);
-      margin: 16px 0 8px;
+      font-family: "Fraunces", serif;
+      font-size: clamp(36px, 4.5vw, 52px);
+      margin: 18px 0 10px;
+      line-height: 1.05;
+    }
+    .tagline {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--accent);
     }
     p {
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+    .hero {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
     .cta-row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin: 20px 0 36px;
+      margin: 20px 0 0;
     }
     .cta {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 12px 18px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--accent);
       background: var(--accent);
       color: #fff;
       text-decoration: none;
       font-weight: 600;
+      box-shadow: 0 10px 18px rgba(11, 95, 90, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .cta.secondary {
       background: transparent;
       color: var(--accent);
+      box-shadow: none;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 22px rgba(11, 95, 90, 0.3);
+    }
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
     }
     .grid {
       display: grid;
       gap: 16px;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 32px;
     }
     .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 16px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 12px 26px rgba(12, 21, 20, 0.08);
     }
     .card h3 {
       margin: 4px 0 8px;
       font-size: 16px;
     }
-    .foot {
-      margin-top: 32px;
+    .accent {
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+    .footer {
+      margin-top: 40px;
       font-size: 13px;
       color: var(--muted);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .blob {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.35;
+      animation: float 10s ease-in-out infinite;
+      z-index: 0;
+    }
+    .blob.one { background: #e98b5b; top: -40px; right: 10%; }
+    .blob.two { background: #0b5f5a; bottom: -60px; left: 6%; animation-delay: 1.5s; }
+
+    .fade-in {
+      animation: rise 0.7s ease both;
+    }
+    .fade-in.delay-1 { animation-delay: 0.08s; }
+    .fade-in.delay-2 { animation-delay: 0.16s; }
+    .fade-in.delay-3 { animation-delay: 0.24s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(14px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in, .blob { animation: none; }
+      .cta { transition: none; }
     }
   </style>
 </head>
-<body>
+<body class="grain">
   <div class="wrap">
-    <span class="badge">Private memory layer for agents</span>
-    <h1>memMCP: reusable context for AI agents</h1>
-    <p><strong>Fix the context problem plaguing vibecoders everywhere.</strong></p>
-    <p>
-      memMCP turns context into memory so your agents stop paying for the same tokens
-      over and over. It is local-first, private by default, and MCP-compatible.
-    </p>
-    <div class="cta-row">
-      <a class="cta" href="mailto:pilot@memmcp.ai?subject=memMCP%20Pilot">Book a pilot</a>
-      <a class="cta secondary" href="README.md">Read the README</a>
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+
+    <div class="hero">
+      <div class="fade-in">
+        <span class="badge">Private memory layer for agents</span>
+        <h1>memMCP: reusable context for AI agents</h1>
+        <div class="tagline">Fix the context problem plaguing vibecoders everywhere.</div>
+        <p>
+          memMCP turns context into memory so your agents stop paying for the same
+          tokens twice. It is local-first, private by default, and MCP-compatible.
+        </p>
+        <div class="cta-row">
+          <a class="cta" href="mailto:pilot@memmcp.ai?subject=memMCP%20Pilot">
+            Book a pilot
+          </a>
+          <a class="cta secondary" href="README.md">Read the README</a>
+        </div>
+      </div>
+
+      <div class="hero-card fade-in delay-2">
+        <h3>What it does</h3>
+        <ul>
+          <li>Stores agent context once, reuses it everywhere.</li>
+          <li>Reduces long-context costs and truncation failures.</li>
+          <li>Keeps private context in your control.</li>
+        </ul>
+        <p class="accent" style="margin-top: 12px;">Private by default. Enterprise-ready when you are.</p>
+      </div>
     </div>
 
     <div class="grid">
-      <div class="card">
+      <div class="card fade-in delay-1">
         <h3>Why it matters</h3>
-        <p>Long-context prompts are expensive and unreliable at scale.</p>
-        <p>memMCP keeps context reusable, cheap, and consistent.</p>
+        <p>Long-context prompts are expensive and unpredictable at scale.</p>
+        <p>Memory makes context reusable, cheaper, and more reliable.</p>
       </div>
-      <div class="card">
-        <h3>What you get</h3>
-        <p>Memory bank, semantic recall, orchestration, and observability in one stack.</p>
+      <div class="card fade-in delay-2">
+        <h3>Who it is for</h3>
+        <p>LLM platform teams, IDE agent builders, and private enterprise workflows.</p>
       </div>
-      <div class="card">
-        <h3>Private by default</h3>
-        <p>Self-host or deploy managed. Data stays in your control.</p>
+      <div class="card fade-in delay-3">
+        <h3>Works with your stack</h3>
+        <p>MCP hub routing, orchestrator APIs, and first-class local deployment.</p>
       </div>
     </div>
 
@@ -126,8 +246,9 @@
       </p>
     </div>
 
-    <div class="foot">
-      Contact email is a placeholder. Update it before wider distribution.
+    <div class="footer">
+      <div>Contact email is a placeholder. Update it before wider distribution.</div>
+      <div>Private context for developers, teams, and enterprises.</div>
     </div>
   </div>
 </body>
