@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>memMCP - Private, reusable context for AI agents</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #0f172a;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 10%, #e2e8f0 0%, #f8fafc 35%, #ffffff 100%);
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 20px 72px;
+    }
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: #fff;
+    }
+    h1 {
+      font-size: clamp(32px, 4vw, 46px);
+      margin: 16px 0 8px;
+    }
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0 36px;
+    }
+    .cta {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .cta.secondary {
+      background: transparent;
+      color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+    .card h3 {
+      margin: 4px 0 8px;
+      font-size: 16px;
+    }
+    .foot {
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">Private memory layer for agents</span>
+    <h1>memMCP: reusable context for AI agents</h1>
+    <p><strong>Fix the context problem plaguing vibecoders everywhere.</strong></p>
+    <p>
+      memMCP turns context into memory so your agents stop paying for the same tokens
+      over and over. It is local-first, private by default, and MCP-compatible.
+    </p>
+    <div class="cta-row">
+      <a class="cta" href="mailto:pilot@memmcp.ai?subject=memMCP%20Pilot">Book a pilot</a>
+      <a class="cta secondary" href="README.md">Read the README</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Why it matters</h3>
+        <p>Long-context prompts are expensive and unreliable at scale.</p>
+        <p>memMCP keeps context reusable, cheap, and consistent.</p>
+      </div>
+      <div class="card">
+        <h3>What you get</h3>
+        <p>Memory bank, semantic recall, orchestration, and observability in one stack.</p>
+      </div>
+      <div class="card">
+        <h3>Private by default</h3>
+        <p>Self-host or deploy managed. Data stays in your control.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+      <h3>Pilot (2-4 weeks)</h3>
+      <p>
+        We measure baseline token spend, deploy memMCP, and deliver a before/after
+        savings report. If you have a workflow burning long-context tokens, this is
+        the fastest way to prove ROI.
+      </p>
+    </div>
+
+    <div class="foot">
+      Contact email is a placeholder. Update it before wider distribution.
+    </div>
+  </div>
+</body>
+</html>
