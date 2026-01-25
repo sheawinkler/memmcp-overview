@@ -1,17 +1,16 @@
-# (12/10/25 update): new production ready repo coming soon
-## kalliste-alpha - conceptual - non-working
+# memMCP — Private, reusable context for AI agents
 **Public overview:** This repo is private; a README-only overview is synced to `sheawinkler/memmcp-overview`.
 **Tagline:** Fix the context problem plaguing vibecoders everywhere.
 
 > **Elevator pitch**  
-> Kalliste-alpha is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. It stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
-> **Business plan:** the repo is open for **local use**, and we’ll offer **Kalliste Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds private, enterprise-grade context management.
+> memMCP is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. It stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
+> **Business plan:** the repo is open for **local use**, and we’ll offer **memMCP Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds private, enterprise-grade context management.
 
 ---
 
 ## Why this exists
 
-Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. Kalliste-alpha standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
+Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. memMCP standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
 
 ---
 
