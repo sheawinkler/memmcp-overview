@@ -103,7 +103,7 @@ mk/memory.mk            # make targets (mem, mem-ps, mem-logs, mem-up-fg, mem-pi
 ```bash
 cd memmcp-dashboard
 npm install
-MEMMCP_ORCHESTRATOR_URL=http://localhost:8075 npm run dev
+MEMMCP_ORCHESTRATOR_URL=http://127.0.0.1:8075 npm run dev
 ```
 
 The dashboard proxies every request through `/api/memory/*` so browsers never need to set MCP headers.
