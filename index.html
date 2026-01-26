@@ -291,6 +291,40 @@
       </div>
     </div>
 
+    <div class="card" style="margin-top: 20px;">
+      <h2>How the stack works (HTTP-only)</h2>
+      <p>
+        ContextLattice is built as a composable memory system where each piece does one job,
+        but the entire stack is accessed through simple HTTP requests.
+      </p>
+      <div class="stack">
+        <div class="stack-row">
+          <div class="stack-label">Memory Bank</div>
+          <div>Private, structured context storage (Mongo-backed).</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Qdrant Recall</div>
+          <div>Vector search for fast retrieval and semantic recall.</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Orchestrator</div>
+          <div>Writes, reads, and routes memory across services.</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">MCP Hub</div>
+          <div>Single MCP front door: HTTP JSON-RPC over `/mcp`.</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">MindsDB</div>
+          <div>Analytics + autosync for reporting and ops insights.</div>
+        </div>
+      </div>
+      <p style="margin-top: 12px;">
+        Result: any agent can call one endpoint and get structured memory + recall without
+        managing multiple transports or ports.
+      </p>
+    </div>
+
     <div class="grid">
       <div class="card">
         <h3>Open-core now</h3>
