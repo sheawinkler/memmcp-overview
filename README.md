@@ -1,16 +1,16 @@
-# memMCP — Private, reusable context for AI agents
-**Public overview:** This repo is private; a README-only overview is synced to `sheawinkler/memmcp-overview`.
+# ContextLattice (memMCP) — Private, reusable context for AI agents
+**Public overview:** This repo is private; a README-only overview is synced to `sheawinkler/memmcp-overview` (public brand: ContextLattice).
 **Tagline:** Fix the context problem plaguing vibecoders everywhere.
 
 > **Elevator pitch**  
-> memMCP is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. It stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
-> **Business plan:** the repo is open for **local use**, and we’ll offer **memMCP Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds private, enterprise-grade context management.
+> ContextLattice is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. This repo is the memMCP implementation: it stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
+> **Business plan:** the repo is open for **local use**, and we’ll offer **ContextLattice Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds private, enterprise-grade context management.
 
 ---
 
 ## Why this exists
 
-Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. memMCP standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
+Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. ContextLattice (memMCP) standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
 
 ---
 
@@ -111,6 +111,7 @@ The dashboard proxies every request through `/api/memory/*` so browsers never ne
 
 - `scripts/install_mcp_clients.sh` — copies the MCP client templates in `configs/` to the default Windsurf, Cline, Cursor, and Claude locations (backs up existing files automatically).
 - `scripts/deploy_hosted_core.sh <domain> <email>` — brings up the `core` Compose profile and launches a Caddy reverse proxy with HTTPS termination for `/mcp` and `/status`.
+- `scripts/launch_task_agent.sh` — optional task worker that claims `/agents/tasks` and runs them through a local agent runner. See `docs/task_agents.md`.
 
 ## Make targets (selection)
 
@@ -147,10 +148,10 @@ The dashboard proxies every request through `/api/memory/*` so browsers never ne
 
 ## Business & licensing
 
-- **Open core:** repo open for local usage; hosted **Kalliste Cloud** on subscription  
+- **Open core:** repo open for local usage; hosted **ContextLattice Cloud** on subscription  
   - Free local: HTTP MCP, vector memory, proxy, single-node  
   - Pro/Team: SSO/SAML, RBAC, metering/quotas, managed scaling, SLAs, priority support  
-- **License:** the repo ships under **Business Source License 1.1** with a change date to Apache-2.0 (see `LICENSE`). The Additional Use Grant allows personal/internal use up to 2 M JSON-RPC calls/month but explicitly forbids running Kalliste as a managed service without a commercial license.  
+- **License:** the repo ships under **Business Source License 1.1** with a change date to Apache-2.0 (see `LICENSE`). The Additional Use Grant allows personal/internal use up to 2 M JSON-RPC calls/month but explicitly forbids running ContextLattice as a managed service without a commercial license.  
   - In short: use it locally for free, but contact Shea for any hosted/monetized offering.  
   - The change date automatically transitions the codebase to Apache-2.0 in 2028, ensuring long-term openness without sacrificing today’s monetization path.
 
