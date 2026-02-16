@@ -1,103 +1,110 @@
-# ContextLattice (memMCP) — Private, reusable context for AI agents
-**Public overview:** This repo is private; a README-only overview is synced to `sheawinkler/memmcp-overview` (public brand: ContextLattice).
-**Tagline:** Fix the context problem plaguing vibecoders everywhere.
+# Context Lattice (memMCP)
 
-> **Elevator pitch**  
-> ContextLattice is a **local-first memory service** for AI agents that exposes a **clean HTTP-only Model Context Protocol (MCP)** endpoint at `/mcp/`. This repo is the memMCP implementation: it stitches together a fast vector store (Qdrant), an MCP super-gateway (streamable HTTP), and a lightweight MindsDB HTTP proxy so tools & memory feel like one coherent service—launchable with one command.  
-> **Business plan:** the repo is open for **local use**, and we’ll offer **ContextLattice Cloud** — a hosted, subscription service with seat-based plans, metered usage (requests/bytes/storage), SSO/SAML, RBAC, SLAs, and managed upgrades. Local remains free; the cloud adds private, enterprise-grade context management.
+Private, reusable context infrastructure for AI agents.
 
----
+[![HTTP MCP](https://img.shields.io/badge/MCP-HTTP%20only-0f766e)](https://modelcontextprotocol.io/)
+[![Local First](https://img.shields.io/badge/Mode-local--first-166534)](#quickstart)
+[![Compose](https://img.shields.io/badge/Deploy-Docker%20Compose-1d4ed8)](#quickstart)
+[![Dashboard](https://img.shields.io/badge/UI-Next.js%20Dashboard-111827)](#operator-dashboard)
 
-## Why this exists
+> Public overview note: this repository is private. Its `README.md` is synced to `sheawinkler/memmcp-overview` (public brand: Context Lattice).
 
-Most “agent memory” stacks sprawl across stdio, SSE, and bespoke ports. ContextLattice (memMCP) standardizes on **HTTP-only MCP** so any client can POST JSON-RPC to one endpoint and get JSON or event streams—no shell transports, minimal glue. It’s designed for **macOS-friendly** local dev and a straight path to **cloud-hosted** subscriptions.
+## Why Context Lattice
 
----
+Most agent stacks leak reliability and budget through context drift:
+- too much long-context prompt stuffing
+- inconsistent retrieval quality across tools
+- memory fanout failures that silently reduce durability
+- runaway storage growth during bursty write periods
 
-## Key capabilities
+Context Lattice is a local-first memory fabric that gives agents one coherent system for:
+- write durability
+- retrieval quality
+- queue health
+- retention controls
 
-- **HTTP-only MCP** (memory bank) at `http://127.0.0.1:59081/mcp`  
-- **MCP hub routing** at `http://127.0.0.1:53130/<server>/mcp` (servers: `memorymcp`, `qdrant`, `mindsdb`)  
-- **Super-gateway (streamable HTTP)** wraps stdio MCP servers behind HTTP when needed  
-- **MindsDB HTTP proxy** that surfaces MCP actions for orchestration  
-- **Qdrant** as the vector memory backend (internal service DNS: `http://qdrant:6333`)  
-- **mcp-proxy** routing with JSON config under `configs/`  
-- **One-liner bring-up** via Docker Compose and `gmake mem`  
-- **macOS-friendly scripts** (avoid bash-only `shopt`; no sed/awk required)  
-- **Consistent env management**: Compose loads `.env` from the project dir (we symlink it into `infra/compose/`)  
-- **Health checks & smoke pings** (HTTP only)  
-- **Roadmap scaffolding** for metering, quotas, billing, SSO/SAML, RBAC, and observability  
-- **Dev ergonomics**: Make targets for `up`, `ps`, logs, foreground mode, and HTTP pings
+## What Is New (2026)
 
-> **Qdrant host port policy (final decision):**  
-> We **do not publish** Qdrant on the host. Qdrant listens on **:6333 inside the Compose network** as `http://qdrant:6333`.  
-> - On Compose ≥ 2.24.4 we remove host port publishing entirely (ports reset).  
-> - On older Compose we fallback to **host `6334:6333`** (no host `:6333`).  
-> If you really need host access, add a local override that publishes a port explicitly.
+- Fanout coalescer window that collapses repeated hot writes before they amplify outbox pressure.
+- Backlog-aware Letta admission control that drops low-value fanout writes under pressure while preserving core durability.
+- In-process low-value sink retention worker for Qdrant and Letta, with optional Mongo pruning.
+- Shared HTTP client pools + batched fanout writes for lower overhead.
+- Federated retrieval across Qdrant, Mongo raw, MindsDB, Letta, and memory-bank lexical fallback.
+- Telemetry endpoints for fanout, retention, queue health, and rollup behavior.
 
----
+## Core Capabilities
+
+- HTTP-only MCP endpoint for memory service integration.
+- Durable fanout outbox with retry semantics (`sqlite` default, `mongo` backend option).
+- Multi-sink architecture:
+  - Qdrant for vector recall
+  - Mongo raw as source-of-truth write log
+  - MindsDB autosync for SQL-side analytics/search workflows
+  - Letta archival memory for agent recall
+- Topic-path indexing and retrieval scoping.
+- Learning loop support for preference-aware rerank.
+- High-risk task gating for sensitive operations.
+
+## Architecture At A Glance
+
+```text
+Client / Agent
+  -> HTTP MCP (/mcp)
+  -> Orchestrator (/memory/write, /memory/search)
+      -> memory-bank (durable write path)
+      -> fanout outbox (retry + dedupe + coalescing)
+          -> Qdrant
+          -> Mongo raw
+          -> MindsDB
+          -> Letta
+      -> telemetry + retention workers
+```
 
 ## Quickstart
 
 ### Prerequisites
 - Docker Desktop (Compose v2)
-- `gmake`, `jq`, `rg` (ripgrep), `python3`, `curl`
+- `gmake`, `jq`, `rg`, `python3`, `curl`
 - macOS 13+ (tested)
-- GitHub CLI `gh` (optional, for publishing)
 
 ### 1) Configure env
 
-Copy the example env file and edit it locally:
-
-~~~bash
+```bash
 cp .env.example .env
-~~~
-
-Make sure Compose sees it from the project dir:
-
-~~~bash
 ln -svf ../../.env infra/compose/.env
-~~~
+```
 
-For external SSD / retention guidance, see `docs/storage_and_retention.md`.
+### 2) Start stack
 
-### 2) Run the stack
+```bash
+gmake mem
+gmake mem-ps
+gmake mem-logs
+```
 
-~~~bash
-gmake mem         # detached
-gmake mem-ps      # status
-gmake mem-logs    # follow logs
-gmake mem-up-fg   # foreground (CTRL-C to stop)
-~~~
+Profile shortcuts:
 
-### 3) Verify HTTP-only MCP
+```bash
+gmake mem-mode-core
+gmake mem-mode-full
+gmake mem-up-lite
+```
 
-~~~bash
-curl -fsS http://127.0.0.1:53130/memorymcp/mcp \
-  -H 'accept: application/json, text/event-stream' \
-  -H 'content-type: application/json' \
-  -H 'MCP-Protocol-Version: 2025-11-25' \
-  -d '{"jsonrpc":"2.0","id":"tools-1","method":"tools/list","params":{}}' | jq .
-~~~
+### 3) Verify
 
----
+```bash
+curl -fsS http://127.0.0.1:8075/health | jq
+curl -fsS http://127.0.0.1:8075/telemetry/fanout | jq
+curl -fsS http://127.0.0.1:8075/telemetry/retention | jq
+```
 
-## Project layout
+## Operator Dashboard
 
-~~~
-infra/compose/          # compose files (the first -f defines project dir)
-configs/                # runtime configs (e.g., mcp-proxy.config.json)
-scripts/                # helper scripts (e.g., mindsdb_http_proxy.py)
-data/memory-bank/       # on-disk memory (bind mounted)
-docs/                   # roadmap, notes
-mk/memory.mk            # make targets (mem, mem-ps, mem-logs, mem-up-fg, mem-ping)
-.compose.args           # auto-generated: ordered -f list for compose
-~~~
+- URL: `http://localhost:3000`
+- Setup page: `http://localhost:3000/setup`
+- Status page: `http://localhost:3000/status`
 
-### Operator dashboard
-
-- `memmcp-dashboard/` — Next.js UI that surfaces memory projects/files, runs health checks via the orchestrator, and lets you append notes without touching the CLI.
-- To run locally:
+Local dashboard dev:
 
 ```bash
 cd memmcp-dashboard
@@ -105,66 +112,66 @@ npm install
 MEMMCP_ORCHESTRATOR_URL=http://127.0.0.1:8075 npm run dev
 ```
 
-The dashboard proxies every request through `/api/memory/*` so browsers never need to set MCP headers.
+## Reliability And Storage Controls
 
-## Automation helpers
+### Queue and fanout
+- `FANOUT_COALESCE_ENABLED=true`
+- `FANOUT_COALESCE_WINDOW_SECS=6`
+- `FANOUT_COALESCE_TARGETS=qdrant,mindsdb,letta,langfuse`
+- `LETTA_ADMISSION_ENABLED=true`
+- `LETTA_ADMISSION_BACKLOG_SOFT_LIMIT=800`
+- `LETTA_ADMISSION_BACKLOG_HARD_LIMIT=2500`
 
-- `scripts/install_mcp_clients.sh` — copies the MCP client templates in `configs/` to the default Windsurf, Cline, Cursor, and Claude locations (backs up existing files automatically).
-- `scripts/deploy_hosted_core.sh <domain> <email>` — brings up the `core` Compose profile and launches a Caddy reverse proxy with HTTPS termination for `/mcp` and `/status`.
-- `scripts/launch_task_agent.sh` — optional task worker that claims `/agents/tasks` and runs them through a local agent runner. See `docs/task_agents.md`.
+### Retention
+- `SINK_RETENTION_ENABLED=true`
+- `SINK_RETENTION_INTERVAL_SECS=2100`
+- `QDRANT_LOW_VALUE_RETENTION_HOURS=72`
+- `LETTA_LOW_VALUE_RETENTION_HOURS=72`
+- `MONGO_RAW_LOW_VALUE_RETENTION_HOURS=0` (disabled by default)
 
-## Make targets (selection)
+### Existing retention jobs
+- `scripts/retention_runner.sh`
+- `scripts/fanout_outbox_gc.py`
+- `scripts/install_retention_runner.sh`
 
-- `mem` — compose up (detached)  
-- `mem-ps` — service status  
-- `mem-logs` — follow logs (`-f --tail=200`)  
-- `mem-up-fg` — foreground up (dev)  
-- `mem-ping` — HTTP JSON-RPC ping to the MCP hub (`/memorymcp/mcp`)
-- `mem-orchestrator` — `docker compose up -d memmcp-orchestrator`
+## HTTP Endpoints (selected)
 
-> If Make warns “overriding recipe,” you have duplicate targets—keep the **last** definition in `mk/memory.mk`.
-
----
+- `POST /memory/write`
+- `POST /memory/search`
+- `GET /telemetry/memory`
+- `GET /telemetry/fanout`
+- `GET /telemetry/retention`
+- `POST /telemetry/retention/run`
+- `GET /status/ui`
+- `GET /pilot`
 
 ## Troubleshooting
 
-- **“no space left on device” (Qdrant WAL / Docker disk full)** — expand Docker Desktop disk image *or* move Qdrant/Mongo to host storage; see `docs/storage_and_retention.md`.
-- **“.env variables defaulting to blank”** — Compose reads `.env` from the **project directory** (folder of the **first** `-f` file). We symlink `infra/compose/.env → ../../.env`. Alternatively run with `--project-directory . --env-file .env`.  
-- **“Port 6333 already allocated”** — We ship an override to **remove** host publishing of `6333` (Compose `!reset`) or remap to `6334:6333` on older Compose. Internally, keep using `http://qdrant:6333`.  
-- **Services stuck at “created/starting”** — `docker compose $(cat .compose.args) logs -f memorymcp-http mcp-qdrant mindsdb-http-proxy` and look for healthcheck errors or missing deps.
-- **Langfuse restarting with ClickHouse errors** — ensure `.env` has `CLICKHOUSE_PASSWORD`, `CLICKHOUSE_MIGRATION_URL=clickhouse://...:9000/<db>`, `CLICKHOUSE_CLUSTER_ENABLED=false`, `NEXTAUTH_URL`, and `SALT`.
+- Disk pressure: see `docs/storage_and_retention.md`.
+- Fanout backlog: check `GET /telemetry/fanout`.
+- Retention behavior: check `GET /telemetry/retention` and trigger `POST /telemetry/retention/run`.
+- Compose env loading: ensure `infra/compose/.env` symlink points to project `.env`.
 
----
+## Docs
 
-## Roadmap (abridged; see `docs/ROADMAP.md` for step-by-step)
+- `docs/orchestrator_enhancements.md`
+- `docs/performance.md`
+- `docs/retention_ops.md`
+- `docs/onprem_full_runbook.md`
+- `docs/launch_checklist.md`
+- `docs/pilot_offer.md`
 
-- **Metering & quotas:** per-call/byte/storage, WAL → rollups → Stripe meters  
-- **Auth & RBAC:** OAuth/OIDC, SAML, project API keys, roles (owner/admin/member/viewer)  
-- **Billing:** seat + org + usage overages, dunning, entitlements cache  
-- **Observability:** Prometheus exporter, Grafana dashboards, alerting  
-- **Enterprise ops:** backups/restore (S3/GCS), retention, audit export, on-prem profile, SLA runbooks
+## Business And Licensing
 
----
+- Open for local/self-hosted use.
+- Context Lattice Cloud planned for managed enterprise deployments (SSO/SAML, RBAC, quotas, billing, SLAs).
+- License: Business Source License 1.1 with change-date transition to Apache-2.0 (see `LICENSE`).
 
-## Business & licensing
+## Pilot CTA
 
-- **Open core:** repo open for local usage; hosted **ContextLattice Cloud** on subscription  
-  - Free local: HTTP MCP, vector memory, proxy, single-node  
-  - Pro/Team: SSO/SAML, RBAC, metering/quotas, managed scaling, SLAs, priority support  
-- **License:** the repo ships under **Business Source License 1.1** with a change date to Apache-2.0 (see `LICENSE`). The Additional Use Grant allows personal/internal use up to 2 M JSON-RPC calls/month but explicitly forbids running ContextLattice as a managed service without a commercial license.  
-  - In short: use it locally for free, but contact Shea for any hosted/monetized offering.  
-  - The change date automatically transitions the codebase to Apache-2.0 in 2028, ensuring long-term openness without sacrificing today’s monetization path.
+Run a 2-4 week context-cost audit:
+- baseline token + reliability profile
+- deploy and tune retrieval + fanout
+- produce ROI and rollout recommendation
 
----
-
-## Security & privacy (initial posture)
-
-- Project-scoped API tokens; least-privilege defaults  
-- Rate-limits per token and IP; structured audit logs  
-- Secrets in `.env` locally; cloud uses a secret manager
-
----
-
-## Contributing
-
-PRs welcome for docs, examples, adapters, MCP tool shims, and observability. Please run `gmake mem` + the HTTP smoke ping before submitting.
+Contact via `PILOT_CONTACT_EMAIL` or `PILOT_CONTACT_URL` in orchestrator config.
