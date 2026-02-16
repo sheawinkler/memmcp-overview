@@ -196,8 +196,23 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
+.mode-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
 .component-card p {
   margin-bottom: 10px;
+}
+
+.mode-card p {
+  margin-bottom: 12px;
+}
+
+.spec-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #314444;
+  line-height: 1.55;
 }
 
 .card {
