@@ -75,6 +75,85 @@
       </article>
     </section>
 
+    <section class="section">
+      <div class="kicker">How it all works together</div>
+      <article class="card">
+        <h3>Unified write + retrieval loop through the orchestrator</h3>
+        <p>
+          Every write enters through the orchestrator, which records durable raw data, fans out to specialized stores,
+          and continuously protects queue and storage health. Every search comes back through the same orchestrator so
+          results can be fused, reranked, and improved over time from feedback.
+        </p>
+        <ul class="chips">
+          <li>Write intake</li>
+          <li>Outbox fanout</li>
+          <li>Federated search</li>
+          <li>Learning rerank</li>
+          <li>Retention + guardrails</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="kicker">Service map</div>
+      <h2>Why each component exists</h2>
+      <div class="grid component-grid">
+        <article class="card component-card">
+          <h3>Orchestrator</h3>
+          <p><strong>Benefit:</strong> one control plane for writes, retrieval, and policy.</p>
+          <p><strong>Why:</strong> central coordination is what allows multi-source ranking and learning to compound.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Memory Bank MCP</h3>
+          <p><strong>Benefit:</strong> canonical project/file context store.</p>
+          <p><strong>Why:</strong> keeps user-facing memory deterministic and compatible with MCP-native clients.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Qdrant</h3>
+          <p><strong>Benefit:</strong> high-speed semantic recall.</p>
+          <p><strong>Why:</strong> vector retrieval gives broad relevance quickly before deeper reranking.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Mongo Raw</h3>
+          <p><strong>Benefit:</strong> durable source-of-truth write ledger.</p>
+          <p><strong>Why:</strong> protects recoverability and enables repair/rehydrate workflows.</p>
+        </article>
+        <article class="card component-card">
+          <h3>MindsDB</h3>
+          <p><strong>Benefit:</strong> SQL-friendly analytics and structured querying.</p>
+          <p><strong>Why:</strong> complements semantic search with tabular and operational insight paths.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Letta (RAG memory)</h3>
+          <p><strong>Benefit:</strong> long-horizon archival context for agent reasoning.</p>
+          <p><strong>Why:</strong> deep memory context improves difficult recall beyond nearest-neighbor hits.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Fanout Outbox</h3>
+          <p><strong>Benefit:</strong> resilient async delivery with retries, coalescing, and admission control.</p>
+          <p><strong>Why:</strong> prevents sink instability from breaking ingestion reliability.</p>
+        </article>
+        <article class="card component-card">
+          <h3>Retention + Telemetry</h3>
+          <p><strong>Benefit:</strong> bounded storage growth and observable runtime behavior.</p>
+          <p><strong>Why:</strong> operational stability is required for learning retrieval to stay trustworthy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Why this boosts learning retrieval impact</div>
+        <h3>Learning is strongest when memory is both rich and reliable</h3>
+        <p>
+          The orchestrator's learning schema can only improve ranking if retrieval sources stay healthy, durable,
+          and synchronized. This architecture makes that possible: Qdrant provides fast candidates, Letta supplies
+          deeper RAG context, Mongo guarantees recovery, MindsDB adds structured recall, and guardrails keep the
+          full loop from collapsing under pressure.
+        </p>
+      </article>
+    </section>
+
     <footer class="footer">
       <span>Context Lattice public overview</span>
       <span>Private by default. MCP-compatible by design.</span>

@@ -192,6 +192,14 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+.component-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.component-card p {
+  margin-bottom: 10px;
+}
+
 .card {
   border: 1px solid var(--line);
   border-radius: 16px;
