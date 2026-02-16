@@ -8,6 +8,7 @@ Private, reusable context infrastructure for AI agents.
 [![Dashboard](https://img.shields.io/badge/UI-Next.js%20Dashboard-111827)](#operator-dashboard)
 
 > Public overview note: this repository is private. Its `README.md` is synced to `sheawinkler/memmcp-overview` (public brand: Context Lattice).
+> Public web pages (`index.html`, `updates.html`) are sourced from `docs/public_overview/` and synced with `scripts/sync_public_overview.sh`.
 
 ## Why Context Lattice
 

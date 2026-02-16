@@ -3,362 +3,82 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ContextLattice - Private, reusable context for AI agents</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f7f3ee;
-      --ink: #0c1514;
-      --muted: #3f4a49;
-      --accent: #0b5f5a;
-      --accent-2: #e98b5b;
-      --card: #ffffff;
-      --border: #e3ddd4;
-      --shadow: 0 18px 40px rgba(12, 21, 20, 0.12);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(233, 139, 91, 0.18), transparent 45%),
-        radial-gradient(circle at 85% 15%, rgba(11, 95, 90, 0.14), transparent 50%),
-        linear-gradient(180deg, #f7f3ee 0%, #f1ede7 40%, #ffffff 100%);
-      min-height: 100vh;
-    }
-    .wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 64px 20px 84px;
-      position: relative;
-    }
-    .grain::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.04"/></svg>');
-      pointer-events: none;
-      z-index: 0;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      background: #fff;
-      box-shadow: 0 6px 14px rgba(12, 21, 20, 0.06);
-    }
-    h1 {
-      font-family: "Fraunces", serif;
-      font-size: clamp(36px, 4.5vw, 52px);
-      margin: 18px 0 10px;
-      line-height: 1.05;
-    }
-    h2 {
-      font-size: 22px;
-      margin: 0 0 10px;
-    }
-    .tagline {
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--accent);
-    }
-    p {
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 0 0 16px;
-    }
-    .hero {
-      display: grid;
-      gap: 26px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .cta-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 20px 0 0;
-    }
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 10px 18px rgba(11, 95, 90, 0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .cta.secondary {
-      background: transparent;
-      color: var(--accent);
-      box-shadow: none;
-    }
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 22px rgba(11, 95, 90, 0.3);
-    }
-    .hero-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-    .hero-card ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-    .grid {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      margin-top: 32px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 12px 26px rgba(12, 21, 20, 0.08);
-    }
-    .card h3 {
-      margin: 4px 0 8px;
-      font-size: 16px;
-    }
-    .accent {
-      color: var(--accent-2);
-      font-weight: 600;
-    }
-    .stack {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .stack-row {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-      gap: 12px;
-      align-items: start;
-    }
-    .stack-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-    .footer {
-      margin-top: 40px;
-      font-size: 13px;
-      color: var(--muted);
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .blob {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      filter: blur(20px);
-      opacity: 0.35;
-      animation: float 10s ease-in-out infinite;
-      z-index: 0;
-    }
-    .blob.one { background: #e98b5b; top: -40px; right: 10%; }
-    .blob.two { background: #0b5f5a; bottom: -60px; left: 6%; animation-delay: 1.5s; }
-
-    .fade-in {
-      animation: rise 0.7s ease both;
-    }
-    .fade-in.delay-1 { animation-delay: 0.08s; }
-    .fade-in.delay-2 { animation-delay: 0.16s; }
-    .fade-in.delay-3 { animation-delay: 0.24s; }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(14px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .fade-in, .blob { animation: none; }
-      .cta { transition: none; }
-    }
-  </style>
+  <title>Context Lattice | Private memory fabric for AI agents</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="grain">
-  <div class="wrap">
-    <div class="blob one"></div>
-    <div class="blob two"></div>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-label">Context Lattice</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a class="active" href="index.html">Home</a>
+        <a href="updates.html">Updates</a>
+        <a href="README.md">README</a>
+        <a href="v1/">v1</a>
+      </nav>
+    </header>
 
-    <div class="hero">
-      <div class="fade-in">
-        <span class="badge">Private memory layer for agents</span>
-        <h1>ContextLattice: reusable context for AI agents</h1>
-        <div class="tagline">Fix the context problem plaguing vibecoders everywhere.</div>
-        <p>
-          ContextLattice turns context into a private memory layer so your agents stop
-          paying for the same tokens twice. It is local-first, private by default, and MCP-compatible.
-          Built for private context management across solo builders, product teams, and enterprises.
+    <section class="hero">
+      <span class="badge">Private memory layer for agents</span>
+      <h1>Fix context drift before it burns your token budget.</h1>
+      <p class="sub">
+        Context Lattice (memMCP) gives agents reusable memory with HTTP MCP, federated retrieval,
+        durable fanout, and storage guardrails so quality and costs remain stable under load.
+      </p>
+      <ul class="chips">
+        <li>HTTP-only MCP</li>
+        <li>Federated retrieval</li>
+        <li>Durable outbox fanout</li>
+        <li>Learning rerank schema</li>
+        <li>Letta RAG support</li>
+        <li>Retention controls</li>
+      </ul>
+      <div class="cta-row">
+        <a class="cta primary" href="mailto:pilot@contextlattice.io?subject=Context%20Lattice%20Pilot">Book a pilot</a>
+        <a class="cta secondary" href="updates.html">Read updates</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid">
+        <article class="card">
+          <div class="kicker">What it solves</div>
+          <h3>Memory quality + cost control</h3>
+          <p>Replace repetitive long-context stuffing with reusable memory retrieval and sink durability.</p>
+        </article>
+        <article class="card">
+          <div class="kicker">How it runs</div>
+          <h3>Local first, enterprise path ready</h3>
+          <p>Run on your machine now, then graduate to managed deployment with policy and access controls.</p>
+        </article>
+        <article class="card">
+          <div class="kicker">Latest platform step</div>
+          <h3>Self-protecting orchestrator</h3>
+          <p>Fanout coalescer, Letta admission control, and retention workers reduce backlog and storage pressure.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Learning retrieval</div>
+        <h3>Orchestrator gets better at memory recall over time</h3>
+        <p class="spotlight">
+          The orchestrator uses a learning schema from feedback signals to rerank results and improve
+          retrieval precision over time. This is reinforced by RAG through Letta archival memory,
+          alongside Qdrant, Mongo raw, MindsDB, and memory-bank fallback.
         </p>
-        <div class="cta-row">
-          <a class="cta" href="mailto:pilot@contextlattice.io?subject=ContextLattice%20Pilot">
-            Book a pilot
-          </a>
-          <a class="cta secondary" href="README.md">Read the README</a>
-          <a class="cta secondary" href="v1/">Short version (v1)</a>
-        </div>
-      </div>
+        <p class="muted-note">Read the detailed rollout notes on the <a href="updates.html">Updates page</a>.</p>
+      </article>
+    </section>
 
-      <div class="hero-card fade-in delay-2">
-        <h3>What it does</h3>
-        <ul>
-          <li>Stores agent context once, reuses it everywhere.</li>
-          <li>Reduces long-context costs and truncation failures.</li>
-          <li>Keeps private context in your control.</li>
-        </ul>
-        <p class="accent" style="margin-top: 12px;">Private by default. Enterprise-ready when you are.</p>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card fade-in delay-1">
-        <h3>Why it matters</h3>
-        <p>Long-context prompts are expensive and unpredictable at scale.</p>
-        <p>Memory makes context reusable, cheaper, and more reliable.</p>
-      </div>
-      <div class="card fade-in delay-2">
-        <h3>Who it is for</h3>
-        <p>Indie builders, AI product teams, and enterprise workflows that need private context.</p>
-      </div>
-      <div class="card fade-in delay-3">
-        <h3>Works with your stack</h3>
-        <p>MCP hub routing, orchestrator APIs, and first-class local or VPC deployment.</p>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 20px;">
-      <h2>Where it fits in the market</h2>
-      <p>
-        Most teams choose between two bad options: shove more tokens into prompts,
-        or build bespoke memory glue. ContextLattice sits between agents and models as a
-        memory layer: it stores context once, indexes it, and serves it back on demand.
-      </p>
-      <p>
-        That means you can keep using the models and IDE tools you already ship,
-        but cut the long-context bill and remove context loss from the workflow.
-      </p>
-      <p>
-        Private context stays in your environment (local, VPC, or air-gapped) while
-        still serving memory back to agents and copilots on demand.
-      </p>
-      <div class="stack">
-        <div class="stack-row">
-          <div class="stack-label">Upstream</div>
-          <div>IDE agents, copilots, workflows, internal tools</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">ContextLattice</div>
-          <div>Private memory bank + recall + orchestration + observability</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">Downstream</div>
-          <div>Any model provider, any vector store, private data</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 20px;">
-      <h2>How the stack works (HTTP-only)</h2>
-      <p>
-        ContextLattice is built as a composable memory system where each piece does one job,
-        but the entire stack is accessed through simple HTTP requests.
-      </p>
-      <div class="stack">
-        <div class="stack-row">
-          <div class="stack-label">Memory Bank</div>
-          <div>Private, structured context storage (Mongo-backed).</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">Qdrant Recall</div>
-          <div>Vector search for fast retrieval and semantic recall.</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">Orchestrator</div>
-          <div>Writes, reads, and routes memory across services.</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">MCP Hub</div>
-          <div>Single MCP front door: HTTP JSON-RPC over `/mcp`.</div>
-        </div>
-        <div class="stack-row">
-          <div class="stack-label">MindsDB</div>
-          <div>Analytics + autosync for reporting and ops insights.</div>
-        </div>
-      </div>
-      <p style="margin-top: 12px;">
-        Result: any agent can call one endpoint and get structured memory + recall without
-        managing multiple transports or ports.
-      </p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Open-core now</h3>
-        <p>Local-first, self-hosted memory layer with MCP routing and Qdrant recall.</p>
-      </div>
-      <div class="card">
-        <h3>Managed later</h3>
-        <p>Hosted ContextLattice Cloud with usage dashboards, SSO, SLAs, and private networking.</p>
-      </div>
-      <div class="card">
-        <h3>Proof over hype</h3>
-        <p>We run a baseline token audit first, then show before/after ROI.</p>
-        <p>Design partners share baseline usage numbers so savings are measurable.</p>
-      </div>
-      <div class="card">
-        <h3>Agent orchestration (optional)</h3>
-        <p>Built-in task queue + status API so a local agent runner can pick up work.</p>
-        <p>Pair with Trae or any open-source agent runner. Ollama can handle local models.</p>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 20px;">
-      <h2>Pilot (2-4 weeks)</h2>
-      <p>
-        We measure baseline token spend, deploy ContextLattice, and deliver a before/after
-        savings report. If you have a workflow burning long-context tokens, this is
-        the fastest way to prove ROI.
-      </p>
-    </div>
-
-    <div class="footer">
-      <div>Contact email is a placeholder. Update it before wider distribution.</div>
-      <div>Private context for developers, teams, and enterprises.</div>
-    </div>
-  </div>
+    <footer class="footer">
+      <span>Context Lattice public overview</span>
+      <span>Private by default. MCP-compatible by design.</span>
+    </footer>
+  </main>
 </body>
 </html>
