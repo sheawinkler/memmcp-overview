@@ -416,32 +416,74 @@ p {
   margin-bottom: 12px;
 }
 
-.flow-lane {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.flow-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #cfe0da;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f8fcfa, #eff7f3);
 }
 
-.flow-node {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #2c4241;
-  line-height: 1.5;
+.flow-svg text {
+  font-size: 12px;
+  fill: #204242;
 }
 
-.flow-node strong {
-  color: var(--accent);
-  margin-right: 4px;
+.flow-svg .flow-node {
+  stroke: #9bbab5;
+  stroke-width: 1.4;
 }
 
-.flow-arrow {
-  text-align: center;
-  color: var(--accent);
-  font-size: 18px;
-  line-height: 1;
-  margin: 6px 0;
+.flow-svg .orchestrator-node {
+  fill: #e3f0ec;
+  stroke: #0f5b57;
+  stroke-width: 1.8;
+}
+
+.flow-svg .method-node {
+  fill: #edf6f3;
+}
+
+.flow-svg .sink-node {
+  fill: #fffaf4;
+}
+
+.flow-svg .io-node {
+  fill: #f3f8f7;
+}
+
+.flow-svg .flow-node-title {
+  font-size: 13px;
+  font-weight: 700;
+  fill: #0f5b57;
+}
+
+.flow-svg .flow-line {
+  stroke: #0f5b57;
+  stroke-width: 2;
+  fill: none;
+}
+
+.flow-svg .spine-line {
+  stroke-width: 2.8;
+}
+
+.flow-svg .branch-line {
+  stroke: #b3643c;
+}
+
+.flow-svg .bus-line {
+  stroke: #b3643c;
+  stroke-width: 2.6;
+}
+
+.flow-svg .bus-branch {
+  stroke: #b3643c;
+}
+
+.flow-caption {
+  margin-top: 10px;
 }
 
 .spec-list {

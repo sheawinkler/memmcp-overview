@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Context Lattice | Private memory fabric for AI agents</title>
-  <link rel="stylesheet" href="styles.css?v=20260217a" />
+  <link rel="stylesheet" href="styles.css?v=20260217b" />
 </head>
 <body class="home">
   <main class="container">
@@ -114,33 +114,116 @@
       <div class="grid flow-grid">
         <article class="card flow-card">
           <div class="kicker">Receive + Store</div>
-          <h3>Write workflow</h3>
-          <ol class="flow-lane">
-            <li class="flow-node"><strong>1.</strong> Agents and apps send writes to <code>POST /memory/write</code>.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>2.</strong> Orchestrator validates payloads, assigns metadata, and records queue intent.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>3.</strong> Mongo raw captures durable source-of-truth write history.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>4.</strong> Outbox fanout distributes to Memory Bank, Qdrant, MindsDB, and Letta.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>5.</strong> Retention and telemetry workers enforce storage and queue guardrails.</li>
-          </ol>
+          <h3>Write distribution spine</h3>
+          <svg class="flow-svg" viewBox="0 0 780 430" role="img" aria-label="Orchestrator write spine through validation, raw, and fanout with parallel sink distribution">
+            <defs>
+              <marker id="arrow-write-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0f5b57"></path>
+              </marker>
+              <marker id="arrow-write-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#b3643c"></path>
+              </marker>
+            </defs>
+            <rect class="flow-node io-node" x="24" y="44" rx="10" ry="10" width="190" height="46"></rect>
+            <text x="40" y="72">Client Write `POST /memory/write`</text>
+            <line class="flow-line" x1="214" y1="67" x2="300" y2="67" marker-end="url(#arrow-write-teal)"></line>
+
+            <line class="flow-line spine-line" x1="390" y1="96" x2="390" y2="308" marker-end="url(#arrow-write-teal)"></line>
+            <rect class="flow-node orchestrator-node" x="300" y="40" rx="12" ry="12" width="180" height="56"></rect>
+            <text class="flow-node-title" x="390" y="73" text-anchor="middle">Orchestrator</text>
+
+            <rect class="flow-node method-node" x="325" y="126" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="151" text-anchor="middle">Validation</text>
+
+            <rect class="flow-node method-node" x="325" y="186" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="211" text-anchor="middle">Raw write</text>
+            <line class="flow-line branch-line" x1="455" y1="207" x2="564" y2="207" marker-end="url(#arrow-write-amber)"></line>
+            <rect class="flow-node sink-node" x="564" y="188" rx="9" ry="9" width="188" height="38"></rect>
+            <text x="580" y="211">Mongo Raw Ledger</text>
+
+            <rect class="flow-node method-node" x="325" y="246" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="271" text-anchor="middle">Fanout</text>
+            <line class="flow-line branch-line" x1="455" y1="267" x2="530" y2="267" marker-end="url(#arrow-write-amber)"></line>
+            <line class="flow-line bus-line" x1="530" y1="236" x2="530" y2="383"></line>
+
+            <line class="flow-line bus-branch" x1="530" y1="251" x2="564" y2="251"></line>
+            <rect class="flow-node sink-node" x="564" y="234" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="580" y="255">Memory Bank MCP</text>
+
+            <line class="flow-line bus-branch" x1="530" y1="295" x2="564" y2="295"></line>
+            <rect class="flow-node sink-node" x="564" y="278" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="580" y="299">Qdrant</text>
+
+            <line class="flow-line bus-branch" x1="530" y1="339" x2="564" y2="339"></line>
+            <rect class="flow-node sink-node" x="564" y="322" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="580" y="343">MindsDB</text>
+
+            <line class="flow-line bus-branch" x1="530" y1="383" x2="564" y2="383"></line>
+            <rect class="flow-node sink-node" x="564" y="366" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="580" y="387">Letta</text>
+          </svg>
+          <p class="muted-note flow-caption">Single orchestrator spine, explicit method stages, and parallel fanout branches to all write sinks.</p>
         </article>
         <article class="card flow-card">
           <div class="kicker">Read + Return</div>
-          <h3>Retrieval workflow</h3>
-          <ol class="flow-lane">
-            <li class="flow-node"><strong>1.</strong> Agents and apps send queries to <code>POST /memory/search</code>.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>2.</strong> Orchestrator runs federated retrieval across Memory Bank, Qdrant, Mongo raw, MindsDB, and Letta.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>3.</strong> Candidates are deduplicated, scored, and reranked with learning signals.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>4.</strong> Best matches return to the caller with source metadata and confidence context.</li>
-            <li class="flow-arrow" aria-hidden="true">↓</li>
-            <li class="flow-node"><strong>5.</strong> Feedback loops update retrieval preferences so quality improves over time.</li>
-          </ol>
+          <h3>Retrieval spine</h3>
+          <svg class="flow-svg" viewBox="0 0 780 430" role="img" aria-label="Orchestrator retrieval spine with federated sources, reranking, and response return">
+            <defs>
+              <marker id="arrow-read-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0f5b57"></path>
+              </marker>
+              <marker id="arrow-read-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#b3643c"></path>
+              </marker>
+            </defs>
+            <rect class="flow-node io-node" x="24" y="44" rx="10" ry="10" width="190" height="46"></rect>
+            <text x="46" y="72">Client Query `POST /memory/search`</text>
+            <line class="flow-line" x1="214" y1="67" x2="300" y2="67" marker-end="url(#arrow-read-teal)"></line>
+
+            <line class="flow-line spine-line" x1="390" y1="96" x2="390" y2="312" marker-end="url(#arrow-read-teal)"></line>
+            <rect class="flow-node orchestrator-node" x="300" y="40" rx="12" ry="12" width="180" height="56"></rect>
+            <text class="flow-node-title" x="390" y="73" text-anchor="middle">Orchestrator</text>
+
+            <rect class="flow-node method-node" x="325" y="128" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="153" text-anchor="middle">Federate</text>
+
+            <rect class="flow-node method-node" x="325" y="190" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="215" text-anchor="middle">Rerank</text>
+
+            <rect class="flow-node method-node" x="325" y="252" rx="10" ry="10" width="130" height="42"></rect>
+            <text x="390" y="277" text-anchor="middle">Return</text>
+            <line class="flow-line branch-line" x1="455" y1="273" x2="560" y2="273" marker-end="url(#arrow-read-amber)"></line>
+            <rect class="flow-node sink-node" x="560" y="252" rx="10" ry="10" width="192" height="42"></rect>
+            <text x="578" y="277">Response + ranked context</text>
+
+            <line class="flow-line bus-line" x1="246" y1="136" x2="246" y2="344"></line>
+            <line class="flow-line bus-branch" x1="246" y1="149" x2="325" y2="149" marker-end="url(#arrow-read-amber)"></line>
+
+            <rect class="flow-node sink-node" x="24" y="120" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="40" y="141">Memory Bank MCP</text>
+            <line class="flow-line bus-branch" x1="212" y1="137" x2="246" y2="137"></line>
+
+            <rect class="flow-node sink-node" x="24" y="164" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="40" y="185">Qdrant</text>
+            <line class="flow-line bus-branch" x1="212" y1="181" x2="246" y2="181"></line>
+
+            <rect class="flow-node sink-node" x="24" y="208" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="40" y="229">Mongo Raw</text>
+            <line class="flow-line bus-branch" x1="212" y1="225" x2="246" y2="225"></line>
+
+            <rect class="flow-node sink-node" x="24" y="252" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="40" y="273">MindsDB</text>
+            <line class="flow-line bus-branch" x1="212" y1="269" x2="246" y2="269"></line>
+
+            <rect class="flow-node sink-node" x="24" y="296" rx="9" ry="9" width="188" height="34"></rect>
+            <text x="40" y="317">Letta</text>
+            <line class="flow-line bus-branch" x1="212" y1="313" x2="246" y2="313"></line>
+
+            <rect class="flow-node io-node" x="560" y="316" rx="10" ry="10" width="192" height="46"></rect>
+            <text x="578" y="343">Feedback updates learning schema</text>
+            <line class="flow-line branch-line" x1="560" y1="339" x2="455" y2="211" marker-end="url(#arrow-read-amber)"></line>
+          </svg>
+          <p class="muted-note flow-caption">Federated sources converge to the orchestrator spine, then reranked results return with learning feedback.</p>
         </article>
       </div>
       <div class="grid component-grid">
