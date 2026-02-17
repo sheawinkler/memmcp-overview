@@ -433,6 +433,23 @@ p {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
+.flow-svg .lane-bg {
+  stroke: #d6e6e1;
+  stroke-width: 1;
+}
+
+.flow-svg .lane-left {
+  fill: rgba(243, 249, 247, 0.84);
+}
+
+.flow-svg .lane-mid {
+  fill: rgba(234, 245, 241, 0.92);
+}
+
+.flow-svg .lane-right {
+  fill: rgba(255, 248, 238, 0.86);
+}
+
 .flow-svg text {
   font-size: 11.5px;
   font-weight: 500;
@@ -508,8 +525,8 @@ p {
 }
 
 .flow-svg .feedback-line {
-  stroke: #b3643c;
-  stroke-width: 2.1;
+  stroke: #ad5f39;
+  stroke-width: 2;
   stroke-dasharray: 7 5;
 }
 

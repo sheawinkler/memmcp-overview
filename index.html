@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Context Lattice | Private memory fabric for AI agents</title>
-  <link rel="stylesheet" href="styles.css?v=20260217c" />
+  <link rel="stylesheet" href="styles.css?v=20260217d" />
 </head>
 <body class="home">
   <main class="container">
@@ -115,94 +115,101 @@
         <article class="card flow-card">
           <div class="kicker">Receive + Store</div>
           <h3>Write distribution spine</h3>
-          <svg class="flow-svg" viewBox="0 0 640 500" role="img" aria-label="Orchestrator write spine through validation, raw write, and fanout with parallel sink distribution">
+          <svg class="flow-svg" viewBox="0 0 640 560" role="img" aria-label="Orchestrator write spine with validation, raw write, and parallel fanout sinks">
             <defs>
-              <marker id="w-arrow-main" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <marker id="w-arrow-end" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
                 <path d="M0,0 L10,5 L0,10 z" fill="#0f5b57"></path>
               </marker>
-              <marker id="w-arrow-branch" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 z" fill="#b3643c"></path>
-              </marker>
             </defs>
-            <text class="section-label" x="24" y="98">Ingress</text>
-            <text class="section-label" x="242" y="98">Orchestrator spine methods</text>
-            <text class="section-label" x="460" y="150">Parallel sink distribution</text>
+            <rect class="lane-bg lane-left" x="14" y="88" rx="14" ry="14" width="196" height="452"></rect>
+            <rect class="lane-bg lane-mid" x="228" y="88" rx="14" ry="14" width="202" height="452"></rect>
+            <rect class="lane-bg lane-right" x="448" y="88" rx="14" ry="14" width="178" height="452"></rect>
+
+            <text class="section-label" x="24" y="74">Ingress</text>
+            <text class="section-label" x="244" y="74">Orchestrator method spine</text>
+            <text class="section-label" x="460" y="74">Parallel fanout sinks</text>
 
             <rect class="flow-node input-node" x="24" y="22" rx="10" ry="10" width="176" height="46"></rect>
             <text x="38" y="50">Client write request</text>
-            <line class="flow-line method-link" x1="200" y1="45" x2="220" y2="45" marker-end="url(#w-arrow-main)"></line>
+            <line class="flow-line method-link" x1="200" y1="45" x2="228" y2="45" marker-end="url(#w-arrow-end)"></line>
 
-            <rect class="flow-node orchestrator-node" x="220" y="18" rx="12" ry="12" width="198" height="54"></rect>
-            <text class="flow-node-title" x="319" y="50" text-anchor="middle">Orchestrator</text>
-            <line class="flow-line spine-line" x1="319" y1="72" x2="319" y2="336" marker-end="url(#w-arrow-main)"></line>
+            <rect class="flow-node orchestrator-node" x="238" y="18" rx="12" ry="12" width="182" height="54"></rect>
+            <text class="flow-node-title" x="329" y="50" text-anchor="middle">Orchestrator</text>
+            <line class="flow-line spine-line" x1="329" y1="74" x2="329" y2="454"></line>
 
-            <rect class="flow-node method-node" x="240" y="102" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="128" text-anchor="middle">Validation</text>
+            <rect class="flow-node method-node" x="256" y="112" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="138" text-anchor="middle">Validation</text>
 
-            <rect class="flow-node method-node" x="240" y="164" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="190" text-anchor="middle">Raw write</text>
-            <line class="flow-line branch-line" x1="398" y1="186" x2="460" y2="186" marker-end="url(#w-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="166" rx="9" ry="9" width="156" height="40"></rect>
-            <text x="474" y="190">Mongo raw ledger</text>
+            <rect class="flow-node method-node" x="256" y="180" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="206" text-anchor="middle">Raw write</text>
+            <line class="flow-line branch-line" x1="402" y1="202" x2="460" y2="202"></line>
+            <rect class="flow-node sink-node" x="460" y="182" rx="9" ry="9" width="154" height="40"></rect>
+            <text x="474" y="206">Mongo raw ledger</text>
 
-            <rect class="flow-node method-node" x="240" y="226" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="252" text-anchor="middle">Fanout</text>
-            <line class="flow-line branch-line" x1="398" y1="248" x2="438" y2="248" marker-end="url(#w-arrow-branch)"></line>
-            <line class="flow-line bus-line" x1="438" y1="248" x2="438" y2="430"></line>
+            <rect class="flow-node method-node" x="256" y="248" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="274" text-anchor="middle">Fanout</text>
+            <line class="flow-line branch-line" x1="402" y1="270" x2="438" y2="270"></line>
+            <line class="flow-line bus-line" x1="438" y1="270" x2="438" y2="460"></line>
 
-            <line class="flow-line bus-branch" x1="438" y1="273" x2="460" y2="273" marker-end="url(#w-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="256" rx="9" ry="9" width="156" height="34"></rect>
-            <text x="474" y="278">Memory Bank MCP</text>
+            <line class="flow-line bus-branch" x1="438" y1="300" x2="460" y2="300"></line>
+            <rect class="flow-node sink-node" x="460" y="283" rx="9" ry="9" width="154" height="34"></rect>
+            <text x="474" y="305">Memory Bank MCP</text>
 
-            <line class="flow-line bus-branch" x1="438" y1="319" x2="460" y2="319" marker-end="url(#w-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="302" rx="9" ry="9" width="156" height="34"></rect>
-            <text x="474" y="324">Qdrant</text>
+            <line class="flow-line bus-branch" x1="438" y1="345" x2="460" y2="345"></line>
+            <rect class="flow-node sink-node" x="460" y="328" rx="9" ry="9" width="154" height="34"></rect>
+            <text x="474" y="350">Qdrant</text>
 
-            <line class="flow-line bus-branch" x1="438" y1="365" x2="460" y2="365" marker-end="url(#w-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="348" rx="9" ry="9" width="156" height="34"></rect>
-            <text x="474" y="370">MindsDB</text>
+            <line class="flow-line bus-branch" x1="438" y1="390" x2="460" y2="390"></line>
+            <rect class="flow-node sink-node" x="460" y="373" rx="9" ry="9" width="154" height="34"></rect>
+            <text x="474" y="395">MindsDB</text>
 
-            <line class="flow-line bus-branch" x1="438" y1="411" x2="460" y2="411" marker-end="url(#w-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="394" rx="9" ry="9" width="156" height="34"></rect>
-            <text x="474" y="416">Letta</text>
+            <line class="flow-line bus-branch" x1="438" y1="435" x2="460" y2="435"></line>
+            <rect class="flow-node sink-node" x="460" y="418" rx="9" ry="9" width="154" height="34"></rect>
+            <text x="474" y="440">Letta</text>
+
+            <rect class="flow-node input-node" x="238" y="474" rx="10" ry="10" width="182" height="56"></rect>
+            <text x="329" y="497" text-anchor="middle">Async sink updates</text>
+            <text x="329" y="515" text-anchor="middle">telemetry + retries</text>
+            <line class="flow-line method-link" x1="329" y1="454" x2="329" y2="474" marker-end="url(#w-arrow-end)"></line>
           </svg>
           <p class="muted-note flow-caption">Single orchestrator spine, explicit method stages, and parallel fanout branches to all write sinks.</p>
         </article>
         <article class="card flow-card">
           <div class="kicker">Read + Return</div>
           <h3>Retrieval spine</h3>
-          <svg class="flow-svg" viewBox="0 0 640 500" role="img" aria-label="Orchestrator retrieval spine with parallel federated sources, reranking, and response return">
+          <svg class="flow-svg" viewBox="0 0 640 560" role="img" aria-label="Orchestrator retrieval spine with parallel federated sources and clean return path">
             <defs>
-              <marker id="r-arrow-main" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <marker id="r-arrow-end" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
                 <path d="M0,0 L10,5 L0,10 z" fill="#0f5b57"></path>
               </marker>
-              <marker id="r-arrow-branch" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 z" fill="#b3643c"></path>
-              </marker>
             </defs>
-            <text class="section-label" x="24" y="110">Federated sources (parallel)</text>
-            <text class="section-label" x="242" y="98">Orchestrator spine methods</text>
-            <text class="section-label" x="460" y="224">Response + learning loop</text>
+            <rect class="lane-bg lane-left" x="14" y="88" rx="14" ry="14" width="196" height="452"></rect>
+            <rect class="lane-bg lane-mid" x="228" y="88" rx="14" ry="14" width="202" height="452"></rect>
+            <rect class="lane-bg lane-right" x="448" y="88" rx="14" ry="14" width="178" height="452"></rect>
+
+            <text class="section-label" x="24" y="74">Parallel retrieval sources</text>
+            <text class="section-label" x="244" y="74">Orchestrator method spine</text>
+            <text class="section-label" x="460" y="74">Return + learning loop</text>
 
             <rect class="flow-node input-node" x="24" y="22" rx="10" ry="10" width="176" height="46"></rect>
             <text x="38" y="50">Client search request</text>
-            <line class="flow-line method-link" x1="200" y1="45" x2="220" y2="45" marker-end="url(#r-arrow-main)"></line>
+            <line class="flow-line method-link" x1="200" y1="45" x2="228" y2="45" marker-end="url(#r-arrow-end)"></line>
 
-            <rect class="flow-node orchestrator-node" x="220" y="18" rx="12" ry="12" width="198" height="54"></rect>
-            <text class="flow-node-title" x="319" y="50" text-anchor="middle">Orchestrator</text>
-            <line class="flow-line spine-line" x1="319" y1="72" x2="319" y2="338" marker-end="url(#r-arrow-main)"></line>
+            <rect class="flow-node orchestrator-node" x="238" y="18" rx="12" ry="12" width="182" height="54"></rect>
+            <text class="flow-node-title" x="329" y="50" text-anchor="middle">Orchestrator</text>
+            <line class="flow-line spine-line" x1="329" y1="74" x2="329" y2="454"></line>
 
-            <rect class="flow-node method-node" x="240" y="102" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="128" text-anchor="middle">Federate</text>
+            <rect class="flow-node method-node" x="256" y="112" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="138" text-anchor="middle">Federate</text>
 
-            <rect class="flow-node method-node" x="240" y="164" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="190" text-anchor="middle">Rerank</text>
+            <rect class="flow-node method-node" x="256" y="180" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="206" text-anchor="middle">Rerank</text>
 
-            <rect class="flow-node method-node" x="240" y="226" rx="10" ry="10" width="158" height="44"></rect>
-            <text x="319" y="252" text-anchor="middle">Return</text>
+            <rect class="flow-node method-node" x="256" y="248" rx="10" ry="10" width="146" height="44"></rect>
+            <text x="329" y="274" text-anchor="middle">Return</text>
 
             <line class="flow-line bus-line" x1="204" y1="136" x2="204" y2="430"></line>
-            <line class="flow-line bus-branch" x1="204" y1="124" x2="240" y2="124" marker-end="url(#r-arrow-branch)"></line>
+            <line class="flow-line branch-line" x1="204" y1="202" x2="256" y2="202"></line>
 
             <rect class="flow-node sink-node" x="24" y="120" rx="9" ry="9" width="160" height="34"></rect>
             <text x="38" y="142">Memory Bank MCP</text>
@@ -224,13 +231,19 @@
             <text x="38" y="326">Letta</text>
             <line class="flow-line bus-branch" x1="184" y1="321" x2="204" y2="321"></line>
 
-            <line class="flow-line branch-line" x1="398" y1="248" x2="460" y2="248" marker-end="url(#r-arrow-branch)"></line>
-            <rect class="flow-node sink-node" x="460" y="228" rx="9" ry="9" width="156" height="40"></rect>
-            <text x="474" y="252">Ranked response</text>
+            <line class="flow-line branch-line" x1="402" y1="270" x2="460" y2="270" marker-end="url(#r-arrow-end)"></line>
+            <rect class="flow-node sink-node" x="460" y="250" rx="9" ry="9" width="154" height="40"></rect>
+            <text x="474" y="274">Ranked response</text>
 
-            <rect class="flow-node input-node" x="460" y="304" rx="9" ry="9" width="156" height="46"></rect>
-            <text x="474" y="331">Feedback to learning schema</text>
-            <path class="flow-line feedback-line" d="M460 327 C414 327 410 214 398 186" marker-end="url(#r-arrow-branch)"></path>
+            <rect class="flow-node input-node" x="460" y="328" rx="9" ry="9" width="154" height="52"></rect>
+            <text x="474" y="351">Feedback updates</text>
+            <text x="474" y="369">learning schema</text>
+            <path class="flow-line feedback-line" d="M460 354 C424 352 414 238 402 202"></path>
+
+            <rect class="flow-node input-node" x="238" y="474" rx="10" ry="10" width="182" height="56"></rect>
+            <text x="329" y="497" text-anchor="middle">Context returned</text>
+            <text x="329" y="515" text-anchor="middle">with source confidence</text>
+            <line class="flow-line method-link" x1="329" y1="454" x2="329" y2="474" marker-end="url(#r-arrow-end)"></line>
           </svg>
           <p class="muted-note flow-caption">Federated sources converge to the orchestrator spine, then reranked results return with learning feedback.</p>
         </article>
