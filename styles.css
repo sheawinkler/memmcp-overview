@@ -379,6 +379,10 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
+.flow-components {
+  margin-top: 22px;
+}
+
 .mode-grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
@@ -516,7 +520,9 @@ p {
 
 .flow-caption {
   margin-top: 12px;
+  line-height: 1.6;
 }
+
 
 .spec-list {
   margin: 0;
