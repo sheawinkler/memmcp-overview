@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Context Lattice | Private memory fabric for AI agents</title>
-  <link rel="stylesheet" href="styles.css?v=20260216d" />
+  <link rel="stylesheet" href="styles.css?v=20260217a" />
 </head>
 <body class="home">
   <main class="container">
@@ -16,6 +16,8 @@
       <nav class="nav" aria-label="Primary">
         <a class="active" href="index.html">Home</a>
         <a href="updates.html">Updates</a>
+        <a href="installation.html">Installation</a>
+        <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
         <a href="v1/">v1</a>
       </nav>
@@ -107,8 +109,40 @@
     </section>
 
     <section class="section">
-      <div class="kicker">Service map</div>
-      <h2>Why each component exists</h2>
+      <div class="kicker">Service Map</div>
+      <h2>Data Flow</h2>
+      <div class="grid flow-grid">
+        <article class="card flow-card">
+          <div class="kicker">Receive + Store</div>
+          <h3>Write workflow</h3>
+          <ol class="flow-lane">
+            <li class="flow-node"><strong>1.</strong> Agents and apps send writes to <code>POST /memory/write</code>.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>2.</strong> Orchestrator validates payloads, assigns metadata, and records queue intent.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>3.</strong> Mongo raw captures durable source-of-truth write history.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>4.</strong> Outbox fanout distributes to Memory Bank, Qdrant, MindsDB, and Letta.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>5.</strong> Retention and telemetry workers enforce storage and queue guardrails.</li>
+          </ol>
+        </article>
+        <article class="card flow-card">
+          <div class="kicker">Read + Return</div>
+          <h3>Retrieval workflow</h3>
+          <ol class="flow-lane">
+            <li class="flow-node"><strong>1.</strong> Agents and apps send queries to <code>POST /memory/search</code>.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>2.</strong> Orchestrator runs federated retrieval across Memory Bank, Qdrant, Mongo raw, MindsDB, and Letta.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>3.</strong> Candidates are deduplicated, scored, and reranked with learning signals.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>4.</strong> Best matches return to the caller with source metadata and confidence context.</li>
+            <li class="flow-arrow" aria-hidden="true">↓</li>
+            <li class="flow-node"><strong>5.</strong> Feedback loops update retrieval preferences so quality improves over time.</li>
+          </ol>
+        </article>
+      </div>
       <div class="grid component-grid">
         <article class="card component-card">
           <h3>Orchestrator</h3>

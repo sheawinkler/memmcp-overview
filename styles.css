@@ -280,6 +280,7 @@ body.home::after {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(229, 150, 103, 0.14) 0%, rgba(229, 150, 103, 0) 74%);
   pointer-events: none;
+  z-index: 0;
 }
 
 .section .card::after {
@@ -291,6 +292,7 @@ body.home::after {
   border-radius: 42%;
   background: radial-gradient(circle, rgba(15, 91, 87, 0.12) 0%, rgba(15, 91, 87, 0) 72%);
   pointer-events: none;
+  z-index: 0;
 }
 
 .badge {
@@ -398,6 +400,10 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.flow-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 .component-card p {
   margin-bottom: 10px;
 }
@@ -406,8 +412,47 @@ p {
   margin-bottom: 12px;
 }
 
+.flow-card h3 {
+  margin-bottom: 12px;
+}
+
+.flow-lane {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.flow-node {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2c4241;
+  line-height: 1.5;
+}
+
+.flow-node strong {
+  color: var(--accent);
+  margin-right: 4px;
+}
+
+.flow-arrow {
+  text-align: center;
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1;
+  margin: 6px 0;
+}
+
 .spec-list {
   margin: 0;
+  padding-left: 18px;
+  color: #314444;
+  line-height: 1.55;
+}
+
+.step-list {
+  margin: 0 0 14px;
   padding-left: 18px;
   color: #314444;
   line-height: 1.55;
@@ -419,6 +464,26 @@ p {
   padding: 16px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 12px 24px rgba(17, 26, 26, 0.08);
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+pre {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #cfddd8;
+  background: linear-gradient(180deg, #f3f8f6, #ecf4f1);
+  overflow-x: auto;
+}
+
+pre code {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #183635;
 }
 
 .muted-note {
