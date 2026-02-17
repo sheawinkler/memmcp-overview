@@ -273,18 +273,25 @@ body.home::after {
 .ribbon-nav {
   position: relative;
   z-index: 2;
-  min-height: 120px;
+  min-height: 132px;
   align-items: center;
   justify-content: center;
   align-content: center;
-  gap: 10px;
-  padding: 12px;
+  gap: 12px;
+  padding: 14px 12px;
 }
 
 .ribbon-nav a {
   background: rgba(255, 255, 255, 0.9);
   border-color: rgba(135, 165, 160, 0.55);
   box-shadow: 0 2px 10px rgba(17, 26, 26, 0.08);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 18px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .section .card {
@@ -745,16 +752,22 @@ pre code {
   }
 
   .lattice-ribbon {
-    min-height: 130px;
+    min-height: 146px;
     margin-top: 14px;
   }
 
   .ribbon-nav {
-    min-height: 130px;
+    min-height: 146px;
     justify-content: flex-start;
     align-content: flex-start;
-    gap: 8px;
+    gap: 10px;
     padding: 12px 10px;
+  }
+
+  .ribbon-nav a {
+    font-size: 13px;
+    padding: 10px 15px;
+    min-height: 38px;
   }
 
   .sub {
