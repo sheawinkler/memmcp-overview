@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  color-scheme: light;
-  --bg: #f5f4ef;
-  --paper: #ffffff;
-  --ink: #101010;
-  --muted: #4a4a47;
-  --accent: #d40000;
-  --accent-dark: #930000;
-  --line: #161616;
-  --line-soft: #cfcfca;
-  --grid: rgba(16, 16, 16, 0.06);
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  color-scheme: dark;
+  --bg: #070c12;
+  --paper: #111a24;
+  --ink: #eaf0fb;
+  --muted: #9fadc2;
+  --accent: #ff4b4b;
+  --accent-dark: #c93333;
+  --line: #8392aa;
+  --line-soft: #2e3a4a;
+  --grid: rgba(152, 170, 194, 0.14);
+  --shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -23,7 +23,9 @@ body {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    linear-gradient(180deg, #f8f7f2 0%, #f2f1ec 100%),
+    radial-gradient(circle at 12% 0%, rgba(255, 75, 75, 0.18) 0%, rgba(7, 12, 18, 0) 42%),
+    radial-gradient(circle at 86% 8%, rgba(74, 116, 167, 0.22) 0%, rgba(7, 12, 18, 0) 38%),
+    linear-gradient(180deg, #090f16 0%, #060a10 100%),
     repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 30px),
     repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 30px);
   min-height: 100vh;
@@ -75,7 +77,7 @@ body.home::after {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--muted);
+  color: #b5c0d0;
 }
 
 .nav {
@@ -88,7 +90,7 @@ body.home::after {
   text-decoration: none;
   color: var(--ink);
   border: 1.5px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(16, 24, 35, 0.95);
   border-radius: 0;
   padding: 10px 16px;
   font-family: "IBM Plex Mono", monospace;
@@ -106,7 +108,7 @@ body.home::after {
 }
 
 .nav a:hover {
-  background: #fff;
+  background: #182434;
   transform: translateY(-1px);
 }
 
@@ -132,7 +134,7 @@ body.home::after {
   top: 0;
   width: 10px;
   height: 100%;
-  background: linear-gradient(180deg, var(--accent) 0%, #f04343 100%);
+  background: linear-gradient(180deg, var(--accent) 0%, #ff8f8f 100%);
 }
 
 .hero > * {
@@ -154,7 +156,7 @@ body.home::after {
   position: absolute;
   border-radius: 999px;
   border: 1.5px solid var(--line);
-  background: rgba(212, 0, 0, 0.08);
+  background: rgba(255, 75, 75, 0.16);
 }
 
 .orb-a {
@@ -184,10 +186,10 @@ body.home::after {
   bottom: 0;
   width: 210px;
   height: 132px;
-  border: 1px solid rgba(16, 16, 16, 0.25);
+  border: 1px solid rgba(200, 214, 235, 0.26);
   background:
-    repeating-linear-gradient(0deg, rgba(16, 16, 16, 0.13) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(90deg, rgba(16, 16, 16, 0.13) 0 1px, transparent 1px 12px);
+    repeating-linear-gradient(0deg, rgba(210, 223, 242, 0.2) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(210, 223, 242, 0.2) 0 1px, transparent 1px 12px);
 }
 
 .badge {
@@ -200,7 +202,7 @@ body.home::after {
   text-transform: uppercase;
   letter-spacing: 0.11em;
   color: var(--ink);
-  background: #fff;
+  background: #172332;
 }
 
 h1 {
@@ -229,17 +231,17 @@ h3 {
 }
 
 p {
-  color: #1f1f1f;
+  color: #d7e0ee;
   line-height: 1.62;
   margin: 0 0 14px;
 }
 
 a {
-  color: var(--accent-dark);
+  color: #ff9c9c;
 }
 
 a:hover {
-  color: var(--accent);
+  color: #ffd1d1;
 }
 
 .sub {
@@ -265,7 +267,7 @@ a:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: #fff;
+  background: #172332;
   color: var(--ink);
 }
 
@@ -297,7 +299,7 @@ a:hover {
 
 .cta.secondary {
   color: var(--ink);
-  background: #fff;
+  background: #162131;
 }
 
 .cta:hover {
@@ -317,8 +319,8 @@ a:hover {
   border-radius: 0;
   border: 1.5px solid var(--line);
   background:
-    linear-gradient(135deg, #fff 0%, #f0efe9 62%, #ebeae4 100%),
-    repeating-linear-gradient(90deg, rgba(16, 16, 16, 0.08) 0 1px, transparent 1px 34px);
+    linear-gradient(135deg, #121d2b 0%, #0e1723 62%, #0a121c 100%),
+    repeating-linear-gradient(90deg, rgba(166, 184, 207, 0.2) 0 1px, transparent 1px 34px);
   box-shadow: var(--shadow);
 }
 
@@ -345,7 +347,7 @@ a:hover {
   padding: 12px 20px;
   font-size: 13px;
   line-height: 1;
-  background: #fff;
+  background: #172333;
 }
 
 .section {
@@ -378,7 +380,7 @@ a:hover {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #fff;
+  background: #121d2a;
   box-shadow: var(--shadow);
 }
 
@@ -427,7 +429,7 @@ a:hover {
   display: block;
   border: 1.5px solid var(--line);
   border-radius: 0;
-  background: #fff;
+  background: #0e1722;
 }
 
 .flow-svg .lane-bg {
@@ -436,51 +438,51 @@ a:hover {
 }
 
 .flow-svg .lane-left {
-  fill: #f7f6f3;
+  fill: #111a26;
 }
 
 .flow-svg .lane-mid {
-  fill: #f2f1ec;
+  fill: #0f1822;
 }
 
 .flow-svg .lane-right {
-  fill: #f8f7f4;
+  fill: #121b28;
 }
 
 .flow-svg text {
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  fill: #141414;
+  fill: #dde7f7;
 }
 
 .flow-svg .flow-node {
-  stroke: #171717;
+  stroke: #8a9ab1;
   stroke-width: 1.8;
 }
 
 .flow-svg .orchestrator-node {
-  fill: #e03a3a;
-  stroke: #111;
+  fill: #ff5a5a;
+  stroke: #f8d0d0;
   stroke-width: 1.9;
 }
 
 .flow-svg .method-node {
-  fill: #fff;
+  fill: #162132;
 }
 
 .flow-svg .sink-node {
-  fill: #f7f6f2;
+  fill: #142030;
 }
 
 .flow-svg .input-node {
-  fill: #fff;
+  fill: #172434;
 }
 
 .flow-svg .flow-node-title {
   font-size: 14.8px;
   font-weight: 700;
-  fill: #111;
+  fill: #0b1218;
 }
 
 .flow-svg .section-label {
@@ -488,7 +490,7 @@ a:hover {
   font-size: 11.8px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  fill: #2f2f2d;
+  fill: #9fb0c8;
 }
 
 .flow-svg .flow-line {
@@ -537,7 +539,7 @@ a:hover {
 .step-list {
   margin: 0 0 14px;
   padding-left: 19px;
-  color: #151515;
+  color: #d7e0ee;
   line-height: 1.58;
 }
 
@@ -546,14 +548,14 @@ pre {
   padding: 13px 15px;
   border-radius: 0;
   border: 1.5px solid var(--line);
-  background: #f4f3ee;
+  background: #0d1621;
   overflow-x: auto;
 }
 
 pre code {
   font-size: 12.5px;
   line-height: 1.54;
-  color: #121212;
+  color: #dfe8f7;
 }
 
 .muted-note {
@@ -570,7 +572,7 @@ pre code {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #fff;
+  background: #121d2a;
   box-shadow: var(--shadow);
 }
 
@@ -585,15 +587,15 @@ pre code {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #111;
-  background: #fff;
+  color: #dde7f6;
+  background: #162131;
   margin-bottom: 10px;
 }
 
 .update-card ul {
   margin: 0;
   padding-left: 18px;
-  color: #151515;
+  color: #d7e0ee;
   line-height: 1.58;
 }
 
@@ -607,11 +609,97 @@ pre code {
   padding-top: 14px;
   border-top: 1.5px solid var(--line);
   font-size: 13px;
-  color: #171717;
+  color: #cdd8e9;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.architecture-board {
+  padding: 14px;
+}
+
+.arch-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1.5px solid var(--line);
+  background: #0d1621;
+}
+
+.arch-svg text {
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-size: 16px;
+  fill: #e1e9f8;
+}
+
+.arch-svg .arch-title {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.arch-svg .arch-small {
+  font-size: 13px;
+  fill: #a4b3c9;
+}
+
+.arch-svg .arch-frame {
+  fill: #162232;
+  stroke: #8a9ab1;
+  stroke-width: 2;
+}
+
+.arch-svg .arch-ingress {
+  fill: #1a2d46;
+}
+
+.arch-svg .arch-policy {
+  fill: #3a2a1e;
+}
+
+.arch-svg .arch-providers {
+  fill: #1b3a32;
+}
+
+.arch-svg .arch-loop {
+  fill: #1a332d;
+}
+
+.arch-svg .arch-memory {
+  fill: #2d2742;
+}
+
+.arch-svg .arch-ops {
+  fill: #3c252b;
+}
+
+.arch-svg .arch-chip {
+  fill: #131f2e;
+  stroke: #8a9ab1;
+  stroke-width: 1.6;
+}
+
+.arch-svg .arch-step {
+  fill: #121f2e;
+  stroke: #8a9ab1;
+  stroke-width: 1.8;
+}
+
+.arch-svg .arch-line {
+  stroke: #a8b7cc;
+  stroke-width: 2.1;
+  fill: none;
+}
+
+.arch-grid {
+  align-items: start;
+}
+
+.arch-caption {
+  margin-top: 12px;
 }
 
 @media (max-width: 980px) {

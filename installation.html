@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Installation Guide | Context Lattice</title>
-  <link rel="stylesheet" href="styles.css?v=20260217j" />
+  <link rel="stylesheet" href="styles.css?v=20260218a" />
 </head>
 <body class="home">
   <main class="container">
@@ -15,8 +15,10 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <a href="index.html">Home</a>
+        <a href="architecture.html">Architecture</a>
         <a href="updates.html">Updates</a>
         <a class="active" href="installation.html">Installation</a>
+        <a href="integration.html">Integrations</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
         <a href="v1/">v1</a>
@@ -26,13 +28,26 @@
     <section class="hero">
       <span class="badge">Guide 1</span>
       <h1>Installation Guide</h1>
-      <p class="sub">Launch Context Lattice in Lite or Full mode with verified health checks and profile-specific startup commands.</p>
+      <p class="sub">Launch Context Lattice in Lite or Full mode with verified health checks and explicit startup commands.</p>
       <div class="hero-art" aria-hidden="true">
         <span class="orb orb-a"></span>
         <span class="orb orb-b"></span>
         <span class="orb orb-c"></span>
         <span class="grid-sheen"></span>
       </div>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Default launch command</div>
+        <h3><code>gmake mem-up</code> is the standard stack launch entrypoint</h3>
+        <p><code>gmake mem-up</code> uses the active <code>COMPOSE_PROFILES</code> value from <code>.env</code> (or <code>core</code> if unset).</p>
+        <ul class="spec-list">
+          <li><strong>Force full mode:</strong> <code>gmake mem-up-full</code></li>
+          <li><strong>Force core mode:</strong> <code>gmake mem-up-core</code></li>
+          <li><strong>Lite compose stack:</strong> <code>gmake mem-up-lite</code></li>
+        </ul>
+      </article>
     </section>
 
     <section class="section">
@@ -54,7 +69,7 @@
           <ul class="spec-list">
             <li><strong>Services:</strong> Lite stack plus MindsDB, Letta, and observability profile</li>
             <li><strong>Resource target:</strong> 6-8 vCPU, 16-24 GB RAM, 120-200 GB SSD</li>
-            <li><strong>Startup command:</strong> <code>gmake mem-mode-full</code> then <code>gmake mem</code></li>
+            <li><strong>Startup command:</strong> <code>gmake mem-up-full</code> (or <code>gmake mem-mode-full</code> then <code>gmake mem-up</code>)</li>
           </ul>
         </article>
       </div>
@@ -100,9 +115,11 @@ curl -fsS http://127.0.0.1:8075/status | jq</code></pre>
           <li>Validate API, queue telemetry, and retention telemetry.</li>
         </ol>
 <pre><code>gmake mem-mode-full
-gmake mem
+gmake mem-up
+# or force full directly:
+gmake mem-up-full
 gmake mem-ps
-gmake mem-logs
+gmake logs
 curl -fsS http://127.0.0.1:8075/health | jq
 curl -fsS http://127.0.0.1:8075/telemetry/fanout | jq
 curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
