@@ -108,6 +108,20 @@ curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
           <p><strong>Action:</strong> restart service and trigger your rehydrate workflow once fanout load is stable.</p>
 <pre><code>docker compose up -d mindsdb mindsdb-http-proxy letta</code></pre>
         </article>
+        <article class="card component-card">
+          <h3>Messaging bridge not posting</h3>
+          <p><strong>Impact:</strong> Telegram/Slack/OpenClaw commands do not write or recall memory.</p>
+          <p><strong>Action:</strong> verify webhook env vars and smoke test the command endpoint directly.</p>
+<pre><code>curl -fsS -H 'content-type: application/json' \
+  -d '{"channel":"openclaw","source_id":"chat-1","text":"@ContextLattice status"}' \
+  http://127.0.0.1:8075/integrations/messaging/command | jq</code></pre>
+        </article>
+        <article class="card component-card">
+          <h3>Optional Qdrant cloud BYO fails</h3>
+          <p><strong>Impact:</strong> cloud fallback or cloud-preferred mode cannot connect.</p>
+          <p><strong>Action:</strong> validate endpoint + key, then run the cloud connectivity probe.</p>
+<pre><code>gmake qdrant-cloud-check</code></pre>
+        </article>
       </div>
     </section>
 
@@ -132,6 +146,15 @@ gmake mem-ps
 gmake mem-logs</code></pre>
         </article>
       </div>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Readiness Gate</div>
+        <h3>Check or cancel scheduled 04:30 MT long-run gate</h3>
+<pre><code>gmake launch-readiness-gate-schedule-status
+gmake launch-readiness-gate-schedule-cancel</code></pre>
+      </article>
     </section>
 
     <footer class="footer">

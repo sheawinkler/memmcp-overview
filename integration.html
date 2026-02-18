@@ -56,6 +56,27 @@ gmake mem-up-lite</code></pre>
     </section>
 
     <section class="section">
+      <article class="card">
+        <div class="kicker">Messaging Surface</div>
+        <h3>OpenClaw/ZeroClaw + Telegram + Slack command bridge</h3>
+        <p>Context Lattice now supports channel command intake via orchestrator-native endpoints. The default handle is <code>@ContextLattice</code>.</p>
+<pre><code>POST /integrations/messaging/command
+POST /integrations/messaging/openclaw
+POST /integrations/telegram/webhook
+POST /integrations/slack/events
+
+@ContextLattice remember deployment complete
+@ContextLattice recall deployment
+@ContextLattice status</code></pre>
+        <ul class="spec-list">
+          <li><strong>BYO accounts:</strong> Telegram/Slack credentials stay in your own account.</li>
+          <li><strong>Project routing:</strong> commands can include <code>project=&lt;name&gt;</code> and <code>topic=&lt;path&gt;</code> directives.</li>
+          <li><strong>Default behavior:</strong> OpenClaw/ZeroClaw route to orchestrator messaging endpoints with no additional memory sink wiring.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
       <div class="kicker">Client Integrations</div>
       <h2>GPT, Claude, Claude Code, Codex</h2>
       <div class="grid component-grid">
@@ -101,6 +122,7 @@ export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
             <ul class="spec-list">
               <li><code>memory_recall_ctx</code> → <code>POST /memory/search</code></li>
               <li><code>memory_save_store</code> → <code>POST /memory/write</code></li>
+              <li><code>messenger command hook</code> → <code>POST /integrations/messaging/openclaw</code></li>
               <li><code>healthbeat</code> → <code>GET /health</code> and <code>GET /status</code></li>
               <li><code>tools_exec</code> → MCP hub <code>/mcp</code> endpoint</li>
             </ul>

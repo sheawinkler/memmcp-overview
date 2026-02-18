@@ -51,6 +51,28 @@
     </section>
 
     <section class="section">
+      <article class="card">
+        <div class="kicker">Storage layout</div>
+        <h3>Hot local code + cold external data (recommended)</h3>
+        <p>Keep active project source local for speed, and map high-growth service data paths to external NVMe before heavy ingest.</p>
+<pre><code># keep source local
+~/Documents/projects
+
+# move service data to external SSD
+/Volumes/&lt;external-ssd&gt;/memmcp/qdrant
+/Volumes/&lt;external-ssd&gt;/memmcp/mongo
+/Volumes/&lt;external-ssd&gt;/memmcp/mindsdb
+/Volumes/&lt;external-ssd&gt;/memmcp/letta
+/Volumes/&lt;external-ssd&gt;/memmcp/orchestrator</code></pre>
+        <ul class="spec-list">
+          <li><strong>Why:</strong> avoids laptop internal SSD exhaustion during fanout + rehydrate windows.</li>
+          <li><strong>When:</strong> set mount paths before first full-mode launch.</li>
+          <li><strong>Check:</strong> verify free space before running rehydrate/backfill jobs.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
       <div class="kicker">Flexible Launch</div>
       <h2>Choose your install mode</h2>
       <div class="grid mode-grid">
