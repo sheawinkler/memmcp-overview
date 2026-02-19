@@ -2,14 +2,14 @@
 
 :root {
   color-scheme: dark;
-  --bg: #0d0f12;
-  --paper: #14171c;
-  --ink: #eceff4;
-  --muted: #a6abb4;
-  --accent: #d8dce2;
-  --accent-dark: #bcc1c9;
-  --line: #545a65;
-  --line-soft: #2a2e35;
+  --bg: #0d0d0d;
+  --paper: #141414;
+  --ink: #ececec;
+  --muted: #a6a6a6;
+  --accent: #d8d8d8;
+  --accent-dark: #bcbcbc;
+  --line: #545454;
+  --line-soft: #2a2a2a;
   --grid: rgba(255, 255, 255, 0.05);
   --shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
 }
@@ -23,9 +23,9 @@ body {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 15, 18, 0) 42%),
-    radial-gradient(circle at 86% 8%, rgba(255, 255, 255, 0.04) 0%, rgba(13, 15, 18, 0) 38%),
-    linear-gradient(180deg, #111418 0%, #0b0d10 100%),
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 13, 13, 0) 42%),
+    radial-gradient(circle at 86% 8%, rgba(255, 255, 255, 0.04) 0%, rgba(13, 13, 13, 0) 38%),
+    linear-gradient(180deg, #111111 0%, #0b0b0b 100%),
     repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 30px),
     repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 30px);
   min-height: 100vh;
@@ -77,7 +77,7 @@ body.home::after {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: #c4c8d0;
+  color: #c4c4c4;
 }
 
 .nav {
@@ -90,7 +90,7 @@ body.home::after {
   text-decoration: none;
   color: var(--ink);
   border: 1.5px solid var(--line);
-  background: rgba(26, 30, 37, 0.95);
+  background: rgba(26, 26, 26, 0.95);
   border-radius: 0;
   padding: 10px 16px;
   font-family: "IBM Plex Mono", monospace;
@@ -103,12 +103,12 @@ body.home::after {
 
 .nav a.active {
   background: var(--accent);
-  color: #101317;
+  color: #101010;
   border-color: var(--accent);
 }
 
 .nav a:hover {
-  background: #2a303a;
+  background: #2a2a2a;
   transform: translateY(-1px);
 }
 
@@ -134,7 +134,7 @@ body.home::after {
   top: 0;
   width: 10px;
   height: 100%;
-  background: linear-gradient(180deg, #f0f2f6 0%, #adb2bc 100%);
+  background: linear-gradient(180deg, #f0f0f0 0%, #adadad 100%);
 }
 
 .hero > * {
@@ -186,10 +186,10 @@ body.home::after {
   bottom: 0;
   width: 210px;
   height: 132px;
-  border: 1px solid rgba(232, 236, 243, 0.22);
+  border: 1px solid rgba(232, 232, 232, 0.22);
   background:
-    repeating-linear-gradient(0deg, rgba(233, 237, 243, 0.16) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(90deg, rgba(233, 237, 243, 0.16) 0 1px, transparent 1px 12px);
+    repeating-linear-gradient(0deg, rgba(233, 233, 233, 0.16) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(233, 233, 233, 0.16) 0 1px, transparent 1px 12px);
 }
 
 .badge {
@@ -202,7 +202,7 @@ body.home::after {
   text-transform: uppercase;
   letter-spacing: 0.11em;
   color: var(--ink);
-  background: #1f232a;
+  background: #1f1f1f;
 }
 
 h1 {
@@ -231,17 +231,17 @@ h3 {
 }
 
 p {
-  color: #d5d9e0;
+  color: #d5d5d5;
   line-height: 1.62;
   margin: 0 0 14px;
 }
 
 a {
-  color: #d8dde6;
+  color: #d8d8d8;
 }
 
 a:hover {
-  color: #f2f4f8;
+  color: #f2f2f2;
 }
 
 .sub {
@@ -267,7 +267,7 @@ a:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: #1e232b;
+  background: #1e1e1e;
   color: var(--ink);
 }
 
@@ -292,14 +292,14 @@ a:hover {
 }
 
 .cta.primary {
-  color: #101317;
+  color: #101010;
   background: var(--accent);
   border-color: var(--accent);
 }
 
 .cta.secondary {
   color: var(--ink);
-  background: #1c2128;
+  background: #1c1c1c;
 }
 
 .cta:hover {
@@ -319,8 +319,8 @@ a:hover {
   border-radius: 0;
   border: 1.5px solid var(--line);
   background:
-    linear-gradient(135deg, #171a20 0%, #12161b 62%, #0f1216 100%),
-    repeating-linear-gradient(90deg, rgba(221, 226, 235, 0.14) 0 1px, transparent 1px 34px);
+    linear-gradient(135deg, #171717 0%, #121212 62%, #0f0f0f 100%),
+    repeating-linear-gradient(90deg, rgba(221, 221, 221, 0.14) 0 1px, transparent 1px 34px);
   box-shadow: var(--shadow);
 }
 
@@ -347,7 +347,7 @@ a:hover {
   padding: 12px 20px;
   font-size: 13px;
   line-height: 1;
-  background: #20252d;
+  background: #202020;
 }
 
 .section {
@@ -380,7 +380,7 @@ a:hover {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #171b22;
+  background: #171717;
   box-shadow: var(--shadow);
 }
 
@@ -429,7 +429,7 @@ a:hover {
   display: block;
   border: 1.5px solid var(--line);
   border-radius: 0;
-  background: #12161c;
+  background: #121212;
 }
 
 .flow-svg .lane-bg {
@@ -438,51 +438,51 @@ a:hover {
 }
 
 .flow-svg .lane-left {
-  fill: #161a20;
+  fill: #161616;
 }
 
 .flow-svg .lane-mid {
-  fill: #14181e;
+  fill: #141414;
 }
 
 .flow-svg .lane-right {
-  fill: #181c23;
+  fill: #181818;
 }
 
 .flow-svg text {
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  fill: #e3e7ef;
+  fill: #e3e3e3;
 }
 
 .flow-svg .flow-node {
-  stroke: #8a9ab1;
+  stroke: #8a8a8a;
   stroke-width: 1.8;
 }
 
 .flow-svg .orchestrator-node {
-  fill: #dbe0e8;
-  stroke: #f3f5f8;
+  fill: #dbdbdb;
+  stroke: #f3f3f3;
   stroke-width: 1.9;
 }
 
 .flow-svg .method-node {
-  fill: #20252d;
+  fill: #202020;
 }
 
 .flow-svg .sink-node {
-  fill: #1c2128;
+  fill: #1c1c1c;
 }
 
 .flow-svg .input-node {
-  fill: #232932;
+  fill: #232323;
 }
 
 .flow-svg .flow-node-title {
   font-size: 14.8px;
   font-weight: 700;
-  fill: #0f1318;
+  fill: #0f0f0f;
 }
 
 .flow-svg .section-label {
@@ -490,11 +490,11 @@ a:hover {
   font-size: 11.8px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  fill: #adb3bd;
+  fill: #adadad;
 }
 
 .flow-svg .flow-line {
-  stroke: #8f96a2;
+  stroke: #8f8f8f;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -510,22 +510,22 @@ a:hover {
 }
 
 .flow-svg .branch-line {
-  stroke: #a5acb8;
+  stroke: #a5a5a5;
   stroke-width: 2.2;
 }
 
 .flow-svg .bus-line {
-  stroke: #a5acb8;
+  stroke: #a5a5a5;
   stroke-width: 2.8;
 }
 
 .flow-svg .bus-branch {
-  stroke: #a5acb8;
+  stroke: #a5a5a5;
   stroke-width: 2.1;
 }
 
 .flow-svg .feedback-line {
-  stroke: #8f96a2;
+  stroke: #8f8f8f;
   stroke-width: 2;
   stroke-dasharray: 7 5;
 }
@@ -539,7 +539,7 @@ a:hover {
 .step-list {
   margin: 0 0 14px;
   padding-left: 19px;
-  color: #d5d9e0;
+  color: #d5d5d5;
   line-height: 1.58;
 }
 
@@ -548,14 +548,14 @@ pre {
   padding: 13px 15px;
   border-radius: 0;
   border: 1.5px solid var(--line);
-  background: #131820;
+  background: #131313;
   overflow-x: auto;
 }
 
 pre code {
   font-size: 12.5px;
   line-height: 1.54;
-  color: #e0e4ec;
+  color: #e0e0e0;
 }
 
 .muted-note {
@@ -572,7 +572,7 @@ pre code {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #171b22;
+  background: #171717;
   box-shadow: var(--shadow);
 }
 
@@ -587,15 +587,15 @@ pre code {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #e3e7ef;
-  background: #20252d;
+  color: #e3e3e3;
+  background: #202020;
   margin-bottom: 10px;
 }
 
 .update-card ul {
   margin: 0;
   padding-left: 18px;
-  color: #d5d9e0;
+  color: #d5d5d5;
   line-height: 1.58;
 }
 
@@ -609,7 +609,7 @@ pre code {
   padding-top: 14px;
   border-top: 1.5px solid var(--line);
   font-size: 13px;
-  color: #cfd4dd;
+  color: #cfcfcf;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -625,13 +625,13 @@ pre code {
   height: auto;
   display: block;
   border: 1.5px solid var(--line);
-  background: #12161c;
+  background: #121212;
 }
 
 .arch-svg text {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: 16px;
-  fill: #e4e8ef;
+  fill: #e4e4e4;
 }
 
 .arch-svg .arch-title {
@@ -643,53 +643,53 @@ pre code {
 
 .arch-svg .arch-small {
   font-size: 13px;
-  fill: #aeb4bd;
+  fill: #aeaeae;
 }
 
 .arch-svg .arch-frame {
-  fill: #20252d;
-  stroke: #8f96a2;
+  fill: #202020;
+  stroke: #8f8f8f;
   stroke-width: 2;
 }
 
 .arch-svg .arch-ingress {
-  fill: #1b2028;
+  fill: #1b1b1b;
 }
 
 .arch-svg .arch-policy {
-  fill: #21262f;
+  fill: #212121;
 }
 
 .arch-svg .arch-providers {
-  fill: #171c23;
+  fill: #171717;
 }
 
 .arch-svg .arch-loop {
-  fill: #1e232b;
+  fill: #1e1e1e;
 }
 
 .arch-svg .arch-memory {
-  fill: #1a1f27;
+  fill: #1a1a1a;
 }
 
 .arch-svg .arch-ops {
-  fill: #222730;
+  fill: #222222;
 }
 
 .arch-svg .arch-chip {
-  fill: #171c23;
-  stroke: #8f96a2;
+  fill: #171717;
+  stroke: #8f8f8f;
   stroke-width: 1.6;
 }
 
 .arch-svg .arch-step {
-  fill: #181d25;
-  stroke: #8f96a2;
+  fill: #181818;
+  stroke: #8f8f8f;
   stroke-width: 1.8;
 }
 
 .arch-svg .arch-line {
-  stroke: #aab0ba;
+  stroke: #aaaaaa;
   stroke-width: 2.1;
   fill: none;
 }
