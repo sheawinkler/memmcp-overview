@@ -35,9 +35,40 @@ body.home {
   position: relative;
 }
 
-body.home::before,
 body.home::after {
-  display: none;
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.home::before {
+  inset: 6vh 8vw 8vh;
+  opacity: 0.26;
+  background:
+    radial-gradient(circle at 9% 14%, rgba(255, 255, 255, 0.24) 0 1px, transparent 2px),
+    radial-gradient(circle at 24% 31%, rgba(255, 255, 255, 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 41% 20%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 57% 37%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 73% 23%, rgba(255, 255, 255, 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 41%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 15% 62%, rgba(255, 255, 255, 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 74%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 52% 66%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 79%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 68%, rgba(255, 255, 255, 0.22) 0 1px, transparent 2px),
+    repeating-linear-gradient(31deg, rgba(255, 255, 255, 0.075) 0 1px, transparent 1px 74px),
+    repeating-linear-gradient(-31deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 74px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 112px);
+  transform: rotate(-3.5deg) scale(1.06);
+  mask-image: radial-gradient(circle at 52% 45%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 58%, transparent 84%);
+}
+
+body.home::after {
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.42) 100%);
 }
 
 .container {
@@ -137,6 +168,21 @@ body.home::after {
   background: linear-gradient(180deg, #f0f0f0 0%, #adadad 100%);
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: clamp(120px, 22vw, 240px);
+  height: 56px;
+  border-top: 1px solid rgba(255, 255, 255, 0.44);
+  border-right: 1px solid rgba(255, 255, 255, 0.44);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 38%, rgba(255, 255, 255, 0) 38% 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(255, 255, 255, 0) 1px 100%);
+  opacity: 0.36;
+}
+
 .hero > * {
   position: relative;
   z-index: 1;
@@ -194,6 +240,7 @@ body.home::after {
 
 .badge {
   display: inline-block;
+  position: relative;
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 7px 12px;
@@ -203,6 +250,27 @@ body.home::after {
   letter-spacing: 0.11em;
   color: var(--ink);
   background: #1f1f1f;
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 3px;
+  bottom: 3px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.badge::after {
+  content: "";
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  width: min(36vw, 340px);
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.06));
 }
 
 h1 {
@@ -734,6 +802,10 @@ pre code {
     width: 8px;
   }
 
+  .hero::after {
+    display: none;
+  }
+
   .hero-art {
     inset: auto -24% -28% auto;
     width: 94vw;
@@ -763,5 +835,9 @@ pre code {
 
   .sub {
     font-size: 17px;
+  }
+
+  .badge::after {
+    display: none;
   }
 }
