@@ -8,6 +8,9 @@
   --muted: #a6a6a6;
   --accent: #d8d8d8;
   --accent-dark: #bcbcbc;
+  --accent-cyan: #83cecb;
+  --accent-amber: #d6bd86;
+  --accent-lilac: #b1a8d3;
   --line: #545454;
   --line-soft: #2a2a2a;
   --grid: rgba(255, 255, 255, 0.05);
@@ -23,8 +26,9 @@ body {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 13, 13, 0) 42%),
-    radial-gradient(circle at 86% 8%, rgba(255, 255, 255, 0.04) 0%, rgba(13, 13, 13, 0) 38%),
+    radial-gradient(circle at 12% 0%, rgba(131, 206, 203, 0.1) 0%, rgba(13, 13, 13, 0) 42%),
+    radial-gradient(circle at 86% 8%, rgba(214, 189, 134, 0.08) 0%, rgba(13, 13, 13, 0) 38%),
+    radial-gradient(circle at 52% 26%, rgba(177, 168, 211, 0.045) 0%, rgba(13, 13, 13, 0) 48%),
     linear-gradient(180deg, #111111 0%, #0b0b0b 100%),
     repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 30px),
     repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 30px);
@@ -90,7 +94,7 @@ body.home::after {
 
 .brand {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   text-decoration: none;
   color: var(--ink);
@@ -100,8 +104,15 @@ body.home::after {
   width: 20px;
   height: 14px;
   border-radius: 0;
-  background: var(--accent);
-  border: 1.5px solid var(--line);
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #dddddd 48%, var(--accent-amber) 100%);
+  border: 1.5px solid #7d7d7d;
+  margin-top: 2px;
+}
+
+.brand-copy {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .brand-label {
@@ -110,6 +121,14 @@ body.home::after {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: #c4c4c4;
+}
+
+.brand-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9f9f9f;
 }
 
 .nav {
@@ -172,16 +191,16 @@ body.home::after {
 .hero::after {
   content: "";
   position: absolute;
-  top: 18px;
-  right: 20px;
-  width: clamp(120px, 22vw, 240px);
-  height: 56px;
-  border-top: 1px solid rgba(255, 255, 255, 0.44);
-  border-right: 1px solid rgba(255, 255, 255, 0.44);
+  top: 16px;
+  right: 16px;
+  width: clamp(134px, 23vw, 252px);
+  height: 64px;
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  border-right: 1px solid rgba(255, 255, 255, 0.38);
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 38%, rgba(255, 255, 255, 0) 38% 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(255, 255, 255, 0) 1px 100%);
-  opacity: 0.36;
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 18px);
+  opacity: 0.3;
 }
 
 .hero > * {
@@ -191,52 +210,53 @@ body.home::after {
 
 .hero-art {
   position: absolute;
-  inset: auto 14px 10px auto;
-  width: 260px;
+  inset: 22px 14px auto auto;
+  width: 288px;
   height: 170px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.72;
+  opacity: 0.66;
 }
 
-.orb {
-  position: absolute;
-  border-radius: 999px;
-  border: 1.5px solid var(--line);
-  background: rgba(255, 255, 255, 0.12);
+.hero-lattice {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.orb-a {
-  width: 106px;
-  height: 106px;
-  right: 8px;
-  bottom: 6px;
+.hero-lattice .hl-frame {
+  fill: rgba(255, 255, 255, 0.02);
+  stroke: rgba(235, 235, 235, 0.52);
+  stroke-width: 1.4;
 }
 
-.orb-b {
-  width: 74px;
-  height: 74px;
-  right: 84px;
-  bottom: 62px;
+.hero-lattice .hl-grid {
+  stroke: rgba(224, 224, 224, 0.2);
+  stroke-width: 1;
 }
 
-.orb-c {
-  width: 36px;
-  height: 36px;
-  right: 168px;
-  bottom: 16px;
+.hero-lattice .hl-line {
+  fill: none;
+  stroke: rgba(218, 218, 218, 0.66);
+  stroke-width: 2.1;
+  stroke-linecap: square;
+  stroke-linejoin: round;
 }
 
-.grid-sheen {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 210px;
-  height: 132px;
-  border: 1px solid rgba(232, 232, 232, 0.22);
-  background:
-    repeating-linear-gradient(0deg, rgba(233, 233, 233, 0.16) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(90deg, rgba(233, 233, 233, 0.16) 0 1px, transparent 1px 12px);
+.hero-lattice .hl-line.strong {
+  stroke: rgba(131, 206, 203, 0.84);
+  stroke-width: 2.3;
+}
+
+.hero-lattice .hl-line.soft {
+  stroke: rgba(214, 189, 134, 0.62);
+  stroke-width: 1.9;
+}
+
+.hero-lattice .hl-node {
+  fill: #d8d0bc;
+  stroke: #101010;
+  stroke-width: 1;
 }
 
 .badge {
@@ -468,7 +488,8 @@ a:hover {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--accent);
+  color: #dcdcdc;
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
   font-weight: 600;
   margin-bottom: 9px;
 }
@@ -559,7 +580,7 @@ a:hover {
   font-size: 11.8px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  fill: #adadad;
+  fill: #b8c0c9;
 }
 
 .flow-svg .flow-line {
@@ -808,10 +829,10 @@ pre code {
   }
 
   .hero-art {
-    inset: auto -24% -28% auto;
-    width: 94vw;
-    height: 64vw;
-    opacity: 0.62;
+    inset: auto 2px 6px auto;
+    width: 166px;
+    height: 98px;
+    opacity: 0.42;
   }
 
   .lattice-ribbon {
