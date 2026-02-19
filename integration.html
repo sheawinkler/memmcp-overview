@@ -28,7 +28,7 @@
     <section class="hero">
       <span class="badge">Guide 3</span>
       <h1>Integration Guide</h1>
-      <p class="sub">Connect GPT, Claude, Claude Code, Codex, and OpenClaw/ZeroClaw to Context Lattice once your stack is running locally.</p>
+      <p class="sub">Connect GPT, Claude, Claude Code, Codex, and OpenClaw/ZeroClaw/IronClaw to Context Lattice once your stack is running locally.</p>
       <div class="hero-art" aria-hidden="true">
         <span class="orb orb-a"></span>
         <span class="orb orb-b"></span>
@@ -58,10 +58,11 @@ gmake mem-up-lite</code></pre>
     <section class="section">
       <article class="card">
         <div class="kicker">Messaging Surface</div>
-        <h3>OpenClaw/ZeroClaw + Telegram + Slack command bridge</h3>
+        <h3>OpenClaw/ZeroClaw/IronClaw + Telegram + Slack command bridge</h3>
         <p>Context Lattice now supports channel command intake via orchestrator-native endpoints. The default handle is <code>@ContextLattice</code>.</p>
 <pre><code>POST /integrations/messaging/command
 POST /integrations/messaging/openclaw
+POST /integrations/messaging/ironclaw
 POST /integrations/telegram/webhook
 POST /integrations/slack/events
 
@@ -71,7 +72,7 @@ POST /integrations/slack/events
         <ul class="spec-list">
           <li><strong>BYO accounts:</strong> Telegram/Slack credentials stay in your own account.</li>
           <li><strong>Project routing:</strong> commands can include <code>project=&lt;name&gt;</code> and <code>topic=&lt;path&gt;</code> directives.</li>
-          <li><strong>Default behavior:</strong> OpenClaw/ZeroClaw route to orchestrator messaging endpoints with no additional memory sink wiring.</li>
+          <li><strong>Default behavior:</strong> OpenClaw/ZeroClaw route directly; IronClaw is optional and feature-flagged.</li>
         </ul>
       </article>
     </section>
@@ -112,10 +113,10 @@ export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
     </section>
 
     <section class="section">
-      <div class="kicker">OpenClaw / ZeroClaw</div>
+      <div class="kicker">OpenClaw / ZeroClaw / IronClaw</div>
       <h2>Trait mapping and wiring</h2>
       <article class="card">
-        <p>Map OpenClaw/ZeroClaw memory traits directly to Context Lattice endpoints. Keep orchestrator as the single memory control plane.</p>
+        <p>Map OpenClaw/ZeroClaw/IronClaw memory traits directly to Context Lattice endpoints. Keep orchestrator as the single memory control plane.</p>
         <div class="grid component-grid">
           <article class="card component-card">
             <h3>Recommended mapping</h3>
@@ -123,6 +124,7 @@ export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
               <li><code>memory_recall_ctx</code> → <code>POST /memory/search</code></li>
               <li><code>memory_save_store</code> → <code>POST /memory/write</code></li>
               <li><code>messenger command hook</code> → <code>POST /integrations/messaging/openclaw</code></li>
+              <li><code>ironclaw command hook</code> → <code>POST /integrations/messaging/ironclaw</code></li>
               <li><code>healthbeat</code> → <code>GET /health</code> and <code>GET /status</code></li>
               <li><code>tools_exec</code> → MCP hub <code>/mcp</code> endpoint</li>
             </ul>
@@ -133,9 +135,29 @@ export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
               <li>Keep Qdrant local-first with gRPC preferred.</li>
               <li>Use BYO cloud keys only when explicitly enabled.</li>
               <li>Preserve orchestrator fanout/backpressure defaults before aggressive tuning.</li>
+              <li>Strict security mode redacts and blocks suspected secrets on OpenClaw/ZeroClaw/IronClaw routes.</li>
             </ul>
           </article>
         </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="kicker">Web 3 ready</div>
+      <h2>IronClaw compatibility mode</h2>
+      <article class="card">
+        <p>Context Lattice can expose an IronClaw-compatible command surface while keeping local-first orchestration and your existing sink stack unchanged.</p>
+<pre><code># enable IronClaw bridge
+IRONCLAW_INTEGRATION_ENABLED=true
+IRONCLAW_DEFAULT_PROJECT=messaging
+
+# keep strict secret protections on claw surfaces
+MESSAGING_OPENCLAW_STRICT_SECURITY=true</code></pre>
+        <ul class="spec-list">
+          <li><strong>Endpoint:</strong> <code>POST /integrations/messaging/ironclaw</code></li>
+          <li><strong>Security:</strong> suspected credentials are blocked on write and redacted in returned text/results.</li>
+          <li><strong>Documentation fit:</strong> IronClaw's deep docs and ASCII architecture style map cleanly to this mode.</li>
+        </ul>
       </article>
     </section>
 
