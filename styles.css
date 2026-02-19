@@ -2,16 +2,16 @@
 
 :root {
   color-scheme: dark;
-  --bg: #070c12;
-  --paper: #111a24;
-  --ink: #eaf0fb;
-  --muted: #9fadc2;
-  --accent: #ff4b4b;
-  --accent-dark: #c93333;
-  --line: #8392aa;
-  --line-soft: #2e3a4a;
-  --grid: rgba(152, 170, 194, 0.14);
-  --shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  --bg: #0d0f12;
+  --paper: #14171c;
+  --ink: #eceff4;
+  --muted: #a6abb4;
+  --accent: #d8dce2;
+  --accent-dark: #bcc1c9;
+  --line: #545a65;
+  --line-soft: #2a2e35;
+  --grid: rgba(255, 255, 255, 0.05);
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -23,9 +23,9 @@ body {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 75, 75, 0.18) 0%, rgba(7, 12, 18, 0) 42%),
-    radial-gradient(circle at 86% 8%, rgba(74, 116, 167, 0.22) 0%, rgba(7, 12, 18, 0) 38%),
-    linear-gradient(180deg, #090f16 0%, #060a10 100%),
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 15, 18, 0) 42%),
+    radial-gradient(circle at 86% 8%, rgba(255, 255, 255, 0.04) 0%, rgba(13, 15, 18, 0) 38%),
+    linear-gradient(180deg, #111418 0%, #0b0d10 100%),
     repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 30px),
     repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 30px);
   min-height: 100vh;
@@ -77,7 +77,7 @@ body.home::after {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: #b5c0d0;
+  color: #c4c8d0;
 }
 
 .nav {
@@ -90,7 +90,7 @@ body.home::after {
   text-decoration: none;
   color: var(--ink);
   border: 1.5px solid var(--line);
-  background: rgba(16, 24, 35, 0.95);
+  background: rgba(26, 30, 37, 0.95);
   border-radius: 0;
   padding: 10px 16px;
   font-family: "IBM Plex Mono", monospace;
@@ -103,12 +103,12 @@ body.home::after {
 
 .nav a.active {
   background: var(--accent);
-  color: #fff;
+  color: #101317;
   border-color: var(--accent);
 }
 
 .nav a:hover {
-  background: #182434;
+  background: #2a303a;
   transform: translateY(-1px);
 }
 
@@ -134,7 +134,7 @@ body.home::after {
   top: 0;
   width: 10px;
   height: 100%;
-  background: linear-gradient(180deg, var(--accent) 0%, #ff8f8f 100%);
+  background: linear-gradient(180deg, #f0f2f6 0%, #adb2bc 100%);
 }
 
 .hero > * {
@@ -156,7 +156,7 @@ body.home::after {
   position: absolute;
   border-radius: 999px;
   border: 1.5px solid var(--line);
-  background: rgba(255, 75, 75, 0.16);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .orb-a {
@@ -186,10 +186,10 @@ body.home::after {
   bottom: 0;
   width: 210px;
   height: 132px;
-  border: 1px solid rgba(200, 214, 235, 0.26);
+  border: 1px solid rgba(232, 236, 243, 0.22);
   background:
-    repeating-linear-gradient(0deg, rgba(210, 223, 242, 0.2) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(90deg, rgba(210, 223, 242, 0.2) 0 1px, transparent 1px 12px);
+    repeating-linear-gradient(0deg, rgba(233, 237, 243, 0.16) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(233, 237, 243, 0.16) 0 1px, transparent 1px 12px);
 }
 
 .badge {
@@ -202,7 +202,7 @@ body.home::after {
   text-transform: uppercase;
   letter-spacing: 0.11em;
   color: var(--ink);
-  background: #172332;
+  background: #1f232a;
 }
 
 h1 {
@@ -231,17 +231,17 @@ h3 {
 }
 
 p {
-  color: #d7e0ee;
+  color: #d5d9e0;
   line-height: 1.62;
   margin: 0 0 14px;
 }
 
 a {
-  color: #ff9c9c;
+  color: #d8dde6;
 }
 
 a:hover {
-  color: #ffd1d1;
+  color: #f2f4f8;
 }
 
 .sub {
@@ -267,7 +267,7 @@ a:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: #172332;
+  background: #1e232b;
   color: var(--ink);
 }
 
@@ -292,14 +292,14 @@ a:hover {
 }
 
 .cta.primary {
-  color: #fff;
+  color: #101317;
   background: var(--accent);
   border-color: var(--accent);
 }
 
 .cta.secondary {
   color: var(--ink);
-  background: #162131;
+  background: #1c2128;
 }
 
 .cta:hover {
@@ -319,8 +319,8 @@ a:hover {
   border-radius: 0;
   border: 1.5px solid var(--line);
   background:
-    linear-gradient(135deg, #121d2b 0%, #0e1723 62%, #0a121c 100%),
-    repeating-linear-gradient(90deg, rgba(166, 184, 207, 0.2) 0 1px, transparent 1px 34px);
+    linear-gradient(135deg, #171a20 0%, #12161b 62%, #0f1216 100%),
+    repeating-linear-gradient(90deg, rgba(221, 226, 235, 0.14) 0 1px, transparent 1px 34px);
   box-shadow: var(--shadow);
 }
 
@@ -347,7 +347,7 @@ a:hover {
   padding: 12px 20px;
   font-size: 13px;
   line-height: 1;
-  background: #172333;
+  background: #20252d;
 }
 
 .section {
@@ -380,7 +380,7 @@ a:hover {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #121d2a;
+  background: #171b22;
   box-shadow: var(--shadow);
 }
 
@@ -429,7 +429,7 @@ a:hover {
   display: block;
   border: 1.5px solid var(--line);
   border-radius: 0;
-  background: #0e1722;
+  background: #12161c;
 }
 
 .flow-svg .lane-bg {
@@ -438,22 +438,22 @@ a:hover {
 }
 
 .flow-svg .lane-left {
-  fill: #111a26;
+  fill: #161a20;
 }
 
 .flow-svg .lane-mid {
-  fill: #0f1822;
+  fill: #14181e;
 }
 
 .flow-svg .lane-right {
-  fill: #121b28;
+  fill: #181c23;
 }
 
 .flow-svg text {
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  fill: #dde7f7;
+  fill: #e3e7ef;
 }
 
 .flow-svg .flow-node {
@@ -462,27 +462,27 @@ a:hover {
 }
 
 .flow-svg .orchestrator-node {
-  fill: #ff5a5a;
-  stroke: #f8d0d0;
+  fill: #dbe0e8;
+  stroke: #f3f5f8;
   stroke-width: 1.9;
 }
 
 .flow-svg .method-node {
-  fill: #162132;
+  fill: #20252d;
 }
 
 .flow-svg .sink-node {
-  fill: #142030;
+  fill: #1c2128;
 }
 
 .flow-svg .input-node {
-  fill: #172434;
+  fill: #232932;
 }
 
 .flow-svg .flow-node-title {
   font-size: 14.8px;
   font-weight: 700;
-  fill: #0b1218;
+  fill: #0f1318;
 }
 
 .flow-svg .section-label {
@@ -490,11 +490,11 @@ a:hover {
   font-size: 11.8px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  fill: #9fb0c8;
+  fill: #adb3bd;
 }
 
 .flow-svg .flow-line {
-  stroke: #1a1a1a;
+  stroke: #8f96a2;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -510,22 +510,22 @@ a:hover {
 }
 
 .flow-svg .branch-line {
-  stroke: #d40000;
+  stroke: #a5acb8;
   stroke-width: 2.2;
 }
 
 .flow-svg .bus-line {
-  stroke: #d40000;
+  stroke: #a5acb8;
   stroke-width: 2.8;
 }
 
 .flow-svg .bus-branch {
-  stroke: #d40000;
+  stroke: #a5acb8;
   stroke-width: 2.1;
 }
 
 .flow-svg .feedback-line {
-  stroke: #d40000;
+  stroke: #8f96a2;
   stroke-width: 2;
   stroke-dasharray: 7 5;
 }
@@ -539,7 +539,7 @@ a:hover {
 .step-list {
   margin: 0 0 14px;
   padding-left: 19px;
-  color: #d7e0ee;
+  color: #d5d9e0;
   line-height: 1.58;
 }
 
@@ -548,14 +548,14 @@ pre {
   padding: 13px 15px;
   border-radius: 0;
   border: 1.5px solid var(--line);
-  background: #0d1621;
+  background: #131820;
   overflow-x: auto;
 }
 
 pre code {
   font-size: 12.5px;
   line-height: 1.54;
-  color: #dfe8f7;
+  color: #e0e4ec;
 }
 
 .muted-note {
@@ -572,7 +572,7 @@ pre code {
   border: 1.5px solid var(--line);
   border-radius: 0;
   padding: 18px;
-  background: #121d2a;
+  background: #171b22;
   box-shadow: var(--shadow);
 }
 
@@ -587,15 +587,15 @@ pre code {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #dde7f6;
-  background: #162131;
+  color: #e3e7ef;
+  background: #20252d;
   margin-bottom: 10px;
 }
 
 .update-card ul {
   margin: 0;
   padding-left: 18px;
-  color: #d7e0ee;
+  color: #d5d9e0;
   line-height: 1.58;
 }
 
@@ -609,7 +609,7 @@ pre code {
   padding-top: 14px;
   border-top: 1.5px solid var(--line);
   font-size: 13px;
-  color: #cdd8e9;
+  color: #cfd4dd;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -625,13 +625,13 @@ pre code {
   height: auto;
   display: block;
   border: 1.5px solid var(--line);
-  background: #0d1621;
+  background: #12161c;
 }
 
 .arch-svg text {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: 16px;
-  fill: #e1e9f8;
+  fill: #e4e8ef;
 }
 
 .arch-svg .arch-title {
@@ -643,53 +643,53 @@ pre code {
 
 .arch-svg .arch-small {
   font-size: 13px;
-  fill: #a4b3c9;
+  fill: #aeb4bd;
 }
 
 .arch-svg .arch-frame {
-  fill: #162232;
-  stroke: #8a9ab1;
+  fill: #20252d;
+  stroke: #8f96a2;
   stroke-width: 2;
 }
 
 .arch-svg .arch-ingress {
-  fill: #1a2d46;
+  fill: #1b2028;
 }
 
 .arch-svg .arch-policy {
-  fill: #3a2a1e;
+  fill: #21262f;
 }
 
 .arch-svg .arch-providers {
-  fill: #1b3a32;
+  fill: #171c23;
 }
 
 .arch-svg .arch-loop {
-  fill: #1a332d;
+  fill: #1e232b;
 }
 
 .arch-svg .arch-memory {
-  fill: #2d2742;
+  fill: #1a1f27;
 }
 
 .arch-svg .arch-ops {
-  fill: #3c252b;
+  fill: #222730;
 }
 
 .arch-svg .arch-chip {
-  fill: #131f2e;
-  stroke: #8a9ab1;
+  fill: #171c23;
+  stroke: #8f96a2;
   stroke-width: 1.6;
 }
 
 .arch-svg .arch-step {
-  fill: #121f2e;
-  stroke: #8a9ab1;
+  fill: #181d25;
+  stroke: #8f96a2;
   stroke-width: 1.8;
 }
 
 .arch-svg .arch-line {
-  stroke: #a8b7cc;
+  stroke: #aab0ba;
   stroke-width: 2.1;
   fill: none;
 }
