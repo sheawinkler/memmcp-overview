@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Context Lattice | Private memory fabric for AI agents</title>
-  <link rel="stylesheet" href="styles-gray.css?v=20260219j" />
+  <link rel="stylesheet" href="styles-gray.css?v=20260219k" />
 </head>
 <body class="home">
   <main class="container">
@@ -26,26 +26,62 @@
       <p class="hero-local">local first</p>
       <div class="hero-art" aria-hidden="true">
         <svg class="hero-lattice" viewBox="0 0 320 190" role="presentation" focusable="false">
-          <rect class="hl-frame" x="110" y="18" width="194" height="140"></rect>
-          <line class="hl-grid" x1="110" y1="52" x2="304" y2="52"></line>
-          <line class="hl-grid" x1="110" y1="86" x2="304" y2="86"></line>
-          <line class="hl-grid" x1="110" y1="120" x2="304" y2="120"></line>
-          <line class="hl-grid" x1="146" y1="18" x2="146" y2="158"></line>
-          <line class="hl-grid" x1="182" y1="18" x2="182" y2="158"></line>
-          <line class="hl-grid" x1="218" y1="18" x2="218" y2="158"></line>
-          <line class="hl-grid" x1="254" y1="18" x2="254" y2="158"></line>
+          <defs>
+            <radialGradient id="hl-light" cx="292" cy="44" r="76" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"></stop>
+              <stop offset="0.28" stop-color="#83cecb" stop-opacity="0.72"></stop>
+              <stop offset="0.56" stop-color="#b1a8d3" stop-opacity="0.34"></stop>
+              <stop offset="1" stop-color="#d6bd86" stop-opacity="0"></stop>
+            </radialGradient>
+            <filter id="hl-blur" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="7"></feGaussianBlur>
+            </filter>
+          </defs>
 
-          <path class="hl-line" d="M10 150 L110 94 L182 116 L250 72 L304 82"></path>
-          <path class="hl-line strong" d="M24 112 L110 62 L168 74 L236 40 L304 46"></path>
-          <path class="hl-line soft" d="M42 170 L126 122 L182 140 L246 106 L304 116"></path>
+          <rect class="hl-frame" x="20" y="16" width="286" height="146"></rect>
+          <line class="hl-grid" x1="20" y1="52" x2="306" y2="52"></line>
+          <line class="hl-grid" x1="20" y1="88" x2="306" y2="88"></line>
+          <line class="hl-grid" x1="20" y1="124" x2="306" y2="124"></line>
+          <line class="hl-grid" x1="62" y1="16" x2="62" y2="162"></line>
+          <line class="hl-grid" x1="104" y1="16" x2="104" y2="162"></line>
+          <line class="hl-grid" x1="146" y1="16" x2="146" y2="162"></line>
+          <line class="hl-grid" x1="188" y1="16" x2="188" y2="162"></line>
+          <line class="hl-grid" x1="230" y1="16" x2="230" y2="162"></line>
 
-          <circle class="hl-node" cx="10" cy="150" r="4"></circle>
-          <circle class="hl-node" cx="24" cy="112" r="4"></circle>
-          <circle class="hl-node" cx="110" cy="94" r="4"></circle>
-          <circle class="hl-node" cx="110" cy="62" r="4"></circle>
-          <circle class="hl-node" cx="182" cy="116" r="4"></circle>
-          <circle class="hl-node" cx="236" cy="40" r="4"></circle>
-          <circle class="hl-node" cx="304" cy="46" r="4"></circle>
+          <circle class="hl-glow" cx="292" cy="44" r="70"></circle>
+          <circle class="hl-core" cx="292" cy="44" r="7"></circle>
+
+          <path class="hl-converge strong" d="M20 152 C88 132 154 98 292 44"></path>
+          <path class="hl-converge" d="M20 124 C98 98 170 82 292 44"></path>
+          <path class="hl-converge warm" d="M34 166 C122 150 198 122 292 44"></path>
+          <path class="hl-converge" d="M42 90 C112 74 182 66 292 44"></path>
+          <path class="hl-converge strong" d="M56 58 C128 56 208 50 292 44"></path>
+
+          <path class="hl-mesh" d="M20 152 L44 124 L88 132 L98 98 L134 110 L154 98"></path>
+          <path class="hl-mesh" d="M34 166 L72 144 L122 150 L146 128 L198 122"></path>
+          <path class="hl-mesh" d="M42 90 L88 76 L112 74 L148 82 L182 66"></path>
+          <path class="hl-mesh" d="M56 58 L96 60 L128 56 L166 62 L208 50"></path>
+
+          <circle class="hl-node major" cx="20" cy="152" r="4"></circle>
+          <circle class="hl-node" cx="44" cy="124" r="3.6"></circle>
+          <circle class="hl-node" cx="88" cy="132" r="3.8"></circle>
+          <circle class="hl-node" cx="98" cy="98" r="3.5"></circle>
+          <circle class="hl-node" cx="134" cy="110" r="3.7"></circle>
+          <circle class="hl-node" cx="154" cy="98" r="3.5"></circle>
+          <circle class="hl-node" cx="72" cy="144" r="3.4"></circle>
+          <circle class="hl-node" cx="122" cy="150" r="3.6"></circle>
+          <circle class="hl-node" cx="146" cy="128" r="3.6"></circle>
+          <circle class="hl-node" cx="198" cy="122" r="3.9"></circle>
+          <circle class="hl-node" cx="42" cy="90" r="3.6"></circle>
+          <circle class="hl-node" cx="88" cy="76" r="3.4"></circle>
+          <circle class="hl-node" cx="112" cy="74" r="3.4"></circle>
+          <circle class="hl-node" cx="148" cy="82" r="3.4"></circle>
+          <circle class="hl-node" cx="182" cy="66" r="3.6"></circle>
+          <circle class="hl-node major" cx="56" cy="58" r="4"></circle>
+          <circle class="hl-node" cx="96" cy="60" r="3.4"></circle>
+          <circle class="hl-node" cx="128" cy="56" r="3.5"></circle>
+          <circle class="hl-node" cx="166" cy="62" r="3.5"></circle>
+          <circle class="hl-node" cx="208" cy="50" r="3.8"></circle>
         </svg>
       </div>
     </section>
