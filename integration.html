@@ -28,7 +28,7 @@
     <section class="hero">
       <span class="badge">Guide 3</span>
       <h1>Integration Guide</h1>
-      <p class="sub">Connect GPT, Claude, Claude Code, Codex, and OpenClaw/ZeroClaw/IronClaw to Context Lattice once your stack is running locally.</p>
+      <p class="sub">Connect ChatGPT app and Claude chat apps (desktop and web), plus Claude Code, Codex, and OpenClaw/ZeroClaw/IronClaw to Context Lattice once your stack is running locally.</p>
       <div class="hero-art" aria-hidden="true">
         <span class="orb orb-a"></span>
         <span class="orb orb-b"></span>
@@ -79,11 +79,11 @@ POST /integrations/slack/events
 
     <section class="section">
       <div class="kicker">Client Integrations</div>
-      <h2>GPT, Claude, Claude Code, Codex</h2>
+      <h2>ChatGPT app, Claude chat apps, Claude Code, Codex</h2>
       <div class="grid component-grid">
         <article class="card component-card">
-          <h3>GPT applications</h3>
-          <p>For API-driven GPT apps, use Context Lattice as the memory sidecar and call orchestrator endpoints around message processing.</p>
+          <h3>ChatGPT apps (desktop + web)</h3>
+          <p>For normal ChatGPT user apps or API-driven GPT clients, use Context Lattice as the memory sidecar and call orchestrator endpoints around message processing.</p>
           <ul class="spec-list">
             <li>Persist memory on key state changes: <code>POST /memory/write</code></li>
             <li>Retrieve context before response generation: <code>POST /memory/search</code></li>
@@ -92,8 +92,8 @@ POST /integrations/slack/events
         </article>
 
         <article class="card component-card">
-          <h3>Claude applications</h3>
-          <p>Use MCP-capable Claude clients against the local MCP hub endpoint and route high-value summaries through orchestrator writes.</p>
+          <h3>Claude chat apps (desktop + web)</h3>
+          <p>Use desktop or browser Claude chat apps through MCP-compatible clients against the local MCP hub endpoint, then route high-value summaries through orchestrator writes.</p>
           <ul class="spec-list">
             <li>MCP server URL: <code>http://127.0.0.1:53130/mcp</code></li>
             <li>Keep write payloads compact; avoid dumping full transcripts.</li>
