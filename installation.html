@@ -107,7 +107,13 @@
           <li>Project root initialized with <code>.env</code> and compose env symlink</li>
         </ul>
 <pre><code>cp .env.example .env
-ln -svf ../../.env infra/compose/.env</code></pre>
+ln -svf ../../.env infra/compose/.env
+
+# foolproof first-run bootstrap (generates API key + runs smoke)
+BOOTSTRAP=1 scripts/first_run.sh
+
+# helper for authenticated orchestrator endpoints
+ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
       </article>
     </section>
 
@@ -123,7 +129,7 @@ ln -svf ../../.env infra/compose/.env</code></pre>
 <pre><code>gmake mem-up-lite
 gmake mem-ps-lite
 curl -fsS http://127.0.0.1:8075/health | jq
-curl -fsS http://127.0.0.1:8075/status | jq</code></pre>
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq</code></pre>
       </article>
     </section>
 
@@ -143,8 +149,8 @@ gmake mem-up-full
 gmake mem-ps
 gmake logs
 curl -fsS http://127.0.0.1:8075/health | jq
-curl -fsS http://127.0.0.1:8075/telemetry/fanout | jq
-curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/fanout | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
       </article>
     </section>
 
@@ -154,9 +160,9 @@ curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
         <h3>Expected healthy outcomes</h3>
         <ul class="spec-list">
           <li><code>/health</code> returns <code>ok</code> for orchestrator and connected services.</li>
-          <li><code>/status</code> lists Memory Bank and Qdrant connectivity.</li>
-          <li><code>/telemetry/fanout</code> shows queue depth and retry counters.</li>
-          <li><code>/telemetry/retention</code> reports retention cadence and sweep activity.</li>
+          <li><code>/status</code> (with <code>x-api-key</code>) lists Memory Bank and Qdrant connectivity.</li>
+          <li><code>/telemetry/fanout</code> (with <code>x-api-key</code>) shows queue depth and retry counters.</li>
+          <li><code>/telemetry/retention</code> (with <code>x-api-key</code>) reports retention cadence and sweep activity.</li>
         </ul>
       </article>
     </section>

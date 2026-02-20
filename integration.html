@@ -42,15 +42,41 @@
         <div class="kicker">Prerequisite</div>
         <h3>Bring stack up first</h3>
         <p>Use the launch mode you need, then validate core health before integrating any client.</p>
-<pre><code>gmake mem-up
-curl -fsS http://127.0.0.1:8075/health | jq
-curl -fsS http://127.0.0.1:8075/status | jq
+<pre><code>BOOTSTRAP=1 scripts/first_run.sh
+ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 
-# optional lite
-gmake mem-up-lite</code></pre>
+# choose mode if needed
+gmake mem-up
+# gmake mem-up-lite
+# gmake mem-up-full
+
+curl -fsS http://127.0.0.1:8075/health | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq</code></pre>
         <ul class="spec-list">
           <li><strong>Orchestrator API:</strong> <code>http://127.0.0.1:8075</code></li>
-          <li><strong>MCP hub endpoint:</strong> <code>http://127.0.0.1:53130/mcp</code></li>
+          <li><strong>MCP hub memory endpoint:</strong> <code>http://127.0.0.1:53130/memorymcp/mcp</code></li>
+          <li><strong>MCP hub qdrant endpoint:</strong> <code>http://127.0.0.1:53130/qdrant/mcp</code></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Quick wiring</div>
+        <h3>5-minute integration smoke test</h3>
+        <p>Run this once to confirm your app can write and retrieve memory through Context Lattice before wiring UI-specific settings.</p>
+<pre><code>ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
+
+curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
+  -d '{"projectName":"_global","fileName":"smoke/integration_check.md","content":"integration smoke ok"}' \
+  http://127.0.0.1:8075/memory/write | jq
+
+curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
+  -d '{"query":"integration smoke ok","limit":3}' \
+  http://127.0.0.1:8075/memory/search | jq</code></pre>
+        <ul class="spec-list">
+          <li><strong>If both calls return <code>ok: true</code>:</strong> your app can safely integrate.</li>
+          <li><strong>If you get <code>401</code>:</strong> verify <code>MEMMCP_ORCHESTRATOR_API_KEY</code> and restart the caller process.</li>
         </ul>
       </article>
     </section>
@@ -69,6 +95,10 @@ POST /integrations/slack/events
 @ContextLattice remember deployment complete
 @ContextLattice recall deployment
 @ContextLattice status</code></pre>
+<pre><code># local direct test (secure default requires x-api-key)
+curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
+  -d '{"channel":"openclaw","source_id":"chat-1","text":"@ContextLattice status"}' \
+  http://127.0.0.1:8075/integrations/messaging/command | jq</code></pre>
         <ul class="spec-list">
           <li><strong>BYO accounts:</strong> Telegram/Slack credentials stay in your own account.</li>
           <li><strong>Project routing:</strong> commands can include <code>project=&lt;name&gt;</code> and <code>topic=&lt;path&gt;</code> directives.</li>
@@ -87,7 +117,7 @@ POST /integrations/slack/events
           <ul class="spec-list">
             <li>Persist memory on key state changes: <code>POST /memory/write</code></li>
             <li>Retrieve context before response generation: <code>POST /memory/search</code></li>
-            <li>Check runtime health: <code>GET /status</code></li>
+            <li>Check runtime health: <code>GET /health</code> and <code>GET /status</code> with <code>x-api-key</code></li>
           </ul>
         </article>
 
@@ -95,7 +125,7 @@ POST /integrations/slack/events
           <h3>Claude chat apps (desktop + web)</h3>
           <p>Use desktop or browser Claude chat apps through MCP-compatible clients against the local MCP hub endpoint, then route high-value summaries through orchestrator writes.</p>
           <ul class="spec-list">
-            <li>MCP server URL: <code>http://127.0.0.1:53130/mcp</code></li>
+            <li>MCP server URL: <code>http://127.0.0.1:53130/memorymcp/mcp</code></li>
             <li>Keep write payloads compact; avoid dumping full transcripts.</li>
             <li>Use topic paths so retrieval stays scoped and fast.</li>
           </ul>
@@ -106,7 +136,8 @@ POST /integrations/slack/events
           <p>Point your coding agent runtime at the same local stack and treat memory writes as explicit checkpoints.</p>
 <pre><code>export MEMMCP_ORCHESTRATOR_URL=http://127.0.0.1:8075
 export MEMMCP_HTTP_URL=http://127.0.0.1:59081/mcp
-export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
+export MCP_HUB_URL=http://127.0.0.1:53130/memorymcp/mcp
+export MEMMCP_ORCHESTRATOR_API_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
           <p><strong>Pattern:</strong> write summaries after meaningful edits, fetch retrieval context before planning or review actions.</p>
         </article>
       </div>
@@ -125,8 +156,8 @@ export MCP_HUB_URL=http://127.0.0.1:53130/mcp</code></pre>
               <li><code>memory_save_store</code> → <code>POST /memory/write</code></li>
               <li><code>messenger command hook</code> → <code>POST /integrations/messaging/openclaw</code></li>
               <li><code>ironclaw command hook</code> → <code>POST /integrations/messaging/ironclaw</code></li>
-              <li><code>healthbeat</code> → <code>GET /health</code> and <code>GET /status</code></li>
-              <li><code>tools_exec</code> → MCP hub <code>/mcp</code> endpoint</li>
+              <li><code>healthbeat</code> → <code>GET /health</code> and <code>GET /status</code> with <code>x-api-key</code></li>
+              <li><code>tools_exec</code> → MCP hub <code>/memorymcp/mcp</code> endpoint</li>
             </ul>
           </article>
           <article class="card component-card">

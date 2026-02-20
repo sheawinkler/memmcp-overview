@@ -42,10 +42,11 @@
         <div class="kicker">Fast checks</div>
         <h3>First 60-second diagnostics</h3>
 <pre><code>docker compose ps
+ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 curl -fsS http://127.0.0.1:8075/health | jq
-curl -fsS http://127.0.0.1:8075/status | jq
-curl -fsS http://127.0.0.1:8075/telemetry/fanout | jq
-curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/fanout | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
         <p class="muted-note">If <code>/health</code> fails, check orchestrator logs first because write/read fanout depends on it.</p>
       </article>
     </section>
@@ -93,14 +94,14 @@ docker compose up -d memmcp-orchestrator</code></pre>
           <h3>Fanout backlog rising</h3>
           <p><strong>Impact:</strong> partial sink coverage and delayed consistency.</p>
           <p><strong>Action:</strong> check fanout telemetry and queue settings; retry workers recover asynchronously.</p>
-<pre><code>curl -fsS http://127.0.0.1:8075/telemetry/fanout | jq</code></pre>
+<pre><code>curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/fanout | jq</code></pre>
         </article>
         <article class="card component-card">
           <h3>Disk pressure</h3>
           <p><strong>Impact:</strong> service resets or degraded latency under retention lag.</p>
           <p><strong>Action:</strong> run retention now and verify qdrant/mongo volume paths.</p>
-<pre><code>curl -fsS -X POST http://127.0.0.1:8075/telemetry/retention/run | jq
-curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
+<pre><code>curl -fsS -X POST -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/retention/run | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
         </article>
         <article class="card component-card">
           <h3>MindsDB or Letta drift</h3>
@@ -113,6 +114,7 @@ curl -fsS http://127.0.0.1:8075/telemetry/retention | jq</code></pre>
           <p><strong>Impact:</strong> Telegram/Slack/OpenClaw commands do not write or recall memory.</p>
           <p><strong>Action:</strong> verify webhook env vars and smoke test the command endpoint directly.</p>
 <pre><code>curl -fsS -H 'content-type: application/json' \
+  -H "x-api-key: ${ORCH_KEY}" \
   -d '{"channel":"openclaw","source_id":"chat-1","text":"@ContextLattice status"}' \
   http://127.0.0.1:8075/integrations/messaging/command | jq</code></pre>
         </article>
