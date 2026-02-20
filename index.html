@@ -132,12 +132,21 @@
     </section>
 
     <section class="section">
-      <article class="card">
-        <div class="kicker">Quickstart</div>
-        <h3>One command to launch safely</h3>
-        <p>Use <code>gmake quickstart</code> for first-run setup, secure bootstrap, and health verification.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="kicker">Quickstart</div>
+          <h3>One command to launch safely</h3>
+          <p>Use <code>gmake quickstart</code> for first-run setup, secure bootstrap, and health verification.</p>
 <pre><code>gmake quickstart</code></pre>
-      </article>
+        </article>
+        <article class="card">
+          <div class="kicker">60-second verify</div>
+          <h3>Prove service + auth in two calls</h3>
+<pre><code>ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
+curl -fsS http://127.0.0.1:8075/health | jq
+curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq '.service,.sinks'</code></pre>
+        </article>
+      </div>
     </section>
 
     <section class="section">
