@@ -52,6 +52,23 @@
 
     <section class="section">
       <article class="card">
+        <div class="kicker">Foolproof start</div>
+        <h3>Use <code>gmake quickstart</code> on first install</h3>
+        <p>This command creates missing env wiring, runs secure bootstrap, starts services, and validates health/auth so you do not get stuck on early 401 errors.</p>
+<pre><code>gmake quickstart</code></pre>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="kicker">Auth note</div>
+        <h3>Secure default means some endpoints require API key</h3>
+        <p>Use <code>/health</code> unauthenticated. Use <code>x-api-key</code> for <code>/status</code>, <code>/memory/*</code>, and <code>/telemetry/*</code>.</p>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
         <div class="kicker">Storage layout</div>
         <h3>Hot local code + cold external data (recommended)</h3>
         <p>Keep active project source local for speed, and map high-growth service data paths to external NVMe before heavy ingest.</p>
