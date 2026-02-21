@@ -984,6 +984,39 @@ pre code {
   stroke-width: 2;
 }
 
+.arch-svg .arch-boundary {
+  fill: rgba(255, 255, 255, 0.018);
+  stroke: #9d9d9d;
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.arch-svg .arch-external {
+  fill: #151515;
+}
+
+.arch-svg .arch-container-core {
+  fill: #242424;
+}
+
+.arch-svg .arch-container-data {
+  fill: #1c1c1c;
+}
+
+.arch-svg .arch-container-store {
+  fill: #1a1a1a;
+}
+
+.arch-svg .arch-container-ops {
+  fill: #202020;
+}
+
+.arch-svg .arch-legend {
+  fill: rgba(20, 20, 20, 0.95);
+  stroke: #8f8f8f;
+  stroke-width: 1.7;
+}
+
 .arch-svg .arch-ingress {
   fill: #1b1b1b;
 }
@@ -1024,6 +1057,21 @@ pre code {
   stroke: #aaaaaa;
   stroke-width: 2.1;
   fill: none;
+}
+
+.arch-svg .arch-line-sync {
+  stroke: #b4b4b4;
+}
+
+.arch-svg .arch-line-async {
+  stroke: #9bc7cf;
+  stroke-dasharray: 7 6;
+}
+
+.arch-svg .arch-line-feedback {
+  stroke: #d6bd86;
+  stroke-width: 2;
+  stroke-dasharray: 3 5;
 }
 
 .arch-grid {
