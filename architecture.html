@@ -66,8 +66,8 @@
               <stop offset="0%" stop-color="#dcecff" stop-opacity="0.12"/>
               <stop offset="100%" stop-color="#dcecff" stop-opacity="0"/>
             </radialGradient>
-            <marker id="ive-arrow-ctx" markerUnits="userSpaceOnUse" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-              <path d="M0,0 L6,3 L0,6 z" fill="#e3ecf7"></path>
+            <marker id="ive-arrow-ctx" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#e3ecf7"></path>
             </marker>
           </defs>
 
@@ -130,91 +130,104 @@
       <div class="kicker">C4 Level 2</div>
       <h2>Container and Data Plane View</h2>
       <article class="card architecture-board">
-        <svg class="arch-svg ive" viewBox="0 0 1320 760" role="img" aria-label="Container diagram showing orchestrator, outbox fanout, retrieval engine, memory stores, and operations controls">
+        <svg class="arch-svg ive" viewBox="0 0 1320 760" role="img" aria-label="Container diagram showing orchestrator ingress, durable outbox fanout, retrieval engine, stores, and operations controls">
           <defs>
-            <marker id="ive-arrow-ctr" markerUnits="userSpaceOnUse" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-              <path d="M0,0 L6,3 L0,6 z" fill="#e3ecf7"></path>
+            <linearGradient id="ive-plate-ctr" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1a2535" stop-opacity="0.52"></stop>
+              <stop offset="100%" stop-color="#141e2a" stop-opacity="0.18"></stop>
+            </linearGradient>
+            <marker id="ive-arrow-ctr" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#e3ecf7"></path>
             </marker>
           </defs>
 
+          <rect x="0" y="0" width="1320" height="760" fill="url(#ive-plate-ctr)"></rect>
           <text class="arch-title" x="660" y="62" text-anchor="middle">Container Diagram: Context Lattice Runtime</text>
 
-          <rect class="ive-boundary" x="304" y="126" rx="24" ry="24" width="712" height="560"></rect>
+          <rect class="ive-boundary" x="280" y="120" rx="24" ry="24" width="760" height="560"></rect>
           <text class="ive-title" x="660" y="172" text-anchor="middle">Context Lattice System Boundary</text>
 
-          <rect class="ive-node" x="52" y="332" rx="16" ry="16" width="176" height="136"></rect>
-          <text class="ive-label" x="140" y="386" text-anchor="middle">Clients</text>
-          <text class="ive-sub" x="140" y="418" text-anchor="middle">apps + agents</text>
-          <text class="ive-sub" x="140" y="446" text-anchor="middle">messaging</text>
+          <rect class="ive-node" x="58" y="310" rx="16" ry="16" width="178" height="140"></rect>
+          <text class="ive-label" x="147" y="366" text-anchor="middle">Clients</text>
+          <text class="ive-sub" x="147" y="398" text-anchor="middle">apps + agents</text>
+          <text class="ive-sub" x="147" y="426" text-anchor="middle">messaging</text>
 
-          <rect class="ive-core" x="364" y="238" rx="16" ry="16" width="202" height="108"></rect>
-          <text class="ive-label" x="465" y="284" text-anchor="middle">Orchestrator API</text>
-          <text class="ive-sub" x="465" y="314" text-anchor="middle">HTTP ingress + policy</text>
+          <rect class="ive-core" x="360" y="220" rx="16" ry="16" width="220" height="108"></rect>
+          <text class="ive-label" x="470" y="266" text-anchor="middle">Orchestrator API</text>
+          <text class="ive-sub" x="470" y="296" text-anchor="middle">HTTP ingress + policy</text>
 
-          <rect class="ive-node" x="598" y="238" rx="16" ry="16" width="188" height="108"></rect>
-          <text class="ive-label" x="692" y="284" text-anchor="middle">Outbox Queue</text>
-          <text class="ive-sub" x="692" y="314" text-anchor="middle">async fanout</text>
+          <rect class="ive-node" x="620" y="220" rx="16" ry="16" width="170" height="108"></rect>
+          <text class="ive-label" x="705" y="266" text-anchor="middle">Outbox Queue</text>
+          <text class="ive-sub" x="705" y="296" text-anchor="middle">async fanout</text>
 
-          <rect class="ive-node" x="818" y="238" rx="16" ry="16" width="188" height="108"></rect>
-          <text class="ive-label" x="912" y="284" text-anchor="middle">Retrieval Engine</text>
-          <text class="ive-sub" x="912" y="314" text-anchor="middle">parallel + rerank</text>
+          <rect class="ive-node" x="830" y="220" rx="16" ry="16" width="170" height="108"></rect>
+          <text class="ive-label" x="915" y="266" text-anchor="middle">Retrieval Engine</text>
+          <text class="ive-sub" x="915" y="296" text-anchor="middle">parallel + rerank</text>
 
-          <rect class="ive-node" x="364" y="390" rx="14" ry="14" width="144" height="96"></rect>
-          <text class="ive-label" x="436" y="430" text-anchor="middle">Memory Bank</text>
-          <text class="ive-sub" x="436" y="456" text-anchor="middle">canonical</text>
+          <rect class="ive-node" x="360" y="404" rx="14" ry="14" width="145" height="96"></rect>
+          <text class="ive-label" x="432" y="444" text-anchor="middle">Memory Bank</text>
+          <text class="ive-sub" x="432" y="470" text-anchor="middle">canonical</text>
 
-          <rect class="ive-node" x="528" y="390" rx="14" ry="14" width="144" height="96"></rect>
-          <text class="ive-label" x="600" y="430" text-anchor="middle">Qdrant</text>
-          <text class="ive-sub" x="600" y="456" text-anchor="middle">vectors</text>
+          <rect class="ive-node" x="525" y="404" rx="14" ry="14" width="145" height="96"></rect>
+          <text class="ive-label" x="598" y="444" text-anchor="middle">Qdrant</text>
+          <text class="ive-sub" x="598" y="470" text-anchor="middle">vectors</text>
 
-          <rect class="ive-node" x="692" y="390" rx="14" ry="14" width="144" height="96"></rect>
-          <text class="ive-label" x="764" y="430" text-anchor="middle">Mongo</text>
-          <text class="ive-sub" x="764" y="456" text-anchor="middle">raw ledger</text>
+          <rect class="ive-node" x="690" y="404" rx="14" ry="14" width="145" height="96"></rect>
+          <text class="ive-label" x="763" y="444" text-anchor="middle">Mongo</text>
+          <text class="ive-sub" x="763" y="470" text-anchor="middle">raw ledger</text>
 
-          <rect class="ive-node" x="856" y="390" rx="14" ry="14" width="150" height="96"></rect>
-          <text class="ive-label" x="931" y="430" text-anchor="middle">MindsDB + Letta</text>
-          <text class="ive-sub" x="931" y="456" text-anchor="middle">SQL + archival</text>
+          <rect class="ive-node" x="855" y="404" rx="14" ry="14" width="145" height="96"></rect>
+          <text class="ive-label" x="927" y="444" text-anchor="middle">MindsDB + Letta</text>
+          <text class="ive-sub" x="927" y="470" text-anchor="middle">SQL + archival</text>
 
-          <rect class="ive-node" x="390" y="532" rx="14" ry="14" width="258" height="122"></rect>
-          <text class="ive-label" x="519" y="582" text-anchor="middle">Ops Controls</text>
-          <text class="ive-sub" x="519" y="614" text-anchor="middle">backpressure + retention</text>
+          <rect class="ive-node" x="392" y="548" rx="14" ry="14" width="250" height="108"></rect>
+          <text class="ive-label" x="517" y="593" text-anchor="middle">Ops Controls</text>
+          <text class="ive-sub" x="517" y="624" text-anchor="middle">backpressure + retention</text>
 
-          <rect class="ive-node" x="678" y="532" rx="14" ry="14" width="328" height="122"></rect>
-          <text class="ive-label" x="842" y="582" text-anchor="middle">Security + Reliability</text>
-          <text class="ive-sub" x="842" y="614" text-anchor="middle">auth + secrets + health</text>
+          <rect class="ive-node" x="670" y="548" rx="14" ry="14" width="330" height="108"></rect>
+          <text class="ive-label" x="835" y="593" text-anchor="middle">Security + Reliability</text>
+          <text class="ive-sub" x="835" y="624" text-anchor="middle">auth + secrets + health</text>
 
-          <rect class="ive-node" x="1066" y="222" rx="16" ry="16" width="202" height="164"></rect>
-          <text class="ive-label" x="1167" y="278" text-anchor="middle">Providers</text>
-          <text class="ive-sub" x="1167" y="310" text-anchor="middle">Qwen/Ollama</text>
-          <text class="ive-sub" x="1167" y="338" text-anchor="middle">LM Studio</text>
-          <text class="ive-sub" x="1167" y="366" text-anchor="middle">OpenAI-compatible</text>
+          <rect class="ive-node" x="1080" y="210" rx="16" ry="16" width="198" height="176"></rect>
+          <text class="ive-label" x="1179" y="270" text-anchor="middle">Providers</text>
+          <text class="ive-sub" x="1179" y="304" text-anchor="middle">Qwen/Ollama</text>
+          <text class="ive-sub" x="1179" y="332" text-anchor="middle">LM Studio</text>
+          <text class="ive-sub" x="1179" y="360" text-anchor="middle">OpenAI-compatible</text>
 
-          <rect class="ive-node" x="1066" y="416" rx="16" ry="16" width="202" height="156"></rect>
-          <text class="ive-label" x="1167" y="472" text-anchor="middle">Messaging</text>
-          <text class="ive-sub" x="1167" y="504" text-anchor="middle">Telegram / Slack</text>
-          <text class="ive-sub" x="1167" y="532" text-anchor="middle">OpenClaw family</text>
+          <rect class="ive-node" x="1080" y="430" rx="16" ry="16" width="198" height="156"></rect>
+          <text class="ive-label" x="1179" y="486" text-anchor="middle">Messaging</text>
+          <text class="ive-sub" x="1179" y="520" text-anchor="middle">Telegram / Slack</text>
+          <text class="ive-sub" x="1179" y="548" text-anchor="middle">OpenClaw family</text>
 
-          <path class="ive-flow" d="M228 400 C304 400, 326 330, 364 292" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow" d="M566 292 L598 292" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow" d="M566 318 C680 318, 758 300, 818 292" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M236 380 C306 380, 328 304, 360 274" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M580 274 L620 274" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M580 298 C672 298, 760 284, 830 274" marker-end="url(#ive-arrow-ctr)"></path>
 
-          <path class="ive-flow-async" d="M692 346 L692 374" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow-async" d="M402 374 L972 374"></path>
-          <path class="ive-flow-async" d="M436 374 L436 390" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow-async" d="M600 374 L600 390" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow-async" d="M764 374 L764 390" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow-async" d="M931 374 L931 390" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M1000 274 L1080 274" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M1000 304 C1048 326, 1060 420, 1080 484" marker-end="url(#ive-arrow-ctr)"></path>
 
-          <path class="ive-flow" d="M912 346 L912 390" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow-feedback" d="M931 486 C956 520, 930 548, 878 548 C836 548, 872 420, 912 346" marker-end="url(#ive-arrow-ctr)"></path>
+          <text class="ive-sub" x="390" y="342">Parallel Retrieval</text>
+          <path class="ive-flow" d="M390 348 L970 348"></path>
+          <path class="ive-flow" d="M432 404 L432 348" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M598 404 L598 348" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M763 404 L763 348" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M927 404 L927 348" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M763 348 L915 328" marker-end="url(#ive-arrow-ctr)"></path>
 
-          <path class="ive-flow" d="M1006 292 L1066 292" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow" d="M1006 492 L1066 492" marker-end="url(#ive-arrow-ctr)"></path>
+          <text class="ive-sub" x="390" y="388">Async Fanout</text>
+          <path class="ive-flow-async" d="M705 328 L705 372" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow-async" d="M390 372 L970 372"></path>
+          <path class="ive-flow-async" d="M432 372 L432 404" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow-async" d="M598 372 L598 404" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow-async" d="M763 372 L763 404" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow-async" d="M927 372 L927 404" marker-end="url(#ive-arrow-ctr)"></path>
 
-          <path class="ive-flow" d="M519 486 L519 532" marker-end="url(#ive-arrow-ctr)"></path>
-          <path class="ive-flow" d="M842 486 L842 532" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow-feedback" d="M927 500 C968 534, 984 432, 930 334" marker-end="url(#ive-arrow-ctr)"></path>
 
-          <rect class="ive-legend" x="52" y="58" rx="12" ry="12" width="372" height="102"></rect>
+          <path class="ive-flow" d="M432 500 L432 548" marker-end="url(#ive-arrow-ctr)"></path>
+          <path class="ive-flow" d="M763 500 L763 548" marker-end="url(#ive-arrow-ctr)"></path>
+
+          <rect class="ive-legend" x="58" y="58" rx="12" ry="12" width="372" height="102"></rect>
           <text class="ive-sub" x="78" y="96">Legend</text>
           <path class="ive-flow" d="M78 120 L152 120" marker-end="url(#ive-arrow-ctr)"></path>
           <text class="ive-sub" x="166" y="126">sync request/read</text>
