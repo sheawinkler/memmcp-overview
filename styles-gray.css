@@ -962,19 +962,19 @@ pre code {
 
 .arch-svg text {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   fill: #e4e4e4;
 }
 
 .arch-svg .arch-title {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 15px;
+  font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .arch-svg .arch-small {
-  font-size: 13px;
+  font-size: 14px;
   fill: #aeaeae;
 }
 
@@ -1074,6 +1074,15 @@ pre code {
   stroke-dasharray: 3 5;
 }
 
+.arch-split {
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr);
+  align-items: start;
+}
+
+.arch-note-list li {
+  margin-bottom: 8px;
+}
+
 .arch-grid {
   align-items: start;
 }
@@ -1097,6 +1106,10 @@ pre code {
 
   .page-nav-inline {
     position: static;
+  }
+
+  .arch-split {
+    grid-template-columns: 1fr;
   }
 }
 
