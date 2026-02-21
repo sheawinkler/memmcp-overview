@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Architecture | Context Lattice</title>
-  <link rel="stylesheet" href="styles-gray.css?v=20260221a" />
+  <link rel="stylesheet" href="styles-gray.css?v=20260221b" />
 </head>
-<body class="home">
+<body class="home arch-page">
   <main class="container">
     <header class="topbar">
       <a class="brand" href="index.html">
@@ -29,8 +29,8 @@
       <span class="badge">System blueprint</span>
       <h1>Layered architecture for long-horizon memory, retrieval, and learning.</h1>
       <p class="sub">
-        This page splits architecture into context, container, and runtime views so each diagram stays readable,
-        complete, and actionable for implementation and operations.
+        Context view defines boundaries. Container view defines responsibilities and protocols.
+        Runtime view defines sequencing and feedback loops.
       </p>
       <div class="cta-row">
         <a class="cta primary" href="index.html">Back to overview</a>
@@ -43,10 +43,9 @@
         <div class="kicker">Quick Path</div>
         <h3>How to read this architecture set</h3>
         <ol class="step-list">
-          <li>Start with <strong>System Context</strong> for scope and boundaries.</li>
-          <li>Use <strong>Container View</strong> for service responsibilities and protocols.</li>
-          <li>Use <strong>Runtime View</strong> for write/retrieval sequencing.</li>
-          <li>Use <strong>Ops + Safety</strong> for throughput, storage, and security controls.</li>
+          <li>Start with <strong>System Context</strong> to see boundary and external dependencies.</li>
+          <li>Use <strong>Container View</strong> for service responsibilities and flow types.</li>
+          <li>Use <strong>Runtime + Ops</strong> for write/retrieval order and reliability controls.</li>
         </ol>
       </article>
     </section>
@@ -65,57 +64,67 @@
       <h2>System Context View</h2>
       <div class="grid arch-split">
         <article class="card architecture-board">
-          <svg class="arch-svg" viewBox="0 0 980 450" role="img" aria-label="System context diagram showing external actors, Context Lattice boundary, and external dependencies">
+          <svg class="arch-svg ji" viewBox="0 0 1120 560" role="img" aria-label="System context diagram showing external actors, context lattice boundary, and external dependencies">
             <defs>
+              <linearGradient id="ctx-panel" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#1d2229" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#151a20" stop-opacity="0.9"/>
+              </linearGradient>
+              <linearGradient id="ctx-core" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#222933" stop-opacity="0.98"/>
+                <stop offset="100%" stop-color="#171c23" stop-opacity="0.98"/>
+              </linearGradient>
+              <radialGradient id="ctx-glow" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#d5e9ff" stop-opacity="0.10"/>
+                <stop offset="100%" stop-color="#d5e9ff" stop-opacity="0"/>
+              </radialGradient>
               <marker id="ctx-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-                <path d="M0,0 L12,6 L0,12 z" fill="#e6e6e6"></path>
+                <path d="M0,0 L12,6 L0,12 z" fill="#dbe3ee"></path>
               </marker>
             </defs>
 
-            <text class="arch-title" x="490" y="34" text-anchor="middle">System Context Diagram: Context Lattice</text>
+            <rect x="0" y="0" width="1120" height="560" fill="url(#ctx-glow)"></rect>
 
-            <rect class="arch-frame arch-external" x="24" y="146" rx="10" ry="10" width="186" height="148"></rect>
-            <text x="117" y="178" text-anchor="middle">[A] External Actors</text>
-            <text class="arch-small" x="117" y="206" text-anchor="middle">Apps + agents</text>
-            <text class="arch-small" x="117" y="228" text-anchor="middle">MCP tools</text>
-            <text class="arch-small" x="117" y="250" text-anchor="middle">Messaging hooks</text>
+            <text class="arch-title" x="560" y="52" text-anchor="middle">System Context Diagram: Context Lattice</text>
 
-            <rect class="arch-boundary" x="246" y="76" rx="12" ry="12" width="492" height="286"></rect>
-            <text class="arch-title" x="492" y="108" text-anchor="middle">Context Lattice System Boundary</text>
+            <rect class="ji-boundary" x="288" y="94" rx="18" ry="18" width="544" height="372"></rect>
+            <text class="arch-title" x="560" y="132" text-anchor="middle">Context Lattice System Boundary</text>
 
-            <rect class="arch-frame arch-container-core" x="290" y="132" rx="10" ry="10" width="404" height="96"></rect>
-            <text x="492" y="168" text-anchor="middle">[B] Orchestrator Control Plane</text>
-            <text class="arch-small" x="492" y="194" text-anchor="middle">HTTP-first APIs + policy + auth</text>
+            <rect class="ji-panel" x="48" y="204" rx="16" ry="16" width="190" height="156"></rect>
+            <text class="ji-label" x="143" y="242" text-anchor="middle">[A] External Actors</text>
+            <text class="ji-meta" x="143" y="272" text-anchor="middle">Apps + agents</text>
+            <text class="ji-meta" x="143" y="296" text-anchor="middle">MCP tools</text>
+            <text class="ji-meta" x="143" y="320" text-anchor="middle">Messaging hooks</text>
 
-            <rect class="arch-frame arch-container-store" x="290" y="250" rx="10" ry="10" width="188" height="86"></rect>
-            <text x="384" y="283" text-anchor="middle">[C] Memory Plane</text>
-            <text class="arch-small" x="384" y="306" text-anchor="middle">stores + retrieval</text>
+            <rect class="ji-core" x="374" y="182" rx="16" ry="16" width="372" height="108"></rect>
+            <text class="ji-label" x="560" y="224" text-anchor="middle">[B] Orchestrator Control Plane</text>
+            <text class="ji-meta" x="560" y="250" text-anchor="middle">HTTP-first APIs + auth + policy</text>
 
-            <rect class="arch-frame arch-container-ops" x="506" y="250" rx="10" ry="10" width="188" height="86"></rect>
-            <text x="600" y="283" text-anchor="middle">[D] Ops + Safety</text>
-            <text class="arch-small" x="600" y="306" text-anchor="middle">queue + retention + security</text>
+            <rect class="ji-panel" x="374" y="318" rx="14" ry="14" width="176" height="104"></rect>
+            <text class="ji-label" x="462" y="358" text-anchor="middle">[C] Memory Plane</text>
+            <text class="ji-meta" x="462" y="384" text-anchor="middle">stores + retrieval</text>
 
-            <rect class="arch-frame arch-external" x="770" y="146" rx="10" ry="10" width="186" height="148"></rect>
-            <text x="863" y="178" text-anchor="middle">[E] Dependencies</text>
-            <text class="arch-small" x="863" y="206" text-anchor="middle">model runtimes</text>
-            <text class="arch-small" x="863" y="228" text-anchor="middle">tool providers</text>
-            <text class="arch-small" x="863" y="250" text-anchor="middle">optional cloud BYO</text>
+            <rect class="ji-panel" x="570" y="318" rx="14" ry="14" width="176" height="104"></rect>
+            <text class="ji-label" x="658" y="358" text-anchor="middle">[D] Ops + Safety</text>
+            <text class="ji-meta" x="658" y="384" text-anchor="middle">queue + retention + security</text>
 
-            <line class="arch-line arch-line-sync" x1="210" y1="182" x2="290" y2="182" marker-end="url(#ctx-arrow)"></line>
-            <text class="arch-small" x="250" y="170" text-anchor="middle">HTTP JSON</text>
+            <rect class="ji-panel" x="882" y="204" rx="16" ry="16" width="190" height="156"></rect>
+            <text class="ji-label" x="977" y="242" text-anchor="middle">[E] Dependencies</text>
+            <text class="ji-meta" x="977" y="272" text-anchor="middle">Model runtimes</text>
+            <text class="ji-meta" x="977" y="296" text-anchor="middle">Tool providers</text>
+            <text class="ji-meta" x="977" y="320" text-anchor="middle">Optional BYO cloud</text>
 
-            <line class="arch-line arch-line-sync" x1="694" y1="182" x2="770" y2="182" marker-end="url(#ctx-arrow)"></line>
-            <text class="arch-small" x="732" y="170" text-anchor="middle">tool/model calls</text>
+            <path class="ji-flow" d="M238 258 C292 258, 330 236, 374 236" marker-end="url(#ctx-arrow)"></path>
+            <path class="ji-flow" d="M746 236 C790 236, 830 258, 882 258" marker-end="url(#ctx-arrow)"></path>
+            <path class="ji-flow" d="M560 290 C560 304, 510 312, 462 318" marker-end="url(#ctx-arrow)"></path>
+            <path class="ji-flow" d="M560 290 C560 304, 610 312, 658 318" marker-end="url(#ctx-arrow)"></path>
 
-            <line class="arch-line arch-line-sync" x1="492" y1="228" x2="384" y2="250" marker-end="url(#ctx-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="492" y1="228" x2="600" y2="250" marker-end="url(#ctx-arrow)"></line>
-
-            <rect class="arch-legend" x="768" y="24" rx="8" ry="8" width="188" height="62"></rect>
-            <text class="arch-small" x="786" y="48">Legend</text>
-            <line class="arch-line arch-line-sync" x1="788" y1="65" x2="836" y2="65" marker-end="url(#ctx-arrow)"></line>
-            <text class="arch-small" x="846" y="69">Request flow</text>
+            <rect class="arch-legend" x="878" y="54" rx="10" ry="10" width="194" height="78"></rect>
+            <text class="ji-meta" x="900" y="83">Legend</text>
+            <path class="ji-flow" d="M900 104 L962 104" marker-end="url(#ctx-arrow)"></path>
+            <text class="ji-meta" x="972" y="109">Request flow</text>
           </svg>
-          <p class="muted-note arch-caption">Context view intentionally minimizes implementation detail so scope remains obvious.</p>
+          <p class="muted-note arch-caption">Minimal context view: boundary clarity first, implementation detail second.</p>
         </article>
 
         <article class="card">
@@ -126,8 +135,8 @@
             <li><strong>[A] External Actors:</strong> clients that submit memory writes and search requests.</li>
             <li><strong>[B] Orchestrator:</strong> single control plane for ingress, auth, validation, and routing.</li>
             <li><strong>[C] Memory Plane:</strong> durable stores used for fanout and retrieval synthesis.</li>
-            <li><strong>[D] Ops + Safety:</strong> reliability controls that protect throughput and data hygiene.</li>
-            <li><strong>[E] Dependencies:</strong> pluggable model/tool providers and optional BYO cloud services.</li>
+            <li><strong>[D] Ops + Safety:</strong> controls for queue health, storage discipline, and policy.</li>
+            <li><strong>[E] Dependencies:</strong> model/tool providers and optional cloud BYO services.</li>
           </ul>
         </article>
       </div>
@@ -138,104 +147,113 @@
       <h2>Container and Data Plane View</h2>
       <div class="grid arch-split">
         <article class="card architecture-board">
-          <svg class="arch-svg" viewBox="0 0 1020 560" role="img" aria-label="Container diagram showing API, queue fanout, retrieval engine, storage systems, and operations controls">
+          <svg class="arch-svg ji" viewBox="0 0 1120 610" role="img" aria-label="Container diagram showing orchestrator, outbox fanout, retrieval engine, memory stores, and operations controls">
             <defs>
+              <linearGradient id="ctr-panel" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#1d2229" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#151a20" stop-opacity="0.9"/>
+              </linearGradient>
+              <linearGradient id="ctr-core" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#232d3b" stop-opacity="0.98"/>
+                <stop offset="100%" stop-color="#1a2230" stop-opacity="0.98"/>
+              </linearGradient>
               <marker id="ctr-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-                <path d="M0,0 L12,6 L0,12 z" fill="#e6e6e6"></path>
+                <path d="M0,0 L12,6 L0,12 z" fill="#dbe3ee"></path>
               </marker>
             </defs>
 
-            <text class="arch-title" x="510" y="34" text-anchor="middle">Container Diagram: Context Lattice Runtime</text>
+            <text class="arch-title" x="560" y="52" text-anchor="middle">Container Diagram: Context Lattice Runtime</text>
 
-            <rect class="arch-frame arch-external" x="24" y="186" rx="10" ry="10" width="132" height="116"></rect>
-            <text x="90" y="218" text-anchor="middle">Clients</text>
-            <text class="arch-small" x="90" y="242" text-anchor="middle">apps + agents</text>
-            <text class="arch-small" x="90" y="264" text-anchor="middle">messaging</text>
+            <rect class="ji-panel" x="38" y="248" rx="14" ry="14" width="132" height="120"></rect>
+            <text class="ji-label" x="104" y="288" text-anchor="middle">Clients</text>
+            <text class="ji-meta" x="104" y="314" text-anchor="middle">apps + agents</text>
+            <text class="ji-meta" x="104" y="338" text-anchor="middle">messaging</text>
 
-            <rect class="arch-boundary" x="176" y="70" rx="12" ry="12" width="658" height="454"></rect>
-            <text class="arch-title" x="505" y="100" text-anchor="middle">Context Lattice System Boundary</text>
+            <rect class="ji-boundary" x="190" y="96" rx="18" ry="18" width="744" height="466"></rect>
+            <text class="arch-title" x="562" y="134" text-anchor="middle">Context Lattice System Boundary</text>
 
-            <rect class="arch-frame arch-container-core" x="214" y="142" rx="10" ry="10" width="182" height="86"></rect>
-            <text x="305" y="174" text-anchor="middle">Orchestrator API</text>
-            <text class="arch-small" x="305" y="198" text-anchor="middle">HTTP ingress + policy</text>
+            <rect class="ji-core" x="232" y="182" rx="14" ry="14" width="194" height="92"></rect>
+            <text class="ji-label" x="329" y="218" text-anchor="middle">Orchestrator API</text>
+            <text class="ji-meta" x="329" y="244" text-anchor="middle">HTTP ingress + policy</text>
 
-            <rect class="arch-frame arch-container-data" x="424" y="142" rx="10" ry="10" width="168" height="86"></rect>
-            <text x="508" y="174" text-anchor="middle">Outbox Queue</text>
-            <text class="arch-small" x="508" y="198" text-anchor="middle">async fanout</text>
+            <rect class="ji-panel" x="448" y="182" rx="14" ry="14" width="176" height="92"></rect>
+            <text class="ji-label" x="536" y="218" text-anchor="middle">Outbox Queue</text>
+            <text class="ji-meta" x="536" y="244" text-anchor="middle">async fanout</text>
 
-            <rect class="arch-frame arch-container-data" x="620" y="142" rx="10" ry="10" width="176" height="86"></rect>
-            <text x="708" y="174" text-anchor="middle">Retrieval Engine</text>
-            <text class="arch-small" x="708" y="198" text-anchor="middle">parallel + rerank</text>
+            <rect class="ji-panel" x="646" y="182" rx="14" ry="14" width="176" height="92"></rect>
+            <text class="ji-label" x="734" y="218" text-anchor="middle">Retrieval Engine</text>
+            <text class="ji-meta" x="734" y="244" text-anchor="middle">parallel + rerank</text>
 
-            <rect class="arch-frame arch-container-store" x="214" y="262" rx="10" ry="10" width="134" height="84"></rect>
-            <text x="281" y="294" text-anchor="middle">Memory Bank</text>
-            <text class="arch-small" x="281" y="318" text-anchor="middle">canonical</text>
+            <rect class="ji-panel" x="232" y="306" rx="12" ry="12" width="146" height="88"></rect>
+            <text class="ji-label" x="305" y="340" text-anchor="middle">Memory Bank</text>
+            <text class="ji-meta" x="305" y="364" text-anchor="middle">canonical</text>
 
-            <rect class="arch-frame arch-container-store" x="366" y="262" rx="10" ry="10" width="134" height="84"></rect>
-            <text x="433" y="294" text-anchor="middle">Qdrant</text>
-            <text class="arch-small" x="433" y="318" text-anchor="middle">vectors</text>
+            <rect class="ji-panel" x="396" y="306" rx="12" ry="12" width="146" height="88"></rect>
+            <text class="ji-label" x="469" y="340" text-anchor="middle">Qdrant</text>
+            <text class="ji-meta" x="469" y="364" text-anchor="middle">vectors</text>
 
-            <rect class="arch-frame arch-container-store" x="518" y="262" rx="10" ry="10" width="134" height="84"></rect>
-            <text x="585" y="294" text-anchor="middle">Mongo</text>
-            <text class="arch-small" x="585" y="318" text-anchor="middle">raw ledger</text>
+            <rect class="ji-panel" x="560" y="306" rx="12" ry="12" width="146" height="88"></rect>
+            <text class="ji-label" x="633" y="340" text-anchor="middle">Mongo</text>
+            <text class="ji-meta" x="633" y="364" text-anchor="middle">raw ledger</text>
 
-            <rect class="arch-frame arch-container-store" x="670" y="262" rx="10" ry="10" width="126" height="84"></rect>
-            <text x="733" y="294" text-anchor="middle">MindsDB</text>
-            <text class="arch-small" x="733" y="318" text-anchor="middle">+ Letta</text>
+            <rect class="ji-panel" x="724" y="306" rx="12" ry="12" width="146" height="88"></rect>
+            <text class="ji-label" x="797" y="340" text-anchor="middle">MindsDB + Letta</text>
+            <text class="ji-meta" x="797" y="364" text-anchor="middle">SQL + archival</text>
 
-            <rect class="arch-frame arch-container-ops" x="234" y="378" rx="10" ry="10" width="258" height="108"></rect>
-            <text x="363" y="414" text-anchor="middle">Ops Controls</text>
-            <text class="arch-small" x="363" y="438" text-anchor="middle">backpressure, retention</text>
-            <text class="arch-small" x="363" y="460" text-anchor="middle">cold-path handoff</text>
+            <rect class="ji-panel" x="270" y="426" rx="12" ry="12" width="254" height="104"></rect>
+            <text class="ji-label" x="397" y="464" text-anchor="middle">Ops Controls</text>
+            <text class="ji-meta" x="397" y="490" text-anchor="middle">backpressure + retention</text>
 
-            <rect class="arch-frame arch-container-ops" x="518" y="378" rx="10" ry="10" width="278" height="108"></rect>
-            <text x="657" y="414" text-anchor="middle">Security + Reliability</text>
-            <text class="arch-small" x="657" y="438" text-anchor="middle">auth, secrets policy</text>
-            <text class="arch-small" x="657" y="460" text-anchor="middle">health + update checks</text>
+            <rect class="ji-panel" x="548" y="426" rx="12" ry="12" width="286" height="104"></rect>
+            <text class="ji-label" x="691" y="464" text-anchor="middle">Security + Reliability</text>
+            <text class="ji-meta" x="691" y="490" text-anchor="middle">auth + secrets + health</text>
 
-            <rect class="arch-frame arch-external" x="858" y="132" rx="10" ry="10" width="138" height="140"></rect>
-            <text x="927" y="164" text-anchor="middle">Providers</text>
-            <text class="arch-small" x="927" y="188" text-anchor="middle">Ollama/Qwen</text>
-            <text class="arch-small" x="927" y="210" text-anchor="middle">LM Studio</text>
-            <text class="arch-small" x="927" y="232" text-anchor="middle">OpenAI-compatible</text>
+            <rect class="ji-panel" x="956" y="174" rx="14" ry="14" width="126" height="132"></rect>
+            <text class="ji-label" x="1019" y="210" text-anchor="middle">Providers</text>
+            <text class="ji-meta" x="1019" y="236" text-anchor="middle">Qwen/Ollama</text>
+            <text class="ji-meta" x="1019" y="258" text-anchor="middle">LM Studio</text>
+            <text class="ji-meta" x="1019" y="280" text-anchor="middle">OpenAI-comp.</text>
 
-            <rect class="arch-frame arch-external" x="858" y="296" rx="10" ry="10" width="138" height="118"></rect>
-            <text x="927" y="328" text-anchor="middle">Messaging</text>
-            <text class="arch-small" x="927" y="352" text-anchor="middle">Telegram/Slack</text>
-            <text class="arch-small" x="927" y="374" text-anchor="middle">OpenClaw family</text>
+            <rect class="ji-panel" x="956" y="328" rx="14" ry="14" width="126" height="124"></rect>
+            <text class="ji-label" x="1019" y="364" text-anchor="middle">Messaging</text>
+            <text class="ji-meta" x="1019" y="390" text-anchor="middle">Telegram/Slack</text>
+            <text class="ji-meta" x="1019" y="412" text-anchor="middle">OpenClaw family</text>
 
-            <line class="arch-line arch-line-sync" x1="156" y1="214" x2="214" y2="186" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="396" y1="186" x2="424" y2="186" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="396" y1="214" x2="620" y2="186" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow" d="M170 286 L232 228" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow" d="M426 228 L448 228" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow" d="M426 248 L646 228" marker-end="url(#ctr-arrow)"></path>
 
-            <line class="arch-line arch-line-async" x1="508" y1="228" x2="281" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-async" x1="508" y1="228" x2="433" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-async" x1="508" y1="228" x2="585" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-async" x1="508" y1="228" x2="733" y2="262" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow-async" d="M536 274 L536 292" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow-async" d="M250 292 L852 292"></path>
+            <path class="ji-flow-async" d="M305 292 L305 306" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow-async" d="M469 292 L469 306" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow-async" d="M633 292 L633 306" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow-async" d="M797 292 L797 306" marker-end="url(#ctr-arrow)"></path>
 
-            <line class="arch-line arch-line-sync" x1="708" y1="228" x2="281" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="708" y1="228" x2="433" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="708" y1="228" x2="585" y2="262" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="708" y1="228" x2="733" y2="262" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow" d="M734 274 L734 332" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow" d="M734 332 L820 332"></path>
+            <path class="ji-flow" d="M734 332 L648 332"></path>
+            <path class="ji-flow" d="M305 332 C360 332, 420 332, 648 332"></path>
+            <path class="ji-flow" d="M797 332 C774 332, 758 332, 734 332"></path>
 
-            <line class="arch-line arch-line-feedback" x1="733" y1="346" x2="708" y2="262" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow-feedback" d="M797 394 C810 414, 792 434, 748 434 C724 434, 724 382, 734 274" marker-end="url(#ctr-arrow)"></path>
 
-            <line class="arch-line arch-line-sync" x1="796" y1="184" x2="858" y2="184" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="796" y1="340" x2="858" y2="340" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow" d="M822 228 L956 228" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow" d="M822 364 L956 364" marker-end="url(#ctr-arrow)"></path>
 
-            <line class="arch-line arch-line-sync" x1="363" y1="346" x2="363" y2="378" marker-end="url(#ctr-arrow)"></line>
-            <line class="arch-line arch-line-sync" x1="657" y1="346" x2="657" y2="378" marker-end="url(#ctr-arrow)"></line>
+            <path class="ji-flow" d="M397 394 L397 426" marker-end="url(#ctr-arrow)"></path>
+            <path class="ji-flow" d="M691 394 L691 426" marker-end="url(#ctr-arrow)"></path>
 
-            <rect class="arch-legend" x="24" y="20" rx="8" ry="8" width="278" height="84"></rect>
-            <text class="arch-small" x="42" y="44">Legend</text>
-            <line class="arch-line arch-line-sync" x1="44" y1="62" x2="92" y2="62" marker-end="url(#ctr-arrow)"></line>
-            <text class="arch-small" x="102" y="66">sync request/read</text>
-            <line class="arch-line arch-line-async" x1="44" y1="82" x2="92" y2="82" marker-end="url(#ctr-arrow)"></line>
-            <text class="arch-small" x="102" y="86">async fanout</text>
-            <line class="arch-line arch-line-feedback" x1="174" y1="82" x2="222" y2="82" marker-end="url(#ctr-arrow)"></line>
-            <text class="arch-small" x="232" y="86">feedback loop</text>
+            <rect class="arch-legend" x="38" y="34" rx="10" ry="10" width="324" height="90"></rect>
+            <text class="ji-meta" x="60" y="64">Legend</text>
+            <path class="ji-flow" d="M60 84 L122 84" marker-end="url(#ctr-arrow)"></path>
+            <text class="ji-meta" x="132" y="89">sync request/read</text>
+            <path class="ji-flow-async" d="M60 104 L122 104" marker-end="url(#ctr-arrow)"></path>
+            <text class="ji-meta" x="132" y="109">async outbox fanout</text>
+            <path class="ji-flow-feedback" d="M236 104 L298 104" marker-end="url(#ctr-arrow)"></path>
+            <text class="ji-meta" x="308" y="109">learning feedback</text>
           </svg>
-          <p class="muted-note arch-caption">Container view is intentionally concise; deeper behavior is described in the runtime and ops sections below.</p>
+          <p class="muted-note arch-caption">Data plane emphasizes one ingress path, one durable fanout path, and one retrieval egress path.</p>
         </article>
 
         <article class="card">
@@ -243,11 +261,11 @@
           <h3>Responsibilities and protocol posture</h3>
           <div class="priority-row"><span class="priority-chip required">Required</span></div>
           <ul class="spec-list arch-note-list">
-            <li><strong>HTTP-first ingress:</strong> orchestrator is the single write/search entrypoint.</li>
-            <li><strong>MCP-compatible surface:</strong> MCP tools route through HTTP endpoints and MCP hub.</li>
-            <li><strong>Write durability:</strong> outbox queue manages fanout retries and replay.</li>
-            <li><strong>Retrieval egress:</strong> retrieval engine merges sources, reranks, and emits context feedback prompts.</li>
-            <li><strong>Local-first default:</strong> Qdrant/Mongo/Memory Bank local preferred; cloud is optional BYO.</li>
+            <li><strong>HTTP-first ingress:</strong> orchestrator is the single write/search endpoint.</li>
+            <li><strong>MCP-compatible surface:</strong> tool clients connect through MCP hub + HTTP APIs.</li>
+            <li><strong>Durable writes:</strong> outbox queue handles fanout retries and replay.</li>
+            <li><strong>Retrieval egress:</strong> federated retrieval returns context plus feedback prompts.</li>
+            <li><strong>Local-first default:</strong> local stores first, cloud BYO optional.</li>
           </ul>
         </article>
       </div>
@@ -260,11 +278,11 @@
           <h3>Order of operations</h3>
           <div class="priority-row"><span class="priority-chip required">Required</span></div>
           <ol class="step-list">
-            <li>Ingress request is authenticated, normalized, and policy-checked.</li>
-            <li>Raw event is persisted for durability and replay safety.</li>
-            <li>Outbox emits asynchronous fanout to memory sinks.</li>
-            <li>Retry/backpressure controls absorb transient sink failures.</li>
-            <li>Telemetry records queue depth and fanout health.</li>
+            <li>Authenticate and normalize write payload.</li>
+            <li>Persist raw event for replay durability.</li>
+            <li>Append async outbox fanout jobs.</li>
+            <li>Dispatch sink writes with retries/backpressure.</li>
+            <li>Record queue + sink telemetry.</li>
           </ol>
         </article>
         <article class="card">
@@ -272,11 +290,11 @@
           <h3>Order of operations</h3>
           <div class="priority-row"><span class="priority-chip required">Required</span></div>
           <ol class="step-list">
-            <li>Query arrives through orchestrator with project/topic scope.</li>
-            <li>Parallel retrieval executes across configured sinks.</li>
-            <li>Federated retrieval egress returns scored candidates.</li>
-            <li>Learning rerank applies context-quality feedback signals.</li>
-            <li>Result + source metadata returned; feedback write improves future ranking.</li>
+            <li>Receive scoped query (project/topic aware).</li>
+            <li>Run parallel retrieval across sinks.</li>
+            <li>Merge and rank candidates for retrieval egress.</li>
+            <li>Prompt for context-quality feedback where appropriate.</li>
+            <li>Write feedback signals to improve future ranking.</li>
           </ol>
         </article>
       </div>
@@ -285,17 +303,17 @@
     <section class="section" id="arch-ops">
       <article class="card">
         <div class="kicker">Ops + Safety</div>
-        <h3>Controls that make long-horizon operation stable</h3>
+        <h3>Controls that keep long-horizon operation stable</h3>
         <div class="priority-row">
           <span class="priority-chip required">Required</span>
           <span class="priority-chip recommended">Recommended</span>
         </div>
         <ul class="spec-list">
-          <li><strong>Queue durability:</strong> retries, deadletters, and replay tooling.</li>
-          <li><strong>Pressure management:</strong> backpressure and coalescing for high-write workloads.</li>
-          <li><strong>Storage safety:</strong> retention sweeps and cold-path handoff to external storage.</li>
-          <li><strong>Security defaults:</strong> strict API-key auth and secrets redaction/block modes.</li>
-          <li><strong>Operational confidence:</strong> health checks, telemetry, and service update automation.</li>
+          <li><strong>Queue durability:</strong> retries, deadletters, and replay workflows.</li>
+          <li><strong>Write pressure management:</strong> backpressure + coalescing under burst load.</li>
+          <li><strong>Storage hygiene:</strong> retention sweeps and external cold-path handoff.</li>
+          <li><strong>Security posture:</strong> strict API-key auth and secrets redaction/block controls.</li>
+          <li><strong>Operational confidence:</strong> health probes, telemetry, and update automation.</li>
         </ul>
       </article>
     </section>

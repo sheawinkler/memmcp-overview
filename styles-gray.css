@@ -949,7 +949,12 @@ pre code {
 }
 
 .architecture-board {
-  padding: 14px;
+  padding: 16px;
+}
+
+.arch-page .card {
+  background: #15181d;
+  border-color: #5a616d;
 }
 
 .arch-svg {
@@ -963,19 +968,84 @@ pre code {
 .arch-svg text {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: 18px;
-  fill: #e4e4e4;
+  fill: #e8edf5;
 }
 
 .arch-svg .arch-title {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 16px;
+  font-size: 15px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
 }
 
 .arch-svg .arch-small {
-  font-size: 14px;
-  fill: #aeaeae;
+  font-size: 13px;
+  fill: #b6c0cc;
+}
+
+.arch-page .arch-svg.ji {
+  border-color: #626b79;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(138, 175, 214, 0.08), transparent 42%),
+    radial-gradient(circle at 84% 14%, rgba(214, 189, 134, 0.06), transparent 44%),
+    #12161c;
+}
+
+.arch-page .arch-svg.ji .ji-boundary {
+  fill: rgba(255, 255, 255, 0.02);
+  stroke: rgba(233, 241, 250, 0.42);
+  stroke-width: 1.7;
+  stroke-dasharray: 7 7;
+}
+
+.arch-page .arch-svg.ji .ji-panel {
+  fill: rgba(34, 40, 49, 0.8);
+  stroke: rgba(225, 234, 244, 0.44);
+  stroke-width: 1.6;
+}
+
+.arch-page .arch-svg.ji .ji-core {
+  fill: rgba(43, 52, 66, 0.9);
+  stroke: rgba(235, 243, 252, 0.5);
+  stroke-width: 1.8;
+}
+
+.arch-page .arch-svg.ji .ji-label {
+  font-size: 17px;
+  fill: #f4f7fc;
+  font-weight: 600;
+}
+
+.arch-page .arch-svg.ji .ji-meta {
+  font-size: 13.5px;
+  fill: #bec9d7;
+  font-weight: 500;
+}
+
+.arch-page .arch-svg.ji .ji-flow {
+  stroke: #d8e2ef;
+  stroke-width: 2.1;
+  fill: none;
+}
+
+.arch-page .arch-svg.ji .ji-flow-async {
+  stroke: #a5d3de;
+  stroke-width: 2;
+  stroke-dasharray: 8 7;
+  fill: none;
+}
+
+.arch-page .arch-svg.ji .ji-flow-feedback {
+  stroke: #d6bd86;
+  stroke-width: 2;
+  stroke-dasharray: 4 6;
+  fill: none;
+}
+
+.arch-page .arch-svg.ji .arch-legend {
+  fill: rgba(17, 21, 27, 0.88);
+  stroke: rgba(225, 235, 246, 0.42);
+  stroke-width: 1.6;
 }
 
 .arch-svg .arch-frame {
@@ -1077,6 +1147,7 @@ pre code {
 .arch-split {
   grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr);
   align-items: start;
+  gap: 14px;
 }
 
 .arch-note-list li {
