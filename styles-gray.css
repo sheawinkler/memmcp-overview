@@ -949,7 +949,7 @@ pre code {
 }
 
 .architecture-board {
-  padding: 16px;
+  padding: 22px;
 }
 
 .arch-page .card {
@@ -1145,9 +1145,9 @@ pre code {
 }
 
 .arch-split {
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr);
+  grid-template-columns: 1fr;
   align-items: start;
-  gap: 14px;
+  gap: 18px;
 }
 
 .arch-note-list li {
@@ -1156,6 +1156,13 @@ pre code {
 
 .arch-grid {
   align-items: start;
+}
+
+.runtime-flow-title {
+  font-size: clamp(40px, 5.8vw, 62px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
 }
 
 .arch-caption {

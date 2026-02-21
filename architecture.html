@@ -275,8 +275,8 @@
       <div class="grid arch-grid">
         <article class="card">
           <div class="kicker">Dynamic View: Write Flow</div>
-          <h3>Order of operations</h3>
-          <div class="priority-row"><span class="priority-chip required">Required</span></div>
+          <h3 class="runtime-flow-title">Write Flow</h3>
+          <p class="muted-note">Order of operations</p>
           <ol class="step-list">
             <li>Authenticate and normalize write payload.</li>
             <li>Persist raw event for replay durability.</li>
@@ -287,8 +287,8 @@
         </article>
         <article class="card">
           <div class="kicker">Dynamic View: Retrieval Flow</div>
-          <h3>Order of operations</h3>
-          <div class="priority-row"><span class="priority-chip required">Required</span></div>
+          <h3 class="runtime-flow-title">Retrieval Flow</h3>
+          <p class="muted-note">Order of operations</p>
           <ol class="step-list">
             <li>Receive scoped query (project/topic aware).</li>
             <li>Run parallel retrieval across sinks.</li>
@@ -304,10 +304,6 @@
       <article class="card">
         <div class="kicker">Ops + Safety</div>
         <h3>Controls that keep long-horizon operation stable</h3>
-        <div class="priority-row">
-          <span class="priority-chip required">Required</span>
-          <span class="priority-chip recommended">Recommended</span>
-        </div>
         <ul class="spec-list">
           <li><strong>Queue durability:</strong> retries, deadletters, and replay workflows.</li>
           <li><strong>Write pressure management:</strong> backpressure + coalescing under burst load.</li>
