@@ -37,10 +37,35 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-tight">
+      <article class="card quick-path-card">
+        <div class="kicker">Quick Path</div>
+        <h3>Fastest route to a working integration</h3>
+        <ol class="step-list">
+          <li>Bring the stack up and verify <code>/health</code> and authenticated <code>/status</code>.</li>
+          <li>Run the write/search smoke test to confirm end-to-end memory behavior.</li>
+          <li>Paste the human operator instruction block into your agent session.</li>
+          <li>Map your client/tooling surface to <code>/memory/write</code> and <code>/memory/search</code>.</li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="section section-tight">
+      <nav class="page-nav-inline" aria-label="On this page">
+        <a href="#integration-prereq">Prereq</a>
+        <a href="#integration-smoke">Smoke Test</a>
+        <a href="#integration-human-guide">Human Guide</a>
+        <a href="#integration-clients">Clients</a>
+        <a href="#integration-claw">Claw Mapping</a>
+        <a href="#integration-web3">Advanced</a>
+      </nav>
+    </section>
+
+    <section class="section" id="integration-prereq">
       <article class="card">
         <div class="kicker">Prerequisite</div>
         <h3>Bring stack up first</h3>
+        <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <p>Use the launch mode you need, then validate core health before integrating any client.</p>
 <pre><code>BOOTSTRAP=1 scripts/first_run.sh
 ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
@@ -60,10 +85,11 @@ curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq</code></
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-smoke">
       <article class="card">
         <div class="kicker">Quick wiring</div>
         <h3>5-minute integration smoke test</h3>
+        <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <p>Run this once to confirm your app can write and retrieve memory through Context Lattice before wiring UI-specific settings.</p>
 <pre><code>ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 
@@ -81,10 +107,11 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-human-guide">
       <article class="card">
         <div class="kicker">Human Operator Guide</div>
         <h3>Paste this instruction block into your agent chat</h3>
+        <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <p>Use this as your first message when starting a new ChatGPT/Claude/Codex/Claude Code session so the agent reliably uses Context Lattice.</p>
 <pre><code>You must use Context Lattice as the memory/context layer.
 
@@ -106,10 +133,11 @@ Required behavior:
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-messaging">
       <article class="card">
         <div class="kicker">Messaging Surface</div>
         <h3>OpenClaw/ZeroClaw/IronClaw + Telegram + Slack command bridge</h3>
+        <div class="priority-row"><span class="priority-chip recommended">Recommended</span></div>
         <p>Context Lattice now supports channel command intake via orchestrator-native endpoints. The default handle is <code>@ContextLattice</code>.</p>
 <pre><code>POST /integrations/messaging/command
 POST /integrations/messaging/openclaw
@@ -120,10 +148,13 @@ POST /integrations/slack/events
 @ContextLattice remember deployment complete
 @ContextLattice recall deployment
 @ContextLattice status</code></pre>
+        <details class="fold">
+          <summary>Advanced local command endpoint test</summary>
 <pre><code># local direct test (secure default requires x-api-key)
 curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
   -d '{"channel":"openclaw","source_id":"chat-1","text":"@ContextLattice status"}' \
   http://127.0.0.1:8075/integrations/messaging/command | jq</code></pre>
+        </details>
         <ul class="spec-list">
           <li><strong>BYO accounts:</strong> Telegram/Slack credentials stay in your own account.</li>
           <li><strong>Project routing:</strong> commands can include <code>project=&lt;name&gt;</code> and <code>topic=&lt;path&gt;</code> directives.</li>
@@ -132,9 +163,10 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-clients">
       <div class="kicker">Client Integrations</div>
       <h2>ChatGPT app, Claude chat apps, Claude Code, Codex</h2>
+      <div class="priority-row"><span class="priority-chip required">Required</span></div>
       <div class="grid component-grid">
         <article class="card component-card">
           <h3>ChatGPT apps (desktop + web)</h3>
@@ -168,9 +200,10 @@ export MEMMCP_ORCHESTRATOR_API_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{p
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-claw">
       <div class="kicker">OpenClaw / ZeroClaw / IronClaw</div>
       <h2>Trait mapping and wiring</h2>
+      <div class="priority-row"><span class="priority-chip recommended">Recommended</span></div>
       <article class="card">
         <p>Map OpenClaw/ZeroClaw/IronClaw memory traits directly to Context Lattice endpoints. Keep orchestrator as the single memory control plane.</p>
         <div class="grid component-grid">
@@ -198,22 +231,26 @@ export MEMMCP_ORCHESTRATOR_API_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{p
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="integration-web3">
       <div class="kicker">Web 3 ready</div>
       <h2>IronClaw compatibility mode</h2>
+      <div class="priority-row"><span class="priority-chip advanced">Advanced</span></div>
       <article class="card">
-        <p>Context Lattice can expose an IronClaw-compatible command surface while keeping local-first orchestration and your existing sink stack unchanged.</p>
+        <details class="fold">
+          <summary>Optional IronClaw compatibility mode</summary>
+          <p>Context Lattice can expose an IronClaw-compatible command surface while keeping local-first orchestration and your existing sink stack unchanged.</p>
 <pre><code># enable IronClaw bridge
 IRONCLAW_INTEGRATION_ENABLED=true
 IRONCLAW_DEFAULT_PROJECT=messaging
 
 # keep strict secret protections on claw surfaces
 MESSAGING_OPENCLAW_STRICT_SECURITY=true</code></pre>
-        <ul class="spec-list">
-          <li><strong>Endpoint:</strong> <code>POST /integrations/messaging/ironclaw</code></li>
-          <li><strong>Security:</strong> suspected credentials are blocked on write and redacted in returned text/results.</li>
-          <li><strong>Documentation fit:</strong> IronClaw's deep docs and ASCII architecture style map cleanly to this mode.</li>
-        </ul>
+          <ul class="spec-list">
+            <li><strong>Endpoint:</strong> <code>POST /integrations/messaging/ironclaw</code></li>
+            <li><strong>Security:</strong> suspected credentials are blocked on write and redacted in returned text/results.</li>
+            <li><strong>Documentation fit:</strong> IronClaw's deep docs and ASCII architecture style map cleanly to this mode.</li>
+          </ul>
+        </details>
       </article>
     </section>
 
