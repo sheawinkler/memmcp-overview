@@ -83,6 +83,31 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
 
     <section class="section">
       <article class="card">
+        <div class="kicker">Human Operator Guide</div>
+        <h3>Paste this instruction block into your agent chat</h3>
+        <p>Use this as your first message when starting a new ChatGPT/Claude/Codex/Claude Code session so the agent reliably uses Context Lattice.</p>
+<pre><code>You must use Context Lattice as the memory/context layer.
+
+Runtime:
+- Orchestrator: http://127.0.0.1:8075
+- API key: MEMMCP_ORCHESTRATOR_API_KEY from my local .env
+
+Required behavior:
+1) Before planning, call POST /memory/search with a compact query and project/topic filters.
+2) During long tasks, checkpoint major decisions and outcomes with POST /memory/write.
+3) Before final answer, run one more POST /memory/search for recency.
+4) Keep writes compact (summaries, decisions, diffs), never dump full transcripts.
+5) If /memory/* fails, continue task and report degraded memory mode explicitly.</code></pre>
+        <ul class="spec-list">
+          <li><strong>Best practice:</strong> include <code>projectName</code>, <code>fileName</code>, and topic path on every write.</li>
+          <li><strong>Quality loop:</strong> ask user for a short “context quality” rating after key outputs, then write that feedback.</li>
+          <li><strong>Goal:</strong> resolve an agentic issue once and persist reusable context for the team/organization.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
         <div class="kicker">Messaging Surface</div>
         <h3>OpenClaw/ZeroClaw/IronClaw + Telegram + Slack command bridge</h3>
         <p>Context Lattice now supports channel command intake via orchestrator-native endpoints. The default handle is <code>@ContextLattice</code>.</p>

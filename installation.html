@@ -61,6 +61,19 @@
 
     <section class="section">
       <article class="card">
+        <div class="kicker">Distribution note</div>
+        <h3>Homebrew can be added, but Docker + <code>gmake quickstart</code> stays canonical</h3>
+        <p>Context Lattice is a multi-service stack, so Homebrew is best used as a convenience wrapper (bootstrap scripts, templates, health checks), not as the primary runtime package manager.</p>
+        <ul class="spec-list">
+          <li><strong>Recommended today:</strong> clone repo + run <code>gmake quickstart</code>.</li>
+          <li><strong>Homebrew fit:</strong> optional installer for CLI helpers and launch diagnostics.</li>
+          <li><strong>Runtime truth:</strong> Docker Compose remains the source of truth for actual services.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
         <div class="kicker">Auth note</div>
         <h3>Secure default means some endpoints require API key</h3>
         <p>Use <code>/health</code> unauthenticated. Use <code>x-api-key</code> for <code>/status</code>, <code>/memory/*</code>, and <code>/telemetry/*</code>.</p>
