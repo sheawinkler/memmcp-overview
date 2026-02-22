@@ -1040,9 +1040,9 @@ pre code {
 }
 
 .arch-page .arch-svg.ive .ive-core {
-  fill: rgba(50, 62, 79, 0.92);
-  stroke: rgba(241, 247, 253, 0.56);
-  stroke-width: 1.9;
+  fill: #8f551f;
+  stroke: #f2d3ad;
+  stroke-width: 2.2;
 }
 
 .arch-page .arch-svg.ive .ive-title {
