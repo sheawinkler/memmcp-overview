@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Service map showing orchestrator, core services, memory plane, and external dependencies">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#192434"/>
+      <stop offset="100%" stop-color="#111a25"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="20%" cy="8%" r="60%">
+      <stop offset="0%" stop-color="#88a5d2" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#88a5d2" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#deebfc"/>
+    </marker>
+    <marker id="arrowAsync" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#94d8e8"/>
+    </marker>
+    <style><![CDATA[
+      .frame { fill: url(#bg); stroke: #69788b; stroke-width: 1.4; }
+      .boundary { fill: rgba(255,255,255,0.02); stroke: #cdd8e8; stroke-width: 2; stroke-dasharray: 10 8; }
+      .node { fill: #1f2b3a; stroke: #cfdbeb; stroke-width: 2; }
+      .core { fill: #2b3d53; stroke: #e1eaf7; stroke-width: 2.2; }
+      .title { font: 700 16px 'IBM Plex Mono', monospace; fill: #d4deeb; letter-spacing: 0.09em; }
+      .h2 { font: 700 34px 'IBM Plex Sans', sans-serif; fill: #eef4fd; }
+      .label { font: 700 26px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
+      .sub { font: 600 20px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
+      .sync { stroke: #deebfc; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .async { stroke: #94d8e8; stroke-width: 3; fill: none; stroke-dasharray: 10 8; stroke-linecap: round; stroke-linejoin: round; }
+    ]]></style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" class="frame"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#glowA)"/>
+
+  <text x="800" y="60" text-anchor="middle" class="title">SERVICE MAP</text>
+  <rect x="300" y="130" width="860" height="650" rx="76" class="boundary"/>
+  <text x="730" y="194" text-anchor="middle" class="h2">Context Lattice System Boundary</text>
+
+  <rect x="60" y="340" width="190" height="170" rx="34" class="node"/>
+  <text x="155" y="406" text-anchor="middle" class="label">Clients</text>
+  <text x="155" y="442" text-anchor="middle" class="sub">apps + agents</text>
+
+  <rect x="570" y="230" width="320" height="110" rx="22" class="core"/>
+  <text x="730" y="294" text-anchor="middle" class="label">Orchestrator API</text>
+  <text x="730" y="330" text-anchor="middle" class="sub">HTTP ingress + policy + auth</text>
+
+  <rect x="430" y="400" width="230" height="100" rx="20" class="node"/>
+  <text x="545" y="458" text-anchor="middle" class="label">Outbox Queue</text>
+
+  <rect x="790" y="400" width="230" height="100" rx="20" class="node"/>
+  <text x="905" y="458" text-anchor="middle" class="label">Retrieval Engine</text>
+
+  <rect x="400" y="550" width="640" height="190" rx="46" class="node"/>
+  <text x="720" y="606" text-anchor="middle" class="h2">Memory Plane</text>
+
+  <rect x="430" y="620" width="140" height="92" rx="18" class="node"/>
+  <text x="500" y="674" text-anchor="middle" class="label">Memory Bank</text>
+
+  <rect x="590" y="620" width="140" height="92" rx="18" class="node"/>
+  <text x="660" y="674" text-anchor="middle" class="label">Qdrant</text>
+
+  <rect x="750" y="620" width="140" height="92" rx="18" class="node"/>
+  <text x="820" y="674" text-anchor="middle" class="label">Mongo</text>
+
+  <rect x="910" y="620" width="140" height="92" rx="18" class="node"/>
+  <text x="980" y="674" text-anchor="middle" class="label">MindsDB + Letta</text>
+
+  <rect x="1180" y="220" width="340" height="180" rx="38" class="node"/>
+  <text x="1350" y="296" text-anchor="middle" class="label">Providers</text>
+  <text x="1350" y="334" text-anchor="middle" class="sub">Qwen/Ollama, LM Studio</text>
+
+  <rect x="1180" y="500" width="340" height="170" rx="38" class="node"/>
+  <text x="1350" y="574" text-anchor="middle" class="label">Messaging Surfaces</text>
+  <text x="1350" y="612" text-anchor="middle" class="sub">Telegram / Slack / OpenClaw</text>
+
+  <path class="sync" d="M250 425 H570" marker-end="url(#arrow)"/>
+  <path class="sync" d="M730 340 V400" marker-end="url(#arrow)"/>
+  <path class="sync" d="M730 340 L545 400" marker-end="url(#arrow)"/>
+  <path class="sync" d="M730 340 L905 400" marker-end="url(#arrow)"/>
+  <path class="sync" d="M890 275 H1180" marker-end="url(#arrow)"/>
+  <path class="sync" d="M1020 450 H1180" marker-end="url(#arrow)"/>
+  <path class="sync" d="M905 500 V550" marker-end="url(#arrow)"/>
+  <path class="async" d="M545 500 V550" marker-end="url(#arrowAsync)"/>
+</svg>

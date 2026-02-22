@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-label="Write flow showing ingest, validation, persistence, outbox, and async fanout">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#192434"/>
+      <stop offset="100%" stop-color="#111a25"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#deebfc"/>
+    </marker>
+    <marker id="arrowAsync" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#94d8e8"/>
+    </marker>
+    <style><![CDATA[
+      .frame { fill: url(#bg); stroke: #69788b; stroke-width: 1.4; }
+      .node { fill: #1f2b3a; stroke: #cfdbeb; stroke-width: 2; }
+      .core { fill: #2b3d53; stroke: #e1eaf7; stroke-width: 2.2; }
+      .title { font: 700 16px 'IBM Plex Mono', monospace; fill: #d4deeb; letter-spacing: 0.09em; }
+      .label { font: 700 26px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
+      .sub { font: 600 20px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
+      .lane { font: 700 24px 'IBM Plex Sans', sans-serif; fill: #d8e3f2; }
+      .sync { stroke: #deebfc; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .async { stroke: #94d8e8; stroke-width: 3; fill: none; stroke-dasharray: 10 8; stroke-linecap: round; stroke-linejoin: round; }
+    ]]></style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="980" class="frame"/>
+  <text x="800" y="60" text-anchor="middle" class="title">WRITE FLOW</text>
+
+  <rect x="590" y="90" width="420" height="96" rx="20" class="node"/>
+  <text x="800" y="148" text-anchor="middle" class="label">Client Write Request</text>
+
+  <rect x="590" y="220" width="420" height="96" rx="20" class="core"/>
+  <text x="800" y="278" text-anchor="middle" class="label">Orchestrator Ingress</text>
+
+  <rect x="590" y="350" width="420" height="96" rx="20" class="node"/>
+  <text x="800" y="408" text-anchor="middle" class="label">Validate + Auth + Normalize</text>
+
+  <rect x="590" y="480" width="420" height="96" rx="20" class="node"/>
+  <text x="800" y="538" text-anchor="middle" class="label">Persist Raw Event (Mongo)</text>
+
+  <rect x="590" y="610" width="420" height="96" rx="20" class="node"/>
+  <text x="800" y="668" text-anchor="middle" class="label">Enqueue Durable Outbox Job</text>
+
+  <text x="420" y="760" class="lane">Async Fanout</text>
+  <path class="async" d="M800 706 V770 H1220"/>
+  <path class="async" d="M380 770 H800"/>
+
+  <rect x="300" y="800" width="220" height="110" rx="20" class="node"/>
+  <text x="410" y="862" text-anchor="middle" class="label">Memory Bank</text>
+
+  <rect x="540" y="800" width="220" height="110" rx="20" class="node"/>
+  <text x="650" y="862" text-anchor="middle" class="label">Qdrant</text>
+
+  <rect x="780" y="800" width="220" height="110" rx="20" class="node"/>
+  <text x="890" y="862" text-anchor="middle" class="label">Mongo</text>
+
+  <rect x="1020" y="800" width="220" height="110" rx="20" class="node"/>
+  <text x="1130" y="862" text-anchor="middle" class="label">MindsDB + Letta</text>
+
+  <path class="sync" d="M800 186 V220" marker-end="url(#arrow)"/>
+  <path class="sync" d="M800 316 V350" marker-end="url(#arrow)"/>
+  <path class="sync" d="M800 446 V480" marker-end="url(#arrow)"/>
+  <path class="sync" d="M800 576 V610" marker-end="url(#arrow)"/>
+
+  <path class="async" d="M410 770 V800" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M650 770 V800" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M890 770 V800" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M1130 770 V800" marker-end="url(#arrowAsync)"/>
+
+  <text x="1060" y="716" class="sub">retry/backpressure managed by outbox workers</text>
+</svg>
