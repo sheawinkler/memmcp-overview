@@ -1057,6 +1057,11 @@ pre code {
   font-weight: 600;
 }
 
+.arch-page .arch-svg.ive .ive-label-wide {
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
 .arch-page .arch-svg.ive .ive-sub {
   font-size: 14px;
   fill: #c6d1de;

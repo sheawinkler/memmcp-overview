@@ -40,9 +40,10 @@
         <div class="kicker">Quick Path</div>
         <h3>How to read this architecture set</h3>
         <ol class="step-list">
-          <li>Start with <strong>System Context</strong> to understand system boundaries.</li>
-          <li>Move to <strong>Container View</strong> for service responsibilities and flow semantics.</li>
-          <li>Use <strong>Runtime + Ops</strong> for sequence and reliability controls.</li>
+          <li>Start with <strong>System Context (C4 Level 1)</strong> to understand boundaries and external dependencies.</li>
+          <li>Use <strong>Service Map</strong> to see the single ingress orchestrator and subsystem relationships.</li>
+          <li>Review <strong>Write + Retrieval Flows</strong> for runtime movement of data and learning feedback.</li>
+          <li>Finish with <strong>Task Coordination + Ops</strong> for agent orchestration, messaging surfaces, and reliability controls.</li>
         </ol>
       </article>
     </section>
@@ -74,7 +75,7 @@
           <rect x="0" y="0" width="1320" height="700" fill="url(#ive-glow)"></rect>
           <text class="arch-title" x="660" y="62" text-anchor="middle">System Context Diagram: Context Lattice</text>
 
-          <rect class="ive-boundary" x="330" y="118" rx="24" ry="24" width="660" height="470"></rect>
+          <rect class="ive-boundary" x="330" y="112" rx="24" ry="24" width="660" height="500"></rect>
           <text class="ive-title" x="660" y="174" text-anchor="middle">Context Lattice System Boundary</text>
 
           <rect class="ive-node" x="64" y="256" rx="18" ry="18" width="230" height="176"></rect>
@@ -95,9 +96,9 @@
           <text class="ive-label" x="779" y="444" text-anchor="middle">[D] Ops + Safety</text>
           <text class="ive-sub" x="779" y="474" text-anchor="middle">queue + retention + security</text>
 
-          <rect class="ive-node" x="438" y="526" rx="16" ry="16" width="444" height="52"></rect>
-          <text class="ive-label" x="660" y="555" text-anchor="middle">[F] Task Coordination + Agent Communication</text>
-          <text class="ive-sub" x="660" y="574" text-anchor="middle">orchestrated task routing + bidirectional messaging surfaces</text>
+          <rect class="ive-node" x="438" y="540" rx="16" ry="16" width="444" height="62"></rect>
+          <text class="ive-label ive-label-wide" x="660" y="566" text-anchor="middle">[F] Task Coordination</text>
+          <text class="ive-label ive-label-wide" x="660" y="588" text-anchor="middle">+ Agent Communication</text>
 
           <rect class="ive-node" x="1026" y="256" rx="18" ry="18" width="230" height="176"></rect>
           <text class="ive-label" x="1141" y="304" text-anchor="middle">[E] Dependencies</text>
@@ -109,7 +110,7 @@
           <path class="ive-flow" d="M882 304 C928 304, 960 324, 1026 324" marker-end="url(#ive-arrow-ctx)"></path>
           <path class="ive-flow" d="M660 374 C660 388, 604 396, 541 396" marker-end="url(#ive-arrow-ctx)"></path>
           <path class="ive-flow" d="M660 374 C660 388, 716 396, 779 396" marker-end="url(#ive-arrow-ctx)"></path>
-          <path class="ive-flow" d="M660 374 L660 526" marker-end="url(#ive-arrow-ctx)"></path>
+          <path class="ive-flow" d="M660 374 L660 540" marker-end="url(#ive-arrow-ctx)"></path>
 
           <rect class="ive-legend" x="1022" y="74" rx="12" ry="12" width="234" height="88"></rect>
           <text class="ive-sub" x="1046" y="108">Legend</text>
