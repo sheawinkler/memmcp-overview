@@ -24,7 +24,7 @@
       .label { font: 700 26px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
       .label-small { font: 700 22px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
       .sub { font: 600 20px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
-      .sub-small { font: 600 18px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
+      .sub-small { font: 600 16px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
       .sync { stroke: #deebfc; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
       .async { stroke: #94d8e8; stroke-width: 3; fill: none; stroke-dasharray: 10 8; stroke-linecap: round; stroke-linejoin: round; }
     ]]></style>
@@ -74,11 +74,13 @@
   <rect x="52" y="150" width="250" height="178" rx="34" class="node"/>
   <text x="177" y="220" text-anchor="middle" class="label">Providers</text>
   <text x="177" y="256" text-anchor="middle" class="sub">plug in any model runtime</text>
-  <text x="177" y="286" text-anchor="middle" class="sub-small">(ships with qwen3 via ollama)</text>
+  <text x="177" y="284" text-anchor="middle" class="sub-small">(ships with qwen3</text>
+  <text x="177" y="306" text-anchor="middle" class="sub-small">via ollama)</text>
 
-  <rect x="1280" y="510" width="370" height="180" rx="38" class="node"/>
+  <rect x="1280" y="510" width="370" height="190" rx="38" class="node"/>
   <text x="1465" y="590" text-anchor="middle" class="label">Messaging Surfaces</text>
-  <text x="1465" y="628" text-anchor="middle" class="sub">bidirectional human channel</text>
+  <text x="1465" y="626" text-anchor="middle" class="sub">HTTP / MCP / messaging returns</text>
+  <text x="1465" y="654" text-anchor="middle" class="sub-small">bidirectional human + agent egress</text>
 
   <path class="sync" d="M262 456 C420 456,490 300,610 300" marker-end="url(#arrow)"/>
   <path class="sync" d="M302 250 C430 250,500 250,610 250" marker-end="url(#arrow)"/>
