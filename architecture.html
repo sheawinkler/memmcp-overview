@@ -143,6 +143,10 @@
             <img class="arch-diagram-image" src="assets/architecture-retrieval-flow.svg?v=20260222a" alt="Retrieval flow showing parallel recall, rerank, response, and learning loop" loading="lazy" decoding="async" />
             <figcaption class="arch-diagram-caption"><strong>Retrieval + Learning Loop:</strong> faster context recall that improves quality over time.</figcaption>
           </figure>
+          <figure class="arch-diagram-panel">
+            <img class="arch-diagram-image" src="assets/architecture-task-coordination.svg?v=20260222a" alt="Task coordination workflow showing orchestrator planning, agent worker fanout, and messaging communication surfaces" loading="lazy" decoding="async" />
+            <figcaption class="arch-diagram-caption"><strong>Task Coordination + Communication:</strong> orchestrator-managed task routing, agent execution, and bidirectional human messaging.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -153,6 +157,7 @@
           <li><strong>Panel 1 (Service Map):</strong> where each subsystem lives and who depends on it.</li>
           <li><strong>Panel 2 (Write Flow):</strong> how writes move from ingress to durable fanout sinks.</li>
           <li><strong>Panel 3 (Retrieval Flow):</strong> how recall/rerank returns context and captures learning signals.</li>
+          <li><strong>Panel 4 (Task Coordination):</strong> how the orchestrator plans tasks, fans out workers, and communicates through messaging channels.</li>
           <li><strong>HTTP-first ingress:</strong> orchestrator remains the single write/search entrypoint.</li>
           <li><strong>Messaging surfaces:</strong> can operate bidirectionally (human ingress + response egress).</li>
           <li><strong>Local-first default:</strong> local stores first, cloud BYO remains optional.</li>
