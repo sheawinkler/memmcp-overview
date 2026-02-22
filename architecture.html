@@ -21,7 +21,7 @@
         <a href="integration.html">Integrations</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
-        <a href="v1/">v1</a>
+        <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator" target="_blank" rel="noreferrer">v1</a>
       </nav>
     </header>
 
@@ -74,7 +74,7 @@
           <rect x="0" y="0" width="1320" height="700" fill="url(#ive-glow)"></rect>
           <text class="arch-title" x="660" y="62" text-anchor="middle">System Context Diagram: Context Lattice</text>
 
-          <rect class="ive-boundary" x="330" y="128" rx="24" ry="24" width="660" height="440"></rect>
+          <rect class="ive-boundary" x="330" y="118" rx="24" ry="24" width="660" height="470"></rect>
           <text class="ive-title" x="660" y="174" text-anchor="middle">Context Lattice System Boundary</text>
 
           <rect class="ive-node" x="64" y="256" rx="18" ry="18" width="230" height="176"></rect>
@@ -87,13 +87,17 @@
           <text class="ive-label" x="660" y="288" text-anchor="middle">[B] Orchestrator Control Plane</text>
           <text class="ive-sub" x="660" y="320" text-anchor="middle">HTTP-first APIs + auth + policy</text>
 
-          <rect class="ive-node" x="438" y="410" rx="16" ry="16" width="206" height="124"></rect>
-          <text class="ive-label" x="541" y="460" text-anchor="middle">[C] Memory Plane</text>
-          <text class="ive-sub" x="541" y="490" text-anchor="middle">stores + retrieval</text>
+          <rect class="ive-node" x="438" y="396" rx="16" ry="16" width="206" height="116"></rect>
+          <text class="ive-label" x="541" y="444" text-anchor="middle">[C] Memory Plane</text>
+          <text class="ive-sub" x="541" y="474" text-anchor="middle">stores + retrieval</text>
 
-          <rect class="ive-node" x="676" y="410" rx="16" ry="16" width="206" height="124"></rect>
-          <text class="ive-label" x="779" y="460" text-anchor="middle">[D] Ops + Safety</text>
-          <text class="ive-sub" x="779" y="490" text-anchor="middle">queue + retention + security</text>
+          <rect class="ive-node" x="676" y="396" rx="16" ry="16" width="206" height="116"></rect>
+          <text class="ive-label" x="779" y="444" text-anchor="middle">[D] Ops + Safety</text>
+          <text class="ive-sub" x="779" y="474" text-anchor="middle">queue + retention + security</text>
+
+          <rect class="ive-node" x="438" y="526" rx="16" ry="16" width="444" height="52"></rect>
+          <text class="ive-label" x="660" y="555" text-anchor="middle">[F] Task Coordination + Agent Communication</text>
+          <text class="ive-sub" x="660" y="574" text-anchor="middle">orchestrated task routing + bidirectional messaging surfaces</text>
 
           <rect class="ive-node" x="1026" y="256" rx="18" ry="18" width="230" height="176"></rect>
           <text class="ive-label" x="1141" y="304" text-anchor="middle">[E] Dependencies</text>
@@ -103,8 +107,9 @@
 
           <path class="ive-flow" d="M294 324 C360 324, 392 304, 438 304" marker-end="url(#ive-arrow-ctx)"></path>
           <path class="ive-flow" d="M882 304 C928 304, 960 324, 1026 324" marker-end="url(#ive-arrow-ctx)"></path>
-          <path class="ive-flow" d="M660 374 C660 392, 604 404, 541 410" marker-end="url(#ive-arrow-ctx)"></path>
-          <path class="ive-flow" d="M660 374 C660 392, 716 404, 779 410" marker-end="url(#ive-arrow-ctx)"></path>
+          <path class="ive-flow" d="M660 374 C660 388, 604 396, 541 396" marker-end="url(#ive-arrow-ctx)"></path>
+          <path class="ive-flow" d="M660 374 C660 388, 716 396, 779 396" marker-end="url(#ive-arrow-ctx)"></path>
+          <path class="ive-flow" d="M660 374 L660 526" marker-end="url(#ive-arrow-ctx)"></path>
 
           <rect class="ive-legend" x="1022" y="74" rx="12" ry="12" width="234" height="88"></rect>
           <text class="ive-sub" x="1046" y="108">Legend</text>
@@ -122,6 +127,7 @@
           <li><strong>[C] Memory Plane:</strong> durable stores used for fanout and retrieval synthesis.</li>
           <li><strong>[D] Ops + Safety:</strong> reliability controls for queue, storage, and policy.</li>
           <li><strong>[E] Dependencies:</strong> pluggable model/tool providers and optional cloud BYO services.</li>
+          <li><strong>[F] Task Coordination + Agent Communication:</strong> orchestrator-managed task routing for internal/external agents plus messaging ingress/egress.</li>
         </ul>
       </article>
     </section>
