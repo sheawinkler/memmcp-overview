@@ -56,32 +56,32 @@
   <text x="1550" y="458" text-anchor="middle" class="sub">OpenClaw family</text>
   <text x="1550" y="486" text-anchor="middle" class="sub">human-in-loop</text>
 
-  <rect x="610" y="188" width="480" height="114" rx="22" class="core"/>
-  <text x="850" y="252" text-anchor="middle" class="label">Orchestrator Task API</text>
-  <text x="850" y="282" text-anchor="middle" class="sub-sm">single ingress for task coordination + communication</text>
+  <rect x="620" y="194" width="460" height="100" rx="18" class="core"/>
+  <text x="850" y="248" text-anchor="middle" class="label">Orchestrator Task API</text>
+  <text x="850" y="274" text-anchor="middle" class="sub-sm">single ingress for task coordination + communication</text>
 
-  <rect x="610" y="338" width="480" height="94" rx="20" class="node"/>
-  <text x="850" y="395" text-anchor="middle" class="label-sm">Task Planner + Policy Gate</text>
+  <rect x="620" y="318" width="460" height="82" rx="16" class="node"/>
+  <text x="850" y="367" text-anchor="middle" class="label-sm">Task Planner + Policy Gate</text>
 
-  <rect x="610" y="462" width="480" height="94" rx="20" class="node"/>
-  <text x="850" y="519" text-anchor="middle" class="label-sm">Durable Task Queue + Scheduler</text>
+  <rect x="620" y="422" width="460" height="82" rx="16" class="node"/>
+  <text x="850" y="471" text-anchor="middle" class="label-sm">Durable Task Queue + Scheduler</text>
 
-  <rect x="560" y="594" width="580" height="110" rx="20" class="worker-box"/>
-  <text x="850" y="654" text-anchor="middle" class="lane">Parallel Agent Workers</text>
-  <text x="850" y="682" text-anchor="middle" class="sub-sm">internal runners + external agents (Codex / Claude Code)</text>
+  <rect x="570" y="538" width="560" height="96" rx="16" class="worker-box"/>
+  <text x="850" y="592" text-anchor="middle" class="lane">Parallel Agent Workers</text>
+  <text x="850" y="618" text-anchor="middle" class="sub-sm">internal runners + external agents (Codex / Claude Code)</text>
 
-  <rect x="350" y="742" width="430" height="132" rx="20" class="node"/>
-  <text x="565" y="798" text-anchor="middle" class="label-sm">Context + Memory Services</text>
-  <text x="565" y="828" text-anchor="middle" class="sub-sm">memory-bank, qdrant, mongo</text>
-  <text x="565" y="852" text-anchor="middle" class="sub-sm">mindsdb + letta</text>
+  <rect x="350" y="686" width="430" height="132" rx="20" class="node"/>
+  <text x="565" y="742" text-anchor="middle" class="label-sm">Context + Memory Services</text>
+  <text x="565" y="772" text-anchor="middle" class="sub-sm">memory-bank, qdrant, mongo</text>
+  <text x="565" y="796" text-anchor="middle" class="sub-sm">mindsdb + letta</text>
 
-  <rect x="920" y="742" width="430" height="132" rx="20" class="node"/>
-  <text x="1135" y="798" text-anchor="middle" class="label-sm">Tool + Model Runtimes</text>
-  <text x="1135" y="828" text-anchor="middle" class="sub-sm">Qwen/Ollama, LM Studio</text>
-  <text x="1135" y="852" text-anchor="middle" class="sub-sm">OpenAI-compatible + external tools</text>
+  <rect x="920" y="686" width="430" height="132" rx="20" class="node"/>
+  <text x="1135" y="742" text-anchor="middle" class="label-sm">Tool + Model Runtimes</text>
+  <text x="1135" y="772" text-anchor="middle" class="sub-sm">Qwen/Ollama, LM Studio</text>
+  <text x="1135" y="796" text-anchor="middle" class="sub-sm">OpenAI-compatible + external tools</text>
 
-  <rect x="610" y="900" width="480" height="92" rx="20" class="node"/>
-  <text x="850" y="956" text-anchor="middle" class="label-sm">Result Composer + Task State Write</text>
+  <rect x="620" y="850" width="460" height="88" rx="18" class="node"/>
+  <text x="850" y="904" text-anchor="middle" class="label-sm">Result Composer + Task State Write</text>
 
   <rect x="1110" y="130" width="298" height="132" rx="16" class="legend"/>
   <text x="1138" y="162" class="sub">Legend</text>
@@ -92,25 +92,27 @@
   <path class="learn" d="M1138 238 H1246" marker-end="url(#arrowLearn)"/>
   <text x="1256" y="244" class="sub-sm">learning feedback</text>
 
-  <path class="sync" d="M260 420 C420 420,470 246,610 246" marker-end="url(#arrow)"/>
-  <path class="sync" d="M1440 420 C1280 420,1230 246,1090 246" marker-end="url(#arrow)"/>
+  <path class="sync" d="M260 420 C420 420,470 244,620 244" marker-end="url(#arrow)"/>
+  <path class="sync" d="M1440 420 C1280 420,1230 244,1080 244" marker-end="url(#arrow)"/>
 
-  <path class="sync" d="M850 302 V338" marker-end="url(#arrow)"/>
-  <path class="sync" d="M850 432 V462" marker-end="url(#arrow)"/>
-  <path class="sync" d="M850 556 V594" marker-end="url(#arrow)"/>
+  <path class="sync" d="M850 294 V318" marker-end="url(#arrow)"/>
+  <path class="sync" d="M850 400 V422" marker-end="url(#arrow)"/>
+  <path class="sync" d="M850 504 V538" marker-end="url(#arrow)"/>
 
-  <path class="async" d="M760 704 C700 724,642 736,565 742" marker-end="url(#arrowAsync)"/>
-  <path class="sync" d="M940 704 C1000 724,1058 736,1135 742" marker-end="url(#arrow)"/>
+  <path class="async" d="M850 634 V662 C850 674,836 680,820 680 H610 C590 680,576 682,565 686" marker-end="url(#arrowAsync)"/>
+  <text x="690" y="672" class="sub-sm" fill="#94d8e8">execution outcome</text>
 
-  <path class="sync" d="M565 874 C660 890,722 902,770 916" marker-end="url(#arrow)"/>
-  <path class="sync" d="M1135 874 C1040 890,978 902,930 916" marker-end="url(#arrow)"/>
+  <path class="sync" d="M930 634 C1000 650,1080 668,1135 686" marker-end="url(#arrow)"/>
 
-  <path class="sync" d="M610 946 C470 946,340 860,260 500" marker-end="url(#arrow)"/>
-  <path class="sync" d="M1090 946 C1230 946,1360 860,1440 500" marker-end="url(#arrow)"/>
+  <path class="learn" d="M430 686 V648 C430 636,444 632,460 632 H810 C830 632,842 630,850 634" marker-end="url(#arrowLearn)"/>
+  <text x="640" y="622" class="sub-sm" fill="#dcc18a">outcome writeback</text>
 
-  <path class="learn" d="M1240 742 C1300 666,1280 520,1090 385" marker-end="url(#arrowLearn)"/>
-  <text x="1278" y="634" class="sub-sm" fill="#dcc18a">routing quality feedback</text>
+  <path class="sync" d="M565 818 C650 832,716 844,770 858" marker-end="url(#arrow)"/>
+  <path class="sync" d="M1135 818 C1050 832,984 844,930 858" marker-end="url(#arrow)"/>
 
-  <path class="learn" d="M620 742 C700 734,760 722,820 704" marker-end="url(#arrowLearn)"/>
-  <text x="640" y="718" class="sub-sm" fill="#dcc18a">execution outcome writeback</text>
+  <path class="sync" d="M620 894 C480 894,350 828,260 500" marker-end="url(#arrow)"/>
+  <path class="sync" d="M1080 894 C1220 894,1350 828,1440 500" marker-end="url(#arrow)"/>
+
+  <path class="learn" d="M1240 686 C1300 620,1290 490,1080 380" marker-end="url(#arrowLearn)"/>
+  <text x="1278" y="600" class="sub-sm" fill="#dcc18a">routing quality feedback</text>
 </svg>
