@@ -132,16 +132,16 @@
       <article class="card architecture-board">
         <div class="arch-diagram-grid">
           <figure class="arch-diagram-panel">
-            <img class="arch-diagram-image" src="assets/architecture-service-map.svg?v=20260221a" alt="Service map showing orchestrator, memory plane, and external dependencies" loading="lazy" decoding="async" />
-            <figcaption class="arch-diagram-caption"><strong>Service Map:</strong> components and boundaries without runtime detail.</figcaption>
+            <img class="arch-diagram-image" src="assets/architecture-service-map.svg?v=20260221b" alt="Service map showing orchestrator, memory plane, and external dependencies" loading="lazy" decoding="async" />
+            <figcaption class="arch-diagram-caption"><strong>Service Map:</strong> the single control plane and every core system it coordinates.</figcaption>
           </figure>
           <figure class="arch-diagram-panel">
-            <img class="arch-diagram-image" src="assets/architecture-write-flow.svg?v=20260221a" alt="Write flow showing ingest, validation, persistence, outbox, and async fanout" loading="lazy" decoding="async" />
-            <figcaption class="arch-diagram-caption"><strong>Write Flow:</strong> one ingress path and one durable fanout path.</figcaption>
+            <img class="arch-diagram-image" src="assets/architecture-write-flow.svg?v=20260221b" alt="Write flow showing ingest, validation, persistence, outbox, and async fanout" loading="lazy" decoding="async" />
+            <figcaption class="arch-diagram-caption"><strong>Write Flow:</strong> reliable writes under burst load via durable outbox and worker fanout.</figcaption>
           </figure>
           <figure class="arch-diagram-panel">
-            <img class="arch-diagram-image" src="assets/architecture-retrieval-flow.svg?v=20260221a" alt="Retrieval flow showing parallel recall, rerank, response, and learning loop" loading="lazy" decoding="async" />
-            <figcaption class="arch-diagram-caption"><strong>Retrieval + Learning Loop:</strong> parallel recall, synthesis, and feedback reinforcement.</figcaption>
+            <img class="arch-diagram-image" src="assets/architecture-retrieval-flow.svg?v=20260221b" alt="Retrieval flow showing parallel recall, rerank, response, and learning loop" loading="lazy" decoding="async" />
+            <figcaption class="arch-diagram-caption"><strong>Retrieval + Learning Loop:</strong> faster context recall that improves quality over time.</figcaption>
           </figure>
         </div>
       </article>
@@ -154,6 +154,7 @@
           <li><strong>Panel 2 (Write Flow):</strong> how writes move from ingress to durable fanout sinks.</li>
           <li><strong>Panel 3 (Retrieval Flow):</strong> how recall/rerank returns context and captures learning signals.</li>
           <li><strong>HTTP-first ingress:</strong> orchestrator remains the single write/search entrypoint.</li>
+          <li><strong>Messaging surfaces:</strong> can operate bidirectionally (human ingress + response egress).</li>
           <li><strong>Local-first default:</strong> local stores first, cloud BYO remains optional.</li>
         </ul>
       </article>
