@@ -20,6 +20,7 @@
       .label { font: 700 26px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
       .sub { font: 600 20px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
       .lane { font: 700 24px 'IBM Plex Sans', sans-serif; fill: #d8e3f2; }
+      .lane-sm { font: 700 22px 'IBM Plex Sans', sans-serif; fill: #d8e3f2; }
       .sync { stroke: #deebfc; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
       .async { stroke: #94d8e8; stroke-width: 3; fill: none; stroke-dasharray: 10 8; stroke-linecap: round; stroke-linejoin: round; }
     ]]></style>
@@ -49,11 +50,8 @@
   <text x="1325" y="736" text-anchor="middle" class="sub">before writing fanout sinks.</text>
   <path class="sync" d="M1050 705 H1090" marker-end="url(#arrow)"/>
 
-  <rect x="500" y="798" width="700" height="104" rx="18" class="fanout-box"/>
-  <text x="850" y="838" text-anchor="middle" class="lane">Async Fanout Workers</text>
-  <text x="850" y="870" text-anchor="middle" class="sub">parallel sink writers</text>
-
-  <text x="850" y="790" text-anchor="middle" class="lane">Async Fanout</text>
+  <rect x="730" y="814" width="240" height="64" rx="14" class="fanout-box"/>
+  <text x="850" y="853" text-anchor="middle" class="lane-sm">Fanout Workers</text>
 
   <rect x="260" y="928" width="250" height="120" rx="20" class="node"/>
   <text x="385" y="994" text-anchor="middle" class="label">Memory Bank</text>
@@ -71,11 +69,12 @@
   <path class="sync" d="M850 338 V378" marker-end="url(#arrow)"/>
   <path class="sync" d="M850 474 V514" marker-end="url(#arrow)"/>
   <path class="sync" d="M850 610 V650" marker-end="url(#arrow)"/>
-  <path class="async" d="M850 760 V798" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M850 760 V814" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M850 878 V906"/>
 
-  <path class="async" d="M385 902 V928" marker-end="url(#arrowAsync)"/>
-  <path class="async" d="M655 902 V928" marker-end="url(#arrowAsync)"/>
-  <path class="async" d="M925 902 V928" marker-end="url(#arrowAsync)"/>
-  <path class="async" d="M1205 902 V928" marker-end="url(#arrowAsync)"/>
-  <path class="async" d="M385 902 H1205"/>
+  <path class="async" d="M385 906 V928" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M655 906 V928" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M925 906 V928" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M1205 906 V928" marker-end="url(#arrowAsync)"/>
+  <path class="async" d="M385 906 H1205"/>
 </svg>

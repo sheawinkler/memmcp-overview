@@ -22,6 +22,7 @@
       .title { font: 700 20px 'IBM Plex Mono', monospace; fill: #d4deeb; letter-spacing: 0.09em; }
       .h2 { font: 700 38px 'IBM Plex Sans', sans-serif; fill: #eef4fd; }
       .label { font: 700 26px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
+      .label-small { font: 700 22px 'IBM Plex Sans', sans-serif; fill: #f1f6ff; }
       .sub { font: 600 20px 'IBM Plex Sans', sans-serif; fill: #d2ddec; }
       .sync { stroke: #deebfc; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
       .async { stroke: #94d8e8; stroke-width: 3; fill: none; stroke-dasharray: 10 8; stroke-linecap: round; stroke-linejoin: round; }
@@ -53,20 +54,21 @@
   <rect x="830" y="520" width="260" height="112" rx="22" class="node"/>
   <text x="960" y="586" text-anchor="middle" class="label">Retrieval Engine</text>
 
-  <rect x="430" y="670" width="700" height="170" rx="44" class="node"/>
-  <text x="780" y="726" text-anchor="middle" class="h2">Memory Plane</text>
+  <rect x="420" y="650" width="790" height="210" rx="44" class="node"/>
+  <text x="815" y="704" text-anchor="middle" class="h2">Memory Plane</text>
 
-  <rect x="456" y="736" width="160" height="90" rx="18" class="node"/>
-  <text x="536" y="790" text-anchor="middle" class="label">Memory Bank</text>
+  <rect x="446" y="736" width="168" height="96" rx="18" class="node"/>
+  <text x="530" y="794" text-anchor="middle" class="label">Memory Bank</text>
 
-  <rect x="632" y="736" width="160" height="90" rx="18" class="node"/>
-  <text x="712" y="790" text-anchor="middle" class="label">Qdrant</text>
+  <rect x="628" y="736" width="168" height="96" rx="18" class="node"/>
+  <text x="712" y="794" text-anchor="middle" class="label">Qdrant</text>
 
-  <rect x="808" y="736" width="160" height="90" rx="18" class="node"/>
-  <text x="888" y="790" text-anchor="middle" class="label">Mongo</text>
+  <rect x="810" y="736" width="168" height="96" rx="18" class="node"/>
+  <text x="894" y="794" text-anchor="middle" class="label">Mongo</text>
 
-  <rect x="984" y="736" width="200" height="90" rx="18" class="node"/>
-  <text x="1084" y="790" text-anchor="middle" class="label">MindsDB + Letta</text>
+  <rect x="992" y="736" width="206" height="96" rx="18" class="node"/>
+  <text x="1095" y="786" text-anchor="middle" class="label-small">MindsDB +</text>
+  <text x="1095" y="814" text-anchor="middle" class="label-small">Letta</text>
 
   <rect x="1280" y="220" width="370" height="190" rx="38" class="node"/>
   <text x="1465" y="300" text-anchor="middle" class="label">Providers</text>
@@ -76,12 +78,12 @@
   <text x="1465" y="590" text-anchor="middle" class="label">Messaging Surfaces</text>
   <text x="1465" y="628" text-anchor="middle" class="sub">bidirectional human channel</text>
 
-  <path class="sync" d="M262 456 H460" marker-end="url(#arrow)"/>
+  <path class="sync" d="M262 456 C420 456,490 300,610 300" marker-end="url(#arrow)"/>
   <path class="sync" d="M775 362 V390" marker-end="url(#arrow)"/>
   <path class="sync" d="M710 480 L590 520" marker-end="url(#arrow)"/>
   <path class="sync" d="M840 480 L960 520" marker-end="url(#arrow)"/>
   <path class="sync" d="M940 300 H1280" marker-end="url(#arrow)"/>
   <path class="sync" d="M1090 576 H1280" marker-end="url(#arrow)"/>
-  <path class="sync" d="M960 632 V670" marker-end="url(#arrow)"/>
-  <path class="async" d="M590 632 V670" marker-end="url(#arrowAsync)"/>
+  <path class="sync" d="M960 632 V650" marker-end="url(#arrow)"/>
+  <path class="async" d="M590 632 V650" marker-end="url(#arrowAsync)"/>
 </svg>

@@ -42,9 +42,8 @@
   <rect x="650" y="378" width="400" height="96" rx="20" class="node"/>
   <text x="850" y="436" text-anchor="middle" class="label">Retrieval Engine</text>
 
-  <rect x="460" y="510" width="780" height="118" rx="18" class="recall-box"/>
-  <text x="850" y="554" text-anchor="middle" class="lane">Parallel Recall</text>
-  <text x="850" y="586" text-anchor="middle" class="sub">concurrent memory-source reads</text>
+  <rect x="700" y="510" width="300" height="78" rx="16" class="recall-box"/>
+  <text x="850" y="558" text-anchor="middle" class="lane">Parallel Recall</text>
 
   <rect x="280" y="662" width="250" height="120" rx="20" class="node"/>
   <text x="405" y="728" text-anchor="middle" class="label">Memory Bank</text>
@@ -67,6 +66,7 @@
   <path class="sync" d="M850 192 V232" marker-end="url(#arrow)"/>
   <path class="sync" d="M850 338 V378" marker-end="url(#arrow)"/>
   <path class="recall" d="M850 474 V510" marker-end="url(#arrowRecall)"/>
+  <path class="recall" d="M850 588 V628"/>
 
   <path class="recall" d="M405 628 V662" marker-end="url(#arrowRecall)"/>
   <path class="recall" d="M675 628 V662" marker-end="url(#arrowRecall)"/>
@@ -82,9 +82,9 @@
   <path class="sync" d="M850 812 V822" marker-end="url(#arrow)"/>
   <path class="sync" d="M850 934 V964" marker-end="url(#arrow)"/>
 
-  <path class="learn" d="M1100 620 C1160 650,1180 700,1225 730" marker-end="url(#arrowLearn)"/>
-  <text x="1160" y="676" class="sub" fill="#dcc18a">learning write</text>
+  <path class="learn" d="M1010 474 C1090 530,1160 590,1225 662" marker-end="url(#arrowLearn)"/>
+  <text x="1136" y="590" class="sub" fill="#dcc18a">learning write</text>
 
-  <path class="learn" d="M1225 730 C1370 710,1380 500,1045 426" marker-end="url(#arrowLearn)"/>
-  <text x="1320" y="584" class="sub" fill="#dcc18a">feedback return</text>
+  <path class="learn" d="M1260 662 C1360 590,1330 500,1048 426" marker-end="url(#arrowLearn)"/>
+  <text x="1286" y="560" class="sub" fill="#dcc18a">feedback return</text>
 </svg>
