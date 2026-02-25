@@ -68,7 +68,7 @@
         <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <p>Use the launch mode you need, then validate core health before integrating any client.</p>
 <pre><code>BOOTSTRAP=1 scripts/first_run.sh
-ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
+ORCH_KEY="$(awk -F= '/^CONTEXTLATTICE_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 
 # choose mode if needed
 gmake mem-up
@@ -91,7 +91,7 @@ curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq</code></
         <h3>5-minute integration smoke test</h3>
         <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <p>Run this once to confirm your app can write and retrieve memory through Context Lattice before wiring UI-specific settings.</p>
-<pre><code>ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
+<pre><code>ORCH_KEY="$(awk -F= '/^CONTEXTLATTICE_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 
 curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
   -d '{"projectName":"_global","fileName":"smoke/integration_check.md","content":"integration smoke ok"}' \
@@ -102,7 +102,7 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
   http://127.0.0.1:8075/memory/search | jq</code></pre>
         <ul class="spec-list">
           <li><strong>If both calls return <code>ok: true</code>:</strong> your app can safely integrate.</li>
-          <li><strong>If you get <code>401</code>:</strong> verify <code>MEMMCP_ORCHESTRATOR_API_KEY</code> and restart the caller process.</li>
+          <li><strong>If you get <code>401</code>:</strong> verify <code>CONTEXTLATTICE_ORCHESTRATOR_API_KEY</code> and restart the caller process.</li>
         </ul>
       </article>
     </section>
@@ -117,7 +117,7 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
 
 Runtime:
 - Orchestrator: http://127.0.0.1:8075
-- API key: MEMMCP_ORCHESTRATOR_API_KEY from my local .env
+- API key: CONTEXTLATTICE_ORCHESTRATOR_API_KEY from my local .env
 
 Required behavior:
 1) Before planning, call POST /memory/search with a compact query and project/topic filters.
@@ -191,10 +191,10 @@ curl -fsS -H "content-type: application/json" -H "x-api-key: ${ORCH_KEY}" \
         <article class="card component-card">
           <h3>Claude Code + Codex</h3>
           <p>Point your coding agent runtime at the same local stack and treat memory writes as explicit checkpoints.</p>
-<pre><code>export MEMMCP_ORCHESTRATOR_URL=http://127.0.0.1:8075
-export MEMMCP_HTTP_URL=http://127.0.0.1:59081/mcp
+<pre><code>export CONTEXTLATTICE_ORCHESTRATOR_URL=http://127.0.0.1:8075
+export CONTEXTLATTICE_HTTP_URL=http://127.0.0.1:59081/mcp
 export MCP_HUB_URL=http://127.0.0.1:53130/memorymcp/mcp
-export MEMMCP_ORCHESTRATOR_API_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
+export CONTEXTLATTICE_ORCHESTRATOR_API_KEY="$(awk -F= '/^CONTEXTLATTICE_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
           <p><strong>Pattern:</strong> write summaries after meaningful edits, fetch retrieval context before planning or review actions.</p>
         </article>
       </div>

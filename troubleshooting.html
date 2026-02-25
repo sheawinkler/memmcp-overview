@@ -66,7 +66,7 @@
         <h3>First 60-second diagnostics</h3>
         <div class="priority-row"><span class="priority-chip required">Required</span></div>
 <pre><code>docker compose ps
-ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
+ORCH_KEY="$(awk -F= '/^CONTEXTLATTICE_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"
 curl -fsS http://127.0.0.1:8075/health | jq
 curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/status | jq
 curl -fsS -H "x-api-key: ${ORCH_KEY}" http://127.0.0.1:8075/telemetry/fanout | jq
@@ -114,8 +114,8 @@ docker compose up -d memorymcp-http</code></pre>
           <h3>Orchestrator unhealthy</h3>
           <p><strong>Impact:</strong> no coordinated writes or retrieval fanout.</p>
           <p><strong>Action:</strong> inspect logs and restart orchestrator service.</p>
-<pre><code>docker compose logs -f memmcp-orchestrator
-docker compose up -d memmcp-orchestrator</code></pre>
+<pre><code>docker compose logs -f contextlattice-orchestrator
+docker compose up -d contextlattice-orchestrator</code></pre>
         </article>
         <article class="card component-card">
           <h3>Fanout backlog rising</h3>

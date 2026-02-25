@@ -21,7 +21,7 @@
         <a href="integration.html">Integrations</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
-        <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator" target="_blank" rel="noreferrer">v1</a>
+        <a href="https://github.com/sheawinkler/ContextLattice" target="_blank" rel="noreferrer">v1</a>
       </nav>
     </header>
 
@@ -121,11 +121,11 @@
 ~/Documents/projects
 
 # move service data to external SSD
-/Volumes/&lt;external-ssd&gt;/memmcp/qdrant
-/Volumes/&lt;external-ssd&gt;/memmcp/mongo
-/Volumes/&lt;external-ssd&gt;/memmcp/mindsdb
-/Volumes/&lt;external-ssd&gt;/memmcp/letta
-/Volumes/&lt;external-ssd&gt;/memmcp/orchestrator</code></pre>
+/Volumes/&lt;external-ssd&gt;/contextlattice/qdrant
+/Volumes/&lt;external-ssd&gt;/contextlattice/mongo
+/Volumes/&lt;external-ssd&gt;/contextlattice/mindsdb
+/Volumes/&lt;external-ssd&gt;/contextlattice/letta
+/Volumes/&lt;external-ssd&gt;/contextlattice/orchestrator</code></pre>
         <ul class="spec-list">
           <li><strong>Why:</strong> avoids laptop internal SSD exhaustion during fanout + rehydrate windows.</li>
           <li><strong>When:</strong> set mount paths before first full-mode launch.</li>
@@ -166,8 +166,11 @@
         <h3>Before first launch</h3>
         <div class="priority-row"><span class="priority-chip required">Required</span></div>
         <ul class="spec-list">
-          <li>Docker Desktop with Compose v2</li>
+          <li>Container app requirement: a Compose v2-compatible container runtime is required (<code>docker compose</code>), such as Docker Desktop, Docker Engine, or another runtime that supports Compose v2</li>
+          <li>Supported host environments: macOS, Linux, or Windows (WSL2)</li>
+          <li>Host machine sized for selected profile (<code>lite</code> vs <code>full</code>) with enough CPU, RAM, and disk</li>
           <li><code>gmake</code>, <code>jq</code>, <code>rg</code>, <code>python3</code>, and <code>curl</code></li>
+          <li>Tested baseline: macOS 13+ with Docker Desktop</li>
           <li>Project root initialized with <code>.env</code> and compose env symlink</li>
         </ul>
 <pre><code>cp .env.example .env
@@ -177,7 +180,7 @@ ln -svf ../../.env infra/compose/.env
 BOOTSTRAP=1 scripts/first_run.sh
 
 # helper for authenticated orchestrator endpoints
-ORCH_KEY="$(awk -F= '/^MEMMCP_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
+ORCH_KEY="$(awk -F= '/^CONTEXTLATTICE_ORCHESTRATOR_API_KEY=/{print substr($0,index($0,"=")+1)}' .env)"</code></pre>
       </article>
     </section>
 
