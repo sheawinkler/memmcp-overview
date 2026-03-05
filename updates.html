@@ -21,7 +21,7 @@
         <a href="integration.html">Integrations</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
-        <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator" target="_blank" rel="noreferrer">v1</a>
+        <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator" target="_blank" rel="noreferrer">GitHub</a>
       </nav>
     </header>
 
@@ -39,6 +39,21 @@
     </section>
 
     <section class="section timeline">
+      <article class="update-card">
+        <span class="update-meta">2026-03-04 · v2.0.0 · Runtime Cutover Benchmark</span>
+        <h3>Rust+Go runtime is now default; Python retained as legacy fallback</h3>
+        <p class="spotlight">
+          We ran a live A/B on the same <code>/memory/search</code> path before and after cutover.
+          Test profile: <code>bench/phase1_runtime_comparison.py</code>, <code>8</code> requests, <code>20s</code> timeout.
+        </p>
+        <ul>
+          <li>Cutover ON (Rust+Go): mean <code>3557ms</code>, p50 <code>2334ms</code>, p95 <code>8494ms</code>, p99 <code>9359ms</code>, errors <code>0/8</code>.</li>
+          <li>Legacy OFF (Python): mean <code>17565ms</code>, p50 <code>20006ms</code>, p95 <code>20008ms</code>, p99 <code>20008ms</code>, errors <code>7/8</code> (timeouts).</li>
+          <li>Observed delta: mean <code>4.94x</code> faster, p50 <code>8.57x</code> faster, p95 <code>2.36x</code> faster.</li>
+          <li>Compose defaults now start with Rust+Go enabled; Python is rollback/legacy path only.</li>
+        </ul>
+      </article>
+
       <article class="update-card">
         <span class="update-meta">2026-02-18 · Messaging Surface + Cloud Validation</span>
         <h3>Channel command bridge live, with optional Qdrant Cloud gRPC validation</h3>
