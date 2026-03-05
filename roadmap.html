@@ -24,7 +24,7 @@
         <a href="integration.html">Integrations</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contact.html">Contact</a>
-        <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/sheawinkler/ContextLattice" target="_blank" rel="noreferrer">GitHub</a>
       </nav>
     </header>
 
@@ -36,7 +36,7 @@
         recall quality, runner interoperability, and safety gates across backlog issues #68 through #72.
       </p>
       <div class="cta-row">
-        <a class="cta primary" href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/blob/main/docs/v3-roadmap.md" target="_blank" rel="noreferrer">Open full roadmap doc</a>
+        <a class="cta primary" href="#track-groups">See track breakdown</a>
         <a class="cta secondary" href="updates.html">View release journal</a>
       </div>
     </section>
@@ -98,13 +98,13 @@
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="track-groups">
       <div class="kicker">Track Groups</div>
       <h2>Integration scope by domain</h2>
       <div class="grid component-grid">
         <article class="card component-card">
           <h3>Track A: Performance + Deep Read Stability</h3>
-          <p><strong>Issues:</strong> <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/69" target="_blank" rel="noreferrer">#69</a>, <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/72" target="_blank" rel="noreferrer">#72</a></p>
+          <p><strong>Backlog reference:</strong> performance/deep-read track aligned to planning set #69 + #72.</p>
           <p><strong>Primary repos:</strong> swiftide, fastembed-rs, EmbedAnything, zvec, edgevec, trieve, helix-db, chroma, tantivy, quickwit, lancedb, RediSearch, meilisearch, infinity, milvus, usearch, mini-rag, LightRAG, qdrant/rust-client.</p>
           <p><strong>Reference tuning source:</strong> qdrant/qdrant (engine tuning patterns, not a new integration target).</p>
           <p><strong>Key output:</strong> lower p95/p99 latency and fewer deep-read timeouts without quality regression.</p>
@@ -112,14 +112,14 @@
 
         <article class="card component-card">
           <h3>Track B: Recall Quality + Memory Semantics</h3>
-          <p><strong>Issues:</strong> <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/70" target="_blank" rel="noreferrer">#70</a>, <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/72" target="_blank" rel="noreferrer">#72</a></p>
+          <p><strong>Backlog reference:</strong> recall/memory quality track aligned to planning set #70 + #72.</p>
           <p><strong>Primary repos:</strong> codemem, codegraph-rust, subcog, shodh-memory, mcp-redis, mindsdb, graphrag-rs, mem0, rust-local-rag, krira-chunker, satoriDB.</p>
           <p><strong>Key output:</strong> better ranking precision and better detail-dive linkage from rollups to source files.</p>
         </article>
 
         <article class="card component-card">
           <h3>Track C: Runner Interop + Compute Backend</h3>
-          <p><strong>Issues:</strong> <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/68" target="_blank" rel="noreferrer">#68</a>, <a href="https://github.com/sheawinkler/http-context-and-memory-orchestrator/issues/71" target="_blank" rel="noreferrer">#71</a></p>
+          <p><strong>Backlog reference:</strong> runner/sidecar track aligned to planning set #68 + #71.</p>
           <p><strong>Primary repos:</strong> opencode, openclaw, ironclaw, unbrowse, MCP registry, litellm; runner targets OpenCode, Goose, Eliza; ANE sidecar route for M-series macOS.</p>
           <p><strong>Key output:</strong> broader runner support with strict contracts, better progress telemetry, and safe provider fallback.</p>
         </article>
